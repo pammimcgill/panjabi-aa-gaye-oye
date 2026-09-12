@@ -1,3 +1,4 @@
+import { isRegularProgram } from './regular-programs.js';
 import { EVENT_SOURCES, NEWS_SOURCES, HISTORY_SOURCES, SEATGEEK_SEARCHES, MUSIC_TERMS, relevant, categoryFor } from './config.js';
 import { cleanText, discoverEventLinks, discoverLinks, extractJsonLdEvents, extractJsonLdArticles, parseFeed, safeDate, stableId } from './parsers.js';
 
@@ -23,6 +24,7 @@ async function setSourceStatus(db, source, count, error=null) {
 }
 
 function normalizeEvent(raw, source) {
+  if(isRegularProgram(raw.title)) return null;
   const startsAt=safeDate(raw.startsAt);
   const combined=`${raw.title} ${raw.description} ${raw.venue} ${raw.city}`;
   if (!startsAt || new Date(startsAt).getTime() < Date.now()-86400000 || (source.type!=='venue' && !relevant(combined))) return null;
@@ -54,29 +56,6 @@ async function upsertEvents(db, events) {
   return events.length;
 }
 
-function nextWeekday(weekday, hour, minute=0, weeks=8) {
-  const result=[]; const start=new Date();
-  start.setUTCMinutes(minute,0,0); start.setUTCHours(hour);
-  let add=(weekday-start.getUTCDay()+7)%7; if (!add && start < new Date()) add=7;
-  start.setUTCDate(start.getUTCDate()+add);
-  for(let i=0;i<weeks;i++){ const d=new Date(start); d.setUTCDate(d.getUTCDate()+i*7); result.push(d.toISOString()); }
-  return result;
-}
-
-function recurringReligiousEvents(source) {
-  if (source.key==='gsswa') return nextWeekday(0,17).map(startsAt=>({
-    sourceEventId:`sunday-${startsAt.slice(0,10)}`, title:'Regular Sunday Program',
-    description:'Weekly Sunday divan and community program, including Asa Ki Vaar, Kirtan and Langar. Confirm details with the Gurdwara before travelling.',
-    startsAt, venue:'Gurdwara Singh Sabha of Washington',city:'Renton',url:source.url
-  }));
-  if (source.key==='gnsg') return nextWeekday(0,18).map(startsAt=>({
-    sourceEventId:`family-youth-${startsAt.slice(0,10)}`, title:'Family Youth Kirtan Darbar',
-    description:'Recurring Sunday family and youth Kirtan program. Confirm the current time with the Gurdwara.',
-    startsAt,venue:'Guru Nanak Sikh Gurdwara',city:'Surrey',url:source.url
-  }));
-  return [];
-}
-
 async function collectWebSource(db, source) {
   try {
     const first=await getText(source.url);
@@ -88,7 +67,6 @@ async function collectWebSource(db, source) {
       }));
       for(const item of settled) if(item.status==='fulfilled') raw.push(...item.value);
     }
-    raw.push(...recurringReligiousEvents(source));
     const events=[...new Map(raw.map(x=>[`${x.sourceEventId}|${x.startsAt}`,normalizeEvent(x,source)]).filter(x=>x[1])).values()];
     const count=await upsertEvents(db,events);
     await setSourceStatus(db,source,count);

@@ -1,3 +1,4 @@
+import { REGULAR_PROGRAM_TERMS } from './regular-programs.js';
 import { collectAll, collectTicketmaster } from './collectors.js';
 
 const JSON_HEADERS={'content-type':'application/json; charset=utf-8','cache-control':'public, max-age=60, s-maxage=300'};
@@ -9,6 +10,7 @@ function intParam(url,name,fallback,max){const n=Number(url.searchParams.get(nam
 async function eventsApi(request,env){
   const url=new URL(request.url); const limit=intParam(url,'limit',100,250);
   const where=["is_active=1","datetime(starts_at)>=datetime('now','-1 day')"]; const bind=[];
+  for(const term of REGULAR_PROGRAM_TERMS){where.push('instr(lower(title), ?)=0');bind.push(term)}
   for(const [param,column] of [['region','region'],['category','category']]){const v=url.searchParams.get(param);if(v&&v!=='all'){where.push(`${column}=?`);bind.push(v)}}
   const q=(url.searchParams.get('q')||'').trim(); if(q){where.push('(title LIKE ? OR description LIKE ? OR city LIKE ? OR venue LIKE ?)');for(let i=0;i<4;i++)bind.push(`%${q}%`)}
   const result=await env.DB.prepare(`SELECT id,title,description,category,region,city,venue,starts_at,ends_at,url,image_url,source_name,source_kind
