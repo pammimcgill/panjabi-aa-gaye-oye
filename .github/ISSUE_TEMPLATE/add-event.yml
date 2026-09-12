@@ -1,0 +1,114 @@
+{
+  "name": "Add event",
+  "description": "Submit an event for the website. Apply approved-event after review.",
+  "title": "[Event] ",
+  "body": [
+    {
+      "type": "input",
+      "id": "field0",
+      "attributes": {
+        "label": "Event title",
+        "description": "Public event name"
+      },
+      "validations": {
+        "required": true
+      }
+    },
+    {
+      "type": "input",
+      "id": "field1",
+      "attributes": {
+        "label": "Start date and time",
+        "description": "Use 2026-10-24T13:00:00-07:00 format. Pacific daylight time is -07:00; standard time is -08:00. Enter the offset for the event date."
+      },
+      "validations": {
+        "required": true
+      }
+    },
+    {
+      "type": "dropdown",
+      "id": "field2",
+      "attributes": {
+        "label": "Region",
+        "options": [
+          "Seattle",
+          "Vancouver"
+        ]
+      },
+      "validations": {
+        "required": true
+      }
+    },
+    {
+      "type": "input",
+      "id": "field3",
+      "attributes": {
+        "label": "City"
+      },
+      "validations": {
+        "required": true
+      }
+    },
+    {
+      "type": "input",
+      "id": "field4",
+      "attributes": {
+        "label": "Venue"
+      },
+      "validations": {
+        "required": true
+      }
+    },
+    {
+      "type": "dropdown",
+      "id": "field5",
+      "attributes": {
+        "label": "Category",
+        "options": [
+          "market",
+          "festival",
+          "religious",
+          "concert",
+          "theatre",
+          "nightlife",
+          "community"
+        ]
+      },
+      "validations": {
+        "required": true
+      }
+    },
+    {
+      "type": "input",
+      "id": "field6",
+      "attributes": {
+        "label": "Event link",
+        "description": "Full https:// Facebook, organizer or ticket URL"
+      },
+      "validations": {
+        "required": true
+      }
+    },
+    {
+      "type": "input",
+      "id": "field7",
+      "attributes": {
+        "label": "Description"
+      },
+      "validations": {
+        "required": false
+      }
+    },
+    {
+      "type": "input",
+      "id": "field8",
+      "attributes": {
+        "label": "Image URL",
+        "description": "Optional public https:// image URL"
+      },
+      "validations": {
+        "required": false
+      }
+    }
+  ]
+}

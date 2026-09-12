@@ -1,3 +1,4 @@
+import {fetchManualEvents} from './manual-events.js';
 import { isRegularProgram } from './regular-programs.js';
 import { EVENT_SOURCES, NEWS_SOURCES, HISTORY_SOURCES, SEATGEEK_SEARCHES, MUSIC_TERMS, relevant, categoryFor, inRegion } from './config.js';
 import { cleanText, discoverEventLinks, discoverLinks, extractJsonLdEvents, extractJsonLdArticles, parseFeed, safeDate, stableId } from './parsers.js';
@@ -40,8 +41,8 @@ export function normalizeEvent(raw, source) {
   };
 }
 
-async function upsertEvents(db, events) {
-  if (!events.length) return 0;
+async function upsertEvents(db, events, resetManual=false) {
+  if (!events.length && !resetManual) return 0;
   const stmt=db.prepare(`INSERT INTO hub_events
     (id,title,description,category,region,city,venue,starts_at,ends_at,url,image_url,source_name,source_kind,source_event_id,last_seen_at,is_active)
     VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP,1)
@@ -50,8 +51,9 @@ async function upsertEvents(db, events) {
       starts_at=excluded.starts_at,ends_at=excluded.ends_at,url=excluded.url,image_url=excluded.image_url,
       source_name=excluded.source_name,source_kind=excluded.source_kind,source_event_id=excluded.source_event_id,
       last_seen_at=CURRENT_TIMESTAMP,is_active=1`);
-  const batches=[];
+  const batches=resetManual ? [db.prepare("UPDATE hub_events SET is_active=0 WHERE source_kind='manual'")] : [];
   for (const e of events) batches.push(stmt.bind(e.id,e.title,e.description,e.category,e.region,e.city,e.venue,e.startsAt,e.endsAt,e.url,e.imageUrl,e.sourceName,e.sourceKind,e.sourceEventId));
+  if(resetManual){await db.batch(batches);return events.length;}
   for (let i=0;i<batches.length;i+=50) await db.batch(batches.slice(i,i+50));
   return events.length;
 }
@@ -180,8 +182,13 @@ async function collectHistorySource(db,source){
 }
 
 
-export const SOURCE_KEYS=['ticketmaster','seatgeek',...EVENT_SOURCES.map(s=>s.key),...NEWS_SOURCES.map(s=>s.key),...HISTORY_SOURCES.map(s=>s.key)];
+export const SOURCE_KEYS=['github-events','ticketmaster','seatgeek',...EVENT_SOURCES.map(s=>s.key),...NEWS_SOURCES.map(s=>s.key),...HISTORY_SOURCES.map(s=>s.key)];
 export async function collectSource(env,key){
+  if(key==='github-events'){
+    const source={key,name:'GitHub manual events',type:'manual',url:'https://github.com/'+(env.GITHUB_EVENTS_REPO||'pammimcgill/panjabi-aa-gaye-oye')};
+    try{const {events,invalid}=await fetchManualEvents(env);await upsertEvents(env.DB,events,true);const warning=invalid.length?'Skipped invalid or expired issues: '+invalid.join(', '):null;await setSourceStatus(env.DB,source,events.length,warning);return {source:key,count:events.length,invalid};}
+    catch{await setSourceStatus(env.DB,source,0,'GitHub event sync failed; check repository access/token. Existing entries retained.');return {source:key,error:true};}
+  }
   if(key==='ticketmaster')return collectTicketmaster(env);
   if(key==='seatgeek')return collectSeatGeek(env);
   const event=EVENT_SOURCES.find(s=>s.key===key);
