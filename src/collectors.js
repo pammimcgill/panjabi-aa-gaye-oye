@@ -130,6 +130,42 @@ export async function collectSeatGeek(env) {
   }catch(error){ await setSourceStatus(env.DB,source,0,error.message); return {source:'seatgeek',count:0,error:error.message}; }
 }
 
+export async function collectTicketmaster(env) {
+  const source={key:'ticketmaster',name:'Ticketmaster',url:'https://app.ticketmaster.com/discovery/v2/events.json',type:'ticketing'};
+  if(!env.TICKETMASTER_API_KEY){
+    await setSourceStatus(env.DB,source,0,'Waiting for TICKETMASTER_API_KEY');
+    return {source:source.key,count:0,disabled:true};
+  }
+  const found=new Map();
+  try{
+    for(const area of [{countryCode:'US',stateCode:'WA',region:'Seattle'},{countryCode:'CA',stateCode:'BC',region:'Vancouver'}]){
+      for(const keyword of ['punjabi','panjabi','bhangra','bollywood','diljit','karan aujla','satinder sartaaj','gurdas maan','shreya ghoshal','sonu nigam','mehfil']){
+        for(let page=0;page<5;page++){
+          const params=new URLSearchParams({apikey:env.TICKETMASTER_API_KEY,countryCode:area.countryCode,stateCode:area.stateCode,keyword,size:'100',page:String(page),sort:'date,asc',startDateTime:new Date().toISOString().replace(/\.\d{3}Z$/,'Z')});
+          const response=await fetch(source.url+'?'+params,{headers:{Accept:'application/json'},signal:AbortSignal.timeout(10000)});
+          if(!response.ok)throw new Error('Ticketmaster HTTP '+response.status);
+          const data=await response.json();
+          for(const raw of data._embedded?.events||[]){
+            if(raw.dates?.status?.code==='cancelled')continue;
+            const venue=raw._embedded?.venues?.[0]||{};
+            const event=normalizeEvent({sourceEventId:raw.id,title:raw.name,description:[raw.info,raw.pleaseNote].filter(Boolean).join(' '),startsAt:raw.dates?.start?.dateTime,url:raw.url,venue:venue.name,city:venue.city?.name,imageUrl:raw.images?.[0]?.url},{...source,region:area.region});
+            if(event)found.set(event.id,event);
+          }
+          if(page+1 >= (data.page?.totalPages||0))break;
+        }
+      }
+    }
+    await upsertEvents(env.DB,[...found.values()]);
+    await setSourceStatus(env.DB,source,found.size);
+    return {source:source.key,count:found.size};
+  }catch(error){
+    await upsertEvents(env.DB,[...found.values()]);
+    const message=error.name==='TimeoutError'?'Ticketmaster request timed out':(error.message.startsWith('Ticketmaster HTTP')?error.message:'Ticketmaster collection failed');
+    await setSourceStatus(env.DB,source,found.size,message);
+    return {source:source.key,count:found.size,error:message};
+  }
+}
+
 async function upsertNews(db, rows, source) {
   const stmt=db.prepare(`INSERT INTO content_items
     (id,section,title,dek,body,canonical_url,image_url,source_name,author,published_at,status)
@@ -166,7 +202,7 @@ async function collectHistorySource(db,source){
 }
 
 export async function collectAll(env){
-  const results=[];
+  const results=[await collectTicketmaster(env)];
   for(const source of EVENT_SOURCES) results.push(await collectWebSource(env.DB,source));
   results.push(await collectSeatGeek(env));
   for(const source of NEWS_SOURCES) results.push(await collectNewsSource(env.DB,source));

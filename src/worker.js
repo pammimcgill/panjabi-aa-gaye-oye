@@ -1,4 +1,4 @@
-import { collectAll } from './collectors.js';
+import { collectAll, collectTicketmaster } from './collectors.js';
 
 const JSON_HEADERS={'content-type':'application/json; charset=utf-8','cache-control':'public, max-age=60, s-maxage=300'};
 
@@ -47,14 +47,14 @@ async function contentApi(request,env,section){
 
 async function statusApi(env){
   const rows=await env.DB.prepare('SELECT source_key,source_name,source_type,last_run_at,last_success_at,last_count,last_error FROM source_status ORDER BY source_type,source_name').all();
-  return json({sources:rows.results||[],seatGeekConfigured:Boolean(env.SEATGEEK_CLIENT_ID),generatedAt:new Date().toISOString()});
+  return json({sources:rows.results||[],ticketmasterConfigured:Boolean(env.TICKETMASTER_API_KEY),seatGeekConfigured:Boolean(env.SEATGEEK_CLIENT_ID),generatedAt:new Date().toISOString()});
 }
 
 async function refreshApi(request,env,ctx){
   if(request.method!=='POST')return json({error:'Method not allowed'},405,{'allow':'POST'});
   if(!env.ADMIN_KEY)return json({error:'ADMIN_KEY is not configured'},503);
   if(request.headers.get('authorization')!==`Bearer ${env.ADMIN_KEY}`)return json({error:'Access denied'},403);
-  const promise=collectAll(env); ctx.waitUntil(promise); return json({accepted:true,message:'Refresh started'},202);
+  const promise=new URL(request.url).searchParams.get('source')==='ticketmaster'?collectTicketmaster(env):collectAll(env); ctx.waitUntil(promise); return json({accepted:true,message:'Refresh started'},202);
 }
 
 async function asset(env,request,file){
