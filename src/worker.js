@@ -1,5 +1,5 @@
 import { REGULAR_PROGRAM_TERMS } from './regular-programs.js';
-import { collectAll, collectTicketmaster } from './collectors.js';
+import { collectAll, collectSource, SOURCE_KEYS } from './collectors.js';
 
 const JSON_HEADERS={'content-type':'application/json; charset=utf-8','cache-control':'public, max-age=60, s-maxage=300'};
 
@@ -9,7 +9,7 @@ function intParam(url,name,fallback,max){const n=Number(url.searchParams.get(nam
 
 async function eventsApi(request,env){
   const url=new URL(request.url); const limit=intParam(url,'limit',100,250);
-  const where=["is_active=1","datetime(starts_at)>=datetime('now','-1 day')"]; const bind=[];
+  const where=["is_active=1","datetime(starts_at)>=datetime('now')"]; const bind=[];
   for(const term of REGULAR_PROGRAM_TERMS){where.push('instr(lower(title), ?)=0');bind.push(term)}
   for(const [param,column] of [['region','region'],['category','category']]){const v=url.searchParams.get(param);if(v&&v!=='all'){where.push(`${column}=?`);bind.push(v)}}
   const q=(url.searchParams.get('q')||'').trim(); if(q){where.push('(title LIKE ? OR description LIKE ? OR city LIKE ? OR venue LIKE ?)');for(let i=0;i<4;i++)bind.push(`%${q}%`)}
@@ -49,14 +49,16 @@ async function contentApi(request,env,section){
 
 async function statusApi(env){
   const rows=await env.DB.prepare('SELECT source_key,source_name,source_type,last_run_at,last_success_at,last_count,last_error FROM source_status ORDER BY source_type,source_name').all();
-  return json({sources:rows.results||[],ticketmasterConfigured:Boolean(env.TICKETMASTER_API_KEY),seatGeekConfigured:Boolean(env.SEATGEEK_CLIENT_ID),generatedAt:new Date().toISOString()});
+  return json({availableSources:SOURCE_KEYS,sources:rows.results||[],ticketmasterConfigured:Boolean(env.TICKETMASTER_API_KEY),seatGeekConfigured:Boolean(env.SEATGEEK_CLIENT_ID),generatedAt:new Date().toISOString()});
 }
 
 async function refreshApi(request,env,ctx){
   if(request.method!=='POST')return json({error:'Method not allowed'},405,{'allow':'POST'});
   if(!env.ADMIN_KEY)return json({error:'ADMIN_KEY is not configured'},503);
   if(request.headers.get('authorization')!==`Bearer ${env.ADMIN_KEY}`)return json({error:'Access denied'},403);
-  const promise=new URL(request.url).searchParams.get('source')==='ticketmaster'?collectTicketmaster(env):collectAll(env); ctx.waitUntil(promise); return json({accepted:true,message:'Refresh started'},202);
+  const key=new URL(request.url).searchParams.get('source');
+  if(key && !SOURCE_KEYS.includes(key))return json({error:'Unknown source',availableSources:SOURCE_KEYS},400);
+  const promise=key?collectSource(env,key):collectAll(env); ctx.waitUntil(promise); return json({accepted:true,message:'Refresh started'},202);
 }
 
 async function asset(env,request,file){

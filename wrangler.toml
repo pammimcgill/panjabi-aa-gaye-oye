@@ -21,7 +21,7 @@ database_id = "73037eef-a4b7-4e70-8a5d-660d881b90f0"
 migrations_dir = "migrations"
 
 [triggers]
-crons = ["17 */6 * * *"]
+crons = ["*/5 * * * *"]
 
 [vars]
 SITE_ORIGIN = "https://panjabiaagayeoye.com"

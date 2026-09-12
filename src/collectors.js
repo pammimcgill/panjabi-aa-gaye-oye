@@ -1,11 +1,11 @@
 import { isRegularProgram } from './regular-programs.js';
-import { EVENT_SOURCES, NEWS_SOURCES, HISTORY_SOURCES, SEATGEEK_SEARCHES, MUSIC_TERMS, relevant, categoryFor } from './config.js';
+import { EVENT_SOURCES, NEWS_SOURCES, HISTORY_SOURCES, SEATGEEK_SEARCHES, MUSIC_TERMS, relevant, categoryFor, inRegion } from './config.js';
 import { cleanText, discoverEventLinks, discoverLinks, extractJsonLdEvents, extractJsonLdArticles, parseFeed, safeDate, stableId } from './parsers.js';
 
 const UA='PanjabiAaGayeOyeBot/3.0 (+https://panjabiaagayeoye.com/about-crawlers)';
 
 async function getText(url) {
-  const res=await fetch(url,{headers:{'User-Agent':UA,'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.5'},redirect:'follow'});
+  const res=await fetch(url,{headers:{'User-Agent':UA,'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.5'},redirect:'follow',signal:AbortSignal.timeout(6000)});
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return {text:await res.text(),url:res.url};
 }
@@ -23,11 +23,11 @@ async function setSourceStatus(db, source, count, error=null) {
     .bind(source.key,source.name,source.url,source.type||'feed',now,error?null:now,count,error?String(error).slice(0,500):null).run();
 }
 
-function normalizeEvent(raw, source) {
+export function normalizeEvent(raw, source) {
   if(isRegularProgram(raw.title)) return null;
   const startsAt=safeDate(raw.startsAt);
   const combined=`${raw.title} ${raw.description} ${raw.venue} ${raw.city}`;
-  if (!startsAt || new Date(startsAt).getTime() < Date.now()-86400000 || (source.type!=='venue' && !relevant(combined))) return null;
+  if (!startsAt || new Date(startsAt).getTime() < Date.now() || (source.type!=='ticketing' && !inRegion(raw,source)) || (!source.dedicated && !relevant(combined))) return null;
   const url=raw.url || source.url;
   return {
     id:stableId('evt',`${source.key}|${raw.sourceEventId||url}|${startsAt}`),
@@ -60,7 +60,7 @@ async function collectWebSource(db, source) {
   try {
     const first=await getText(source.url);
     let raw=extractJsonLdEvents(first.text,first.url);
-    const links=discoverEventLinks(first.text,first.url,14);
+    const links=discoverEventLinks(first.text,first.url,4);
     if (links.length) {
       const settled=await Promise.allSettled(links.map(async link=>{
         const page=await getText(link.href); return extractJsonLdEvents(page.text,page.url);
@@ -117,8 +117,8 @@ export async function collectTicketmaster(env) {
   const found=new Map();
   try{
     for(const area of [{countryCode:'US',stateCode:'WA',region:'Seattle'},{countryCode:'CA',stateCode:'BC',region:'Vancouver'}]){
-      for(const keyword of ['punjabi','panjabi','bhangra','bollywood','diljit','karan aujla','satinder sartaaj','gurdas maan','shreya ghoshal','sonu nigam','mehfil']){
-        for(let page=0;page<5;page++){
+      for(const keyword of ['punjabi','panjabi','bhangra','bollywood','diljit','karan aujla','satinder sartaaj','gurdas maan','shreya ghoshal','sonu nigam','mehfil','diwali','holi','navratri','dandiya','garba','desi','sufi','qawwali','indian','falguni']){
+        for(let page=0;page<1;page++){
           const params=new URLSearchParams({apikey:env.TICKETMASTER_API_KEY,countryCode:area.countryCode,stateCode:area.stateCode,keyword,size:'100',page:String(page),sort:'date,asc',startDateTime:new Date().toISOString().replace(/\.\d{3}Z$/,'Z')});
           const response=await fetch(source.url+'?'+params,{headers:{Accept:'application/json'},signal:AbortSignal.timeout(10000)});
           if(!response.ok)throw new Error('Ticketmaster HTTP '+response.status);
@@ -165,7 +165,7 @@ async function collectHistorySource(db,source){
     const page=await getText(source.url); let rows=extractJsonLdArticles(page.text,page.url);
     if(!rows.length){
       const links=discoverLinks(page.text,page.url,/article|history|panjab|punjab|partition|heritage|sikh/i,24);
-      const settled=await Promise.allSettled(links.slice(0,12).map(async x=>{const p=await getText(x.href);return extractJsonLdArticles(p.text,p.url)}));
+      const settled=await Promise.allSettled(links.slice(0,4).map(async x=>{const p=await getText(x.href);return extractJsonLdArticles(p.text,p.url)}));
       for(const x of settled) if(x.status==='fulfilled') rows.push(...x.value);
     }
     rows=[...new Map(rows.map(x=>[x.url,x])).values()].filter(x=>/panjab|punjab|sikh|partition|khalsa|guru|heritage|history/i.test(`${x.title} ${x.dek}`)).slice(0,25);
@@ -179,12 +179,23 @@ async function collectHistorySource(db,source){
   } catch(error){ await setSourceStatus(db,source,0,error.message); return {source:source.key,count:0,error:error.message}; }
 }
 
+
+export const SOURCE_KEYS=['ticketmaster','seatgeek',...EVENT_SOURCES.map(s=>s.key),...NEWS_SOURCES.map(s=>s.key),...HISTORY_SOURCES.map(s=>s.key)];
+export async function collectSource(env,key){
+  if(key==='ticketmaster')return collectTicketmaster(env);
+  if(key==='seatgeek')return collectSeatGeek(env);
+  const event=EVENT_SOURCES.find(s=>s.key===key);
+  if(event)return collectWebSource(env.DB,event);
+  const news=NEWS_SOURCES.find(s=>s.key===key);
+  if(news)return collectNewsSource(env.DB,news);
+  const history=HISTORY_SOURCES.find(s=>s.key===key);
+  if(history)return collectHistorySource(env.DB,history);
+  throw new Error('Unknown source');
+}
+// One collector per invocation avoids combining every crawler's request budget.
 export async function collectAll(env){
-  const results=[await collectTicketmaster(env)];
-  for(const source of EVENT_SOURCES) results.push(await collectWebSource(env.DB,source));
-  results.push(await collectSeatGeek(env));
-  for(const source of NEWS_SOURCES) results.push(await collectNewsSource(env.DB,source));
-  for(const source of HISTORY_SOURCES) results.push(await collectHistorySource(env.DB,source));
-  await env.DB.prepare("UPDATE hub_events SET is_active=0 WHERE starts_at < datetime('now','-1 day')").run();
-  return results;
+  const row=await env.DB.prepare('SELECT source_key FROM source_status ORDER BY last_run_at ASC').all();
+  const known=new Set((row.results||[]).map(r=>r.source_key));
+  const key=SOURCE_KEYS.find(k=>!known.has(k))||(row.results||[]).find(r=>SOURCE_KEYS.includes(r.source_key))?.source_key||'ticketmaster';
+  return [await collectSource(env,key)];
 }
