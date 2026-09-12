@@ -1,4 +1,20 @@
+export const FESTIVAL_TERMS = [
+  'diwali', 'deepavali', 'dipavali', 'holi', 'navratri', 'navaratri',
+  'dussehra', 'dasara', 'vijayadashami', 'durga puja', 'janmashtami',
+  'ganesh chaturthi', 'ganesh utsav', 'ganeshotsav',
+  'karwa chauth', 'karva chauth', 'karwachauth', 'karvachauth',
+  'raksha bandhan', 'rakhi', 'onam', 'pongal', 'ugadi',
+  'makar sankranti', 'lohri', 'maha shivratri', 'mahashivratri', 'ram navami',
+  'gurpurab', 'gurprab', 'gurupurab', 'gurpurb',
+  'guru nanak jayanti', 'guru nanak dev ji', 'guru nanak gurpurab',
+  'guru gobind singh jayanti', 'guru gobind singh ji',
+  'prakash purab', 'parkash purab', 'prakash utsav',
+  'vaisakhi', 'baisakhi', 'bandi chhor', 'bandi chor',
+  'hola mohalla', 'holla mohalla', 'nagar kirtan', 'shaheedi', 'shahidi'
+];
+
 export const EVENT_TERMS = [
+  ...FESTIVAL_TERMS,
   'diwali','deepavali','holi','navratri','navaratri','karwa','karva','raksha bandhan','onam','pongal','ugadi','ganesh','eid','qawwali','sufi','hindustani','carnatic','bharatanatyam','kathak','indian','pakistani','bangladeshi','sri lankan','nepali','tamil','telugu','malayalam','gujarati','bengali','marathi','hindi','urdu','falguni','punjabi','panjabi','bhangra','sikh','gurdwara','gurudwara','kirtan','gurbani',
   'vaisakhi','baisakhi','nagar kirtan','desi','bollywood','south asian','dhol',
   'mehfil','mela','garba','dandiya','diljit','karan aujla','gurdas maan','satinder sartaaj',
@@ -54,6 +70,7 @@ export function relevant(text, terms = EVENT_TERMS) {
 export function categoryFor(text, sourceType = '') {
   const s = String(text || '').toLowerCase();
   if (/bazaar|bazar|market|shopping|vendor|karwa|karva/.test(s)) return 'market';
+  if (relevant(s, FESTIVAL_TERMS)) return 'festival';
   if (/festival|diwali|deepavali|holi|navratri|navaratri|mela|parade|vaisakhi|baisakhi|garba|dandiya|onam|pongal/.test(s)) return 'festival';
   if (sourceType === 'religious' || /sikh|gurdwara|gurudwara|kirtan|gurbani|vaisakhi|baisakhi|nagar/.test(s)) return 'religious';
   if (/theatre|theater|play|comedy|stage|performing arts/.test(s)) return 'theatre';
