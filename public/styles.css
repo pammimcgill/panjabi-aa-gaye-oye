@@ -11,3 +11,13 @@
 footer{padding-top:30px;padding-bottom:50px;color:#706777;border-top:1px solid rgba(80,48,68,.1)}footer .brand-wrap{display:inline-flex}footer p{margin:12px 0 0}
 @media(max-width:900px){.cards,.story-grid{grid-template-columns:1fr 1fr}.history-front{grid-template-columns:1fr}.nav{position:fixed;bottom:12px;left:12px;right:12px;justify-content:center;background:#fffaf0;border:1px solid var(--line);border-radius:18px;padding:7px;box-shadow:var(--shadow)}body{padding-bottom:75px}.filter-grid{grid-template-columns:1fr 1fr}.filter-grid select:first-child{grid-column:1/-1}.submit-card{align-items:flex-start;flex-direction:column}}
 @media(max-width:610px){.site-header{padding:13px 18px}.logo-mark{width:42px;height:42px}.brand{font-size:18px}.hero{padding-top:46px}.hero h1{font-size:clamp(55px,20vw,88px)}.cards,.story-grid,.source-grid{grid-template-columns:1fr}.filter-grid{grid-template-columns:1fr}.filter-grid select:first-child{grid-column:auto}.section-head{align-items:flex-start;flex-direction:column}.nav a{font-size:13px;padding:9px}.card{min-height:280px}}
+
+/* Heritage artwork: full-page backdrop with readable content surfaces. */
+body{background:#081d2c url('/images/panjabi-heritage.jpeg') center top / cover no-repeat fixed}
+main.shell{background:rgba(255,250,240,.97);box-shadow:0 20px 80px #0005}
+.site-header{background:#fffaf0;backdrop-filter:none}
+.heritage-art{margin:0 calc(-1 * clamp(20px,5vw,60px));background:#081d2c}
+.heritage-art img{display:block;width:100%;height:auto;max-height:78vh;object-fit:contain}
+footer.shell{background:#fffaf0}
+.card,.story-card,.source-panel,.prose-card,.search-card{background:#fffaf0}
+@media(max-width:610px){body{background-attachment:scroll}.heritage-art img{max-height:none}main.shell{background:#fffaf0}.hero{padding-top:32px}}
