@@ -1,0 +1,176 @@
+import { EVENT_SOURCES, NEWS_SOURCES, HISTORY_SOURCES, SEATGEEK_SEARCHES, MUSIC_TERMS, relevant, categoryFor } from './config.js';
+import { cleanText, discoverEventLinks, discoverLinks, extractJsonLdEvents, extractJsonLdArticles, parseFeed, safeDate, stableId } from './parsers.js';
+
+const UA='PanjabiAaGayeOyeBot/3.0 (+https://panjabiaagayeoye.com/about-crawlers)';
+
+async function getText(url) {
+  const res=await fetch(url,{headers:{'User-Agent':UA,'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.5'},redirect:'follow'});
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return {text:await res.text(),url:res.url};
+}
+
+async function setSourceStatus(db, source, count, error=null) {
+  const now=new Date().toISOString();
+  await db.prepare(`INSERT INTO source_status
+    (source_key,source_name,source_url,source_type,last_run_at,last_success_at,last_count,last_error)
+    VALUES(?,?,?,?,?,?,?,?)
+    ON CONFLICT(source_key) DO UPDATE SET
+      source_name=excluded.source_name, source_url=excluded.source_url,
+      source_type=excluded.source_type, last_run_at=excluded.last_run_at,
+      last_success_at=CASE WHEN excluded.last_error IS NULL THEN excluded.last_success_at ELSE source_status.last_success_at END,
+      last_count=excluded.last_count, last_error=excluded.last_error`)
+    .bind(source.key,source.name,source.url,source.type||'feed',now,error?null:now,count,error?String(error).slice(0,500):null).run();
+}
+
+function normalizeEvent(raw, source) {
+  const startsAt=safeDate(raw.startsAt);
+  const combined=`${raw.title} ${raw.description} ${raw.venue} ${raw.city}`;
+  if (!startsAt || new Date(startsAt).getTime() < Date.now()-86400000 || (source.type!=='venue' && !relevant(combined))) return null;
+  const url=raw.url || source.url;
+  return {
+    id:stableId('evt',`${source.key}|${raw.sourceEventId||url}|${startsAt}`),
+    title:cleanText(raw.title), description:cleanText(raw.description).slice(0,700),
+    category:categoryFor(combined,source.type), region:source.region,
+    city:cleanText(raw.city)||source.city||'', venue:cleanText(raw.venue)||source.name,
+    startsAt, endsAt:safeDate(raw.endsAt)||null, url, imageUrl:raw.imageUrl||null,
+    sourceName:source.name, sourceKind:source.type||'web',
+    sourceEventId:String(raw.sourceEventId||url)
+  };
+}
+
+async function upsertEvents(db, events) {
+  if (!events.length) return 0;
+  const stmt=db.prepare(`INSERT INTO hub_events
+    (id,title,description,category,region,city,venue,starts_at,ends_at,url,image_url,source_name,source_kind,source_event_id,last_seen_at,is_active)
+    VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP,1)
+    ON CONFLICT(id) DO UPDATE SET title=excluded.title,description=excluded.description,
+      category=excluded.category,region=excluded.region,city=excluded.city,venue=excluded.venue,
+      starts_at=excluded.starts_at,ends_at=excluded.ends_at,url=excluded.url,image_url=excluded.image_url,
+      source_name=excluded.source_name,source_kind=excluded.source_kind,source_event_id=excluded.source_event_id,
+      last_seen_at=CURRENT_TIMESTAMP,is_active=1`);
+  const batches=[];
+  for (const e of events) batches.push(stmt.bind(e.id,e.title,e.description,e.category,e.region,e.city,e.venue,e.startsAt,e.endsAt,e.url,e.imageUrl,e.sourceName,e.sourceKind,e.sourceEventId));
+  for (let i=0;i<batches.length;i+=50) await db.batch(batches.slice(i,i+50));
+  return events.length;
+}
+
+function nextWeekday(weekday, hour, minute=0, weeks=8) {
+  const result=[]; const start=new Date();
+  start.setUTCMinutes(minute,0,0); start.setUTCHours(hour);
+  let add=(weekday-start.getUTCDay()+7)%7; if (!add && start < new Date()) add=7;
+  start.setUTCDate(start.getUTCDate()+add);
+  for(let i=0;i<weeks;i++){ const d=new Date(start); d.setUTCDate(d.getUTCDate()+i*7); result.push(d.toISOString()); }
+  return result;
+}
+
+function recurringReligiousEvents(source) {
+  if (source.key==='gsswa') return nextWeekday(0,17).map(startsAt=>({
+    sourceEventId:`sunday-${startsAt.slice(0,10)}`, title:'Regular Sunday Program',
+    description:'Weekly Sunday divan and community program, including Asa Ki Vaar, Kirtan and Langar. Confirm details with the Gurdwara before travelling.',
+    startsAt, venue:'Gurdwara Singh Sabha of Washington',city:'Renton',url:source.url
+  }));
+  if (source.key==='gnsg') return nextWeekday(0,18).map(startsAt=>({
+    sourceEventId:`family-youth-${startsAt.slice(0,10)}`, title:'Family Youth Kirtan Darbar',
+    description:'Recurring Sunday family and youth Kirtan program. Confirm the current time with the Gurdwara.',
+    startsAt,venue:'Guru Nanak Sikh Gurdwara',city:'Surrey',url:source.url
+  }));
+  return [];
+}
+
+async function collectWebSource(db, source) {
+  try {
+    const first=await getText(source.url);
+    let raw=extractJsonLdEvents(first.text,first.url);
+    const links=discoverEventLinks(first.text,first.url,14);
+    if (links.length) {
+      const settled=await Promise.allSettled(links.map(async link=>{
+        const page=await getText(link.href); return extractJsonLdEvents(page.text,page.url);
+      }));
+      for(const item of settled) if(item.status==='fulfilled') raw.push(...item.value);
+    }
+    raw.push(...recurringReligiousEvents(source));
+    const events=[...new Map(raw.map(x=>[`${x.sourceEventId}|${x.startsAt}`,normalizeEvent(x,source)]).filter(x=>x[1])).values()];
+    const count=await upsertEvents(db,events);
+    await setSourceStatus(db,source,count);
+    return {source:source.key,count};
+  } catch(error) {
+    await setSourceStatus(db,source,0,error.message);
+    return {source:source.key,count:0,error:error.message};
+  }
+}
+
+function seatGeekEvent(raw) {
+  const venue=raw.venue||{};
+  return {
+    sourceEventId:String(raw.id),title:raw.title||raw.short_title||'',description:raw.description||'Event and ticket details available through SeatGeek.',
+    startsAt:raw.datetime_utc||raw.datetime_local, endsAt:null, venue:venue.name||'',
+    city:venue.city||'',url:raw.url||'',imageUrl:(raw.performers||[]).find(x=>x.image)?.image||''
+  };
+}
+
+export async function collectSeatGeek(env) {
+  const source={key:'seatgeek',name:'SeatGeek',url:'https://api.seatgeek.com/2/events',type:'ticketing',region:'Seattle'};
+  if(!env.SEATGEEK_CLIENT_ID){
+    await setSourceStatus(env.DB,source,0,'Waiting for SEATGEEK_CLIENT_ID');
+    return {source:'seatgeek',count:0,disabled:true};
+  }
+  try{
+    const all=[];
+    for(const search of SEATGEEK_SEARCHES){
+      const p=new URLSearchParams({client_id:env.SEATGEEK_CLIENT_ID,q:search.q,lat:String(search.lat),lon:String(search.lon),range:'100mi',per_page:'100','datetime_utc.gte':new Date().toISOString().slice(0,19)});
+      const res=await fetch(`https://api.seatgeek.com/2/events?${p}`,{headers:{Accept:'application/json','User-Agent':UA}});
+      if(!res.ok) throw new Error(`API HTTP ${res.status}`);
+      const data=await res.json(); const rows=data.events||[];
+      const s={...source,region:search.region};
+      all.push(...rows.map(x=>normalizeEvent(seatGeekEvent(x),s)).filter(Boolean));
+    }
+    const unique=[...new Map(all.map(x=>[x.id,x])).values()];
+    await upsertEvents(env.DB,unique); await setSourceStatus(env.DB,source,unique.length);
+    return {source:'seatgeek',count:unique.length};
+  }catch(error){ await setSourceStatus(env.DB,source,0,error.message); return {source:'seatgeek',count:0,error:error.message}; }
+}
+
+async function upsertNews(db, rows, source) {
+  const stmt=db.prepare(`INSERT INTO content_items
+    (id,section,title,dek,body,canonical_url,image_url,source_name,author,published_at,status)
+    VALUES(?,'music',?,?,?,?,?,?,?,?, 'published')
+    ON CONFLICT(canonical_url) DO UPDATE SET title=excluded.title,dek=excluded.dek,
+      image_url=excluded.image_url,source_name=excluded.source_name,author=excluded.author,published_at=excluded.published_at`);
+  const valid=rows.filter(x=>relevant(`${x.title} ${x.dek}`,MUSIC_TERMS)).slice(0,30);
+  if(valid.length) await db.batch(valid.map(x=>stmt.bind(stableId('news',x.url),x.title,cleanText(x.dek).slice(0,360),'',x.url,x.imageUrl||null,source.name,x.author||null,safeDate(x.publishedAt)||new Date().toISOString())));
+  return valid.length;
+}
+
+async function collectNewsSource(db,source){
+  try { const feed=await getText(source.url); const count=await upsertNews(db,parseFeed(feed.text,feed.url),source); await setSourceStatus(db,{...source,type:'news'},count); return {source:source.key,count}; }
+  catch(error){ await setSourceStatus(db,{...source,type:'news'},0,error.message); return {source:source.key,count:0,error:error.message}; }
+}
+
+async function collectHistorySource(db,source){
+  try {
+    const page=await getText(source.url); let rows=extractJsonLdArticles(page.text,page.url);
+    if(!rows.length){
+      const links=discoverLinks(page.text,page.url,/article|history|panjab|punjab|partition|heritage|sikh/i,24);
+      const settled=await Promise.allSettled(links.slice(0,12).map(async x=>{const p=await getText(x.href);return extractJsonLdArticles(p.text,p.url)}));
+      for(const x of settled) if(x.status==='fulfilled') rows.push(...x.value);
+    }
+    rows=[...new Map(rows.map(x=>[x.url,x])).values()].filter(x=>/panjab|punjab|sikh|partition|khalsa|guru|heritage|history/i.test(`${x.title} ${x.dek}`)).slice(0,25);
+    const stmt=db.prepare(`INSERT INTO content_items
+      (id,section,title,dek,body,canonical_url,image_url,source_name,author,published_at,status)
+      VALUES(?,'history',?,?,?,?,?,?,?,?, 'published')
+      ON CONFLICT(canonical_url) DO UPDATE SET title=excluded.title,dek=excluded.dek,
+        image_url=excluded.image_url,source_name=excluded.source_name,author=excluded.author,published_at=excluded.published_at`);
+    if(rows.length) await db.batch(rows.map(x=>stmt.bind(stableId('history',x.url),x.title,cleanText(x.dek).slice(0,420),'',x.url,x.imageUrl||null,source.name,x.author||null,safeDate(x.publishedAt)||new Date().toISOString())));
+    await setSourceStatus(db,source,rows.length); return {source:source.key,count:rows.length};
+  } catch(error){ await setSourceStatus(db,source,0,error.message); return {source:source.key,count:0,error:error.message}; }
+}
+
+export async function collectAll(env){
+  const results=[];
+  for(const source of EVENT_SOURCES) results.push(await collectWebSource(env.DB,source));
+  results.push(await collectSeatGeek(env));
+  for(const source of NEWS_SOURCES) results.push(await collectNewsSource(env.DB,source));
+  for(const source of HISTORY_SOURCES) results.push(await collectHistorySource(env.DB,source));
+  await env.DB.prepare("UPDATE hub_events SET is_active=0 WHERE starts_at < datetime('now','-1 day')").run();
+  return results;
+}

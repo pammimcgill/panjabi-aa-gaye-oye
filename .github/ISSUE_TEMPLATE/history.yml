@@ -1,0 +1,35 @@
+name: History article
+description: Publish a source-backed Panjabi history story
+title: ""
+labels: ["history"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: Two or three sentences shown on the homepage and history page.
+      placeholder: Explain why this story matters to Panjab and the diaspora.
+    validations:
+      required: true
+  - type: textarea
+    id: article
+    attributes:
+      label: Article
+      description: Write the story in your own words. Keep quotations short and attributed.
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Sources
+      description: Add links to the archives, books, museums or scholarship used.
+      placeholder: "- https://example.org/source"
+    validations:
+      required: true
+  - type: checkboxes
+    id: editorial
+    attributes:
+      label: Editorial check
+      options:
+        - label: I checked names, dates and quotations against the sources above.
+          required: true
