@@ -1,0 +1,35 @@
+name: Hide a duplicate or incorrect event
+description: Remove one event listing without editing or redeploying the website
+title: "[Hide event] "
+labels: ["event-hide"]
+body:
+  - type: markdown
+    attributes:
+      value: Keep this issue open while the event should remain hidden. Close it to restore the listing.
+  - type: input
+    id: target
+    attributes:
+      label: Event page URL or ID
+      description: Paste the Panjabi Aa Gaye Oye event-page address or its evt-... ID.
+      placeholder: https://panjabiaagayeoye.com/events/evt-...
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Source event URL
+      description: Optional. Use this when you do not have the local event-page address.
+      placeholder: https://ticket-site.example/event
+  - type: input
+    id: preferred
+    attributes:
+      label: Preferred event page URL
+      description: Optional. If this is a duplicate, paste the listing visitors should use instead.
+  - type: textarea
+    id: reason
+    attributes:
+      label: Reason
+      placeholder: Duplicate of the preferred listing; incorrect performer; cancelled event...
+    validations:
+      required: true
+

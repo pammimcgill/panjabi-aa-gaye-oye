@@ -1,0 +1,38 @@
+name: Write an event story
+description: Add or edit a review, description or memory without redeploying the site
+title: "[Event story] "
+labels: ["event-story"]
+body:
+  - type: input
+    id: event
+    attributes:
+      label: Event page URL or ID
+      description: Paste the Panjabi Aa Gaye Oye event page or evt-... ID.
+      placeholder: https://panjabiaagayeoye.com/events/evt-...
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: Two or three sentences shown above the story.
+    validations:
+      required: true
+  - type: textarea
+    id: story
+    attributes:
+      label: Story
+      description: Write a review, description or personal memory. Safe Markdown headings, links and lists are supported.
+    validations:
+      required: true
+  - type: input
+    id: byline
+    attributes:
+      label: Byline
+      placeholder: Your name
+  - type: input
+    id: cover
+    attributes:
+      label: Cover image URL
+      description: Optional HTTPS image that you own or have permission to use.
+

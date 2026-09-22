@@ -1,0 +1,85 @@
+name: Add an event
+description: Submit an event from a ticket, venue or social-media link
+title: "[Event] "
+labels: ["event"]
+body:
+  - type: markdown
+    attributes:
+      value: Paste the event link. The site will try to read the title, date, venue and image automatically. Add the `approved` label when it is ready to publish.
+  - type: input
+    id: event_link
+    attributes:
+      label: Event link
+      placeholder: https://...
+    validations:
+      required: true
+  - type: input
+    id: event_title
+    attributes:
+      label: Event title
+      description: Optional when the linked page clearly shows the title.
+  - type: input
+    id: start
+    attributes:
+      label: Start date and time
+      description: Optional when the link contains the date and time. Include the time zone when entering it manually.
+      placeholder: 2026-10-11T19:00:00-07:00
+  - type: dropdown
+    id: region
+    attributes:
+      label: Region
+      options:
+        - Seattle
+        - Vancouver
+    validations:
+      required: true
+  - type: input
+    id: city
+    attributes:
+      label: City
+  - type: input
+    id: venue
+    attributes:
+      label: Venue
+  - type: input
+    id: venue_address
+    attributes:
+      label: Venue address
+      description: Optional. Used for directions on the event page.
+  - type: input
+    id: performers
+    attributes:
+      label: Artist or performers
+      description: Optional comma-separated names.
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - concert
+        - comedy
+        - nightlife
+        - festival
+        - religious
+        - theatre
+        - community
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Optional short description or fallback details when the link cannot be read.
+  - type: input
+    id: image
+    attributes:
+      label: Image URL
+      description: Optional direct image link.
+  - type: input
+    id: video
+    attributes:
+      label: Video URL
+      description: Optional YouTube or direct HTTPS video link that you own or have permission to share.
+  - type: input
+    id: video_caption
+    attributes:
+      label: Video caption
+      description: Optional caption for the community video.

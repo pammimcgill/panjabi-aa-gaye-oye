@@ -1,0 +1,511 @@
+{
+  "about": "Topics for the weekly history draft, in the order they run. The series follows how Punjabis arrived in the Pacific Northwest and British Columbia (Panjabi aa gaye oye). year places a topic on the timeline; weeks = ISO week range when a topic is timely; auto:false topics are never drafted by the automation.",
+  "topics": [
+    {
+      "id": "why-they-left",
+      "title": "Why they left: land, army and empire in Punjab, 1880s to 1900s",
+      "angle": "The pressures and pulls behind the first emigration. Use scholarship, not folklore.",
+      "region": "panjab",
+      "year": 1895
+    },
+    {
+      "id": "sikh-soldiers-empire",
+      "title": "Sikh soldiers and the British Empire: the first travelers",
+      "angle": "How army service carried Punjabis across the Empire and toward Canada.",
+      "region": "panjab",
+      "year": 1897
+    },
+    {
+      "id": "diamond-jubilee-1897",
+      "title": "1897: Sikh soldiers see British Columbia",
+      "angle": "The Diamond Jubilee journey and the first Punjabi glimpses of Canada. Say what is documented and what is tradition.",
+      "region": "bc",
+      "year": 1897
+    },
+    {
+      "id": "early-bc-work",
+      "title": "Mills, railways and farms: how the first Punjabis found work in British Columbia",
+      "angle": "Where the first arrivals worked and lived in the early 1900s.",
+      "region": "bc",
+      "year": 1904
+    },
+    {
+      "id": "khalsa-diwan-vancouver",
+      "title": "The Khalsa Diwan Society and the first Vancouver gurdwaras",
+      "angle": "How early settlers built community institutions in British Columbia.",
+      "region": "bc",
+      "year": 1906
+    },
+    {
+      "id": "bellingham-1907",
+      "title": "Bellingham, September 1907: the expulsion of Punjabi millworkers",
+      "angle": "What happened, why, and how Bellingham remembers it. Present disputed figures as ranges.",
+      "region": "pnw",
+      "year": 1907,
+      "weeks": [
+        35,
+        37
+      ]
+    },
+    {
+      "id": "vancouver-riot-1907",
+      "title": "September 1907: the anti-Asian riot in Vancouver",
+      "angle": "The Asiatic Exclusion League parade and riot and how it connects to the same year in Bellingham.",
+      "region": "bc",
+      "year": 1907,
+      "weeks": [
+        36,
+        37
+      ]
+    },
+    {
+      "id": "continuous-journey-1908",
+      "title": "1908: the continuous-journey rule and the $200 requirement",
+      "angle": "How Canada closed the door without naming India, and who was affected.",
+      "region": "bc",
+      "year": 1908
+    },
+    {
+      "id": "stockton-gurdwara-1912",
+      "title": "The Stockton Gurdwara: a community hall and a meeting place",
+      "angle": "The first gurdwara in the United States and its role in early diaspora life.",
+      "region": "usa",
+      "year": 1912
+    },
+    {
+      "id": "ghadar-astoria-1913",
+      "title": "Astoria, Oregon and the birth of the Ghadar Party",
+      "angle": "How millworkers on the Columbia River helped start an anti-colonial movement.",
+      "region": "pnw",
+      "year": 1913,
+      "weeks": [
+        27,
+        29
+      ]
+    },
+    {
+      "id": "komagata-maru-1914",
+      "title": "The Komagata Maru in Vancouver harbour, 1914",
+      "angle": "The voyage, the legal fight, the return to India, and the 2016 apology. Note where sources disagree.",
+      "region": "bc",
+      "year": 1914,
+      "weeks": [
+        20,
+        22
+      ]
+    },
+    {
+      "id": "komagata-maru-budge-budge",
+      "title": "After Vancouver: the Komagata Maru at Budge Budge",
+      "angle": "What happened when the ship returned to India, and how it is remembered in Punjab.",
+      "region": "panjab",
+      "year": 1914,
+      "weeks": [
+        38,
+        40
+      ]
+    },
+    {
+      "id": "sikhs-world-wars",
+      "title": "Sikh soldiers in the two World Wars",
+      "angle": "Numbers, campaigns and memorials, with careful sourcing.",
+      "region": "panjab",
+      "year": 1914,
+      "weeks": [
+        44,
+        46
+      ]
+    },
+    {
+      "id": "barred-zone-1917",
+      "title": "The Asiatic Barred Zone: how US law shut the door on Punjabi migration",
+      "angle": "The 1917 law and what followed until 1946 and 1965.",
+      "region": "usa",
+      "year": 1917
+    },
+    {
+      "id": "paldi-bc",
+      "title": "Paldi: a Punjabi mill town on Vancouver Island",
+      "angle": "A mixed-community company town built around a mill, and what remains.",
+      "region": "bc"
+    },
+    {
+      "id": "jallianwala-bagh-1919",
+      "title": "Jallianwala Bagh, April 13, 1919",
+      "angle": "The events, the inquiry, and the memory of Amritsar. Give casualty figures as ranges.",
+      "region": "panjab",
+      "year": 1919,
+      "weeks": [
+        15,
+        17
+      ]
+    },
+    {
+      "id": "punjabi-mexican-americans",
+      "title": "Punjabi Mexican Americans of California",
+      "angle": "How Punjabi men and Mexican women built families and communities in the early 1900s.",
+      "region": "usa",
+      "year": 1920
+    },
+    {
+      "id": "thind-1923",
+      "title": "United States v. Bhagat Singh Thind (1923)",
+      "angle": "A Sikh veteran, a citizenship case and what the Supreme Court decided.",
+      "region": "pnw",
+      "year": 1923
+    },
+    {
+      "id": "bhagat-singh-1931",
+      "title": "Bhagat Singh and the events of March 1931",
+      "angle": "His life, trial and legacy, with attention to what is documented.",
+      "region": "panjab",
+      "year": 1931,
+      "weeks": [
+        12,
+        14
+      ]
+    },
+    {
+      "id": "udham-singh-1940",
+      "title": "Udham Singh: from Amritsar to London",
+      "angle": "The 1940 assassination of Michael O'Dwyer and how it was viewed then and now.",
+      "region": "panjab",
+      "year": 1940,
+      "weeks": [
+        30,
+        32
+      ]
+    },
+    {
+      "id": "luce-celler-1946",
+      "title": "The Luce-Celler Act of 1946",
+      "angle": "How a small quota opened naturalization to Indians in the United States.",
+      "region": "usa",
+      "year": 1946
+    },
+    {
+      "id": "voting-rights-canada-1947",
+      "title": "The vote: when South Asian Canadians won the franchise",
+      "angle": "The long campaign to vote in British Columbia and in Canada.",
+      "region": "bc",
+      "year": 1947
+    },
+    {
+      "id": "partition-1947",
+      "title": "Partition of Punjab, August 1947",
+      "angle": "Human history of the division and why it changed later migration. Human-led writing only.",
+      "region": "panjab",
+      "year": 1947,
+      "weeks": [
+        32,
+        34
+      ],
+      "auto": false,
+      "note": "Sensitive: human-led drafting and a second reader."
+    },
+    {
+      "id": "dalip-singh-saund",
+      "title": "Dalip Singh Saund: the first Asian American in Congress",
+      "angle": "A Punjabi-born farmer, a legal fight over citizenship, and election in 1956.",
+      "region": "usa",
+      "year": 1956
+    },
+    {
+      "id": "doors-reopen-1967",
+      "title": "1965 and 1967: the doors reopen in the United States and Canada",
+      "angle": "How the new immigration laws changed who could arrive.",
+      "region": "pnw",
+      "year": 1967
+    },
+    {
+      "id": "punjabi-market-vancouver",
+      "title": "Vancouver's Punjabi Market",
+      "angle": "How a few blocks became a commercial and cultural center.",
+      "region": "bc",
+      "year": 1970
+    },
+    {
+      "id": "air-india-1985",
+      "title": "Air India Flight 182 and its aftermath",
+      "angle": "Remembering the victims and the long inquiry. Human-led writing only.",
+      "region": "bc",
+      "year": 1985,
+      "auto": false,
+      "note": "Sensitive: human-led drafting and a second reader."
+    },
+    {
+      "id": "baltej-dhillon-turban",
+      "title": "The turban and the RCMP: Baltej Singh Dhillon",
+      "angle": "The 1990 policy change, the public debate, and what it meant for Sikh Canadians.",
+      "region": "bc",
+      "year": 1990
+    },
+    {
+      "id": "puget-sound-community",
+      "title": "Punjabi and Sikh community in the Puget Sound region",
+      "angle": "Settlement, work and gurdwaras around Seattle, from early mills to today. Cite local sources only.",
+      "region": "pnw"
+    },
+    {
+      "id": "ujjal-dosanjh-premier",
+      "title": "Ujjal Dosanjh and Punjabi Canadians in public life",
+      "angle": "From the vote in 1947 to a Punjabi Canadian premier of British Columbia.",
+      "region": "bc",
+      "year": 2000
+    },
+    {
+      "id": "surrey-vaisakhi",
+      "title": "Vaisakhi in Surrey: how a local parade became a landmark gathering",
+      "angle": "The parade's history and what it says about belonging.",
+      "region": "bc",
+      "weeks": [
+        15,
+        17
+      ]
+    },
+    {
+      "id": "punjabi-dj-culture",
+      "title": "From Southall to Surrey: how Punjabi DJ culture grew",
+      "angle": "Sound systems, daytimers, radio and clubs across the diaspora.",
+      "region": "music"
+    },
+    {
+      "id": "bhangra-in-britain",
+      "title": "Bhangra in Britain: from wedding halls to the charts",
+      "angle": "The 1980s and 1990s scenes and how they shaped Punjabi pop.",
+      "region": "music"
+    },
+    {
+      "id": "guru-nanak-founding",
+      "title": "Guru Nanak and the beginnings of the Sikh path",
+      "angle": "A careful overview for readers new to the history. Say which claims are tradition and which are documented.",
+      "region": "panjab",
+      "year": 1469,
+      "weeks": [
+        45,
+        47
+      ]
+    },
+    {
+      "id": "bandi-chhor-divas",
+      "title": "Bandi Chhor Divas: Guru Hargobind and the Gwalior fort",
+      "angle": "The story, its sources and its overlap with Diwali.",
+      "region": "panjab",
+      "year": 1619,
+      "weeks": [
+        41,
+        44
+      ]
+    },
+    {
+      "id": "guru-tegh-bahadur",
+      "title": "Guru Tegh Bahadur and the Shaheedi of 1675",
+      "angle": "What sources record and how the day is observed.",
+      "region": "panjab",
+      "year": 1675,
+      "weeks": [
+        46,
+        48
+      ]
+    },
+    {
+      "id": "khalsa-1699",
+      "title": "Vaisakhi 1699: the creation of the Khalsa",
+      "angle": "What sources record about Anandpur, and how Vaisakhi is marked today.",
+      "region": "panjab",
+      "year": 1699,
+      "weeks": [
+        15,
+        16
+      ]
+    },
+    {
+      "id": "chamkaur-sahibzade",
+      "title": "Chamkaur and the Sahibzade: December in Sikh memory",
+      "angle": "Historical setting and commemoration. Devotional language only when attributed.",
+      "region": "panjab",
+      "year": 1704,
+      "weeks": [
+        50,
+        52
+      ]
+    },
+    {
+      "id": "mai-bhago",
+      "title": "Mai Bhago and women in Sikh history",
+      "angle": "What early sources record, and how her story is told.",
+      "region": "panjab",
+      "year": 1705
+    },
+    {
+      "id": "sikh-empire",
+      "title": "The Sikh Empire under Maharaja Ranjit Singh",
+      "angle": "Government, army, culture and how the empire is remembered.",
+      "region": "panjab",
+      "year": 1799
+    },
+    {
+      "id": "anglo-sikh-wars",
+      "title": "The Anglo-Sikh Wars and the annexation of Punjab, 1849",
+      "angle": "The two wars and how the kingdom came under British rule.",
+      "region": "panjab",
+      "year": 1849
+    },
+    {
+      "id": "duleep-singh",
+      "title": "Maharaja Duleep Singh: the last ruler of Punjab in exile",
+      "angle": "From Lahore to England and the long campaign to return.",
+      "region": "panjab"
+    },
+    {
+      "id": "saragarhi-1897",
+      "title": "Saragarhi, September 12, 1897",
+      "angle": "A frontier post, 21 soldiers of the 36th Sikhs and how the battle is remembered.",
+      "region": "panjab",
+      "year": 1897,
+      "weeks": [
+        36,
+        38
+      ]
+    },
+    {
+      "id": "nineteen-eighty-four",
+      "title": "1984 and its aftermath",
+      "angle": "What archives and inquiries record. Human-led writing only.",
+      "region": "panjab",
+      "year": 1984,
+      "auto": false,
+      "note": "Sensitive and contested: human-led drafting and a second reader."
+    },
+    {
+      "id": "langar-tradition",
+      "title": "Langar: the community kitchen",
+      "angle": "Origins, meaning and how langar works in gurdwaras from Amritsar to Surrey.",
+      "region": "panjab"
+    },
+    {
+      "id": "gurmukhi-guru-angad",
+      "title": "Gurmukhi and the written Punjabi tradition",
+      "angle": "The script, its history and how Punjabi is written in India and Pakistan.",
+      "region": "panjab"
+    },
+    {
+      "id": "harmandir-sahib",
+      "title": "Harmandir Sahib: building the Golden Temple",
+      "angle": "Construction, symbolism and architecture, with dates checked against scholarship.",
+      "region": "panjab"
+    },
+    {
+      "id": "gurdwara-architecture",
+      "title": "How a gurdwara is built: architecture and meaning",
+      "angle": "Design features, from Amritsar to North America.",
+      "region": "panjab"
+    },
+    {
+      "id": "vaisakhi-harvest",
+      "title": "Vaisakhi as a harvest festival",
+      "angle": "The agricultural calendar behind the festival, apart from its Sikh meaning.",
+      "region": "panjab",
+      "weeks": [
+        14,
+        15
+      ]
+    },
+    {
+      "id": "hola-mohalla",
+      "title": "Hola Mohalla at Anandpur Sahib",
+      "angle": "Origins, martial arts and how it differs from Holi.",
+      "region": "panjab",
+      "weeks": [
+        10,
+        12
+      ]
+    },
+    {
+      "id": "lohri-dulla-bhatti",
+      "title": "Lohri and the story of Dulla Bhatti",
+      "angle": "A folk hero, a winter festival and what is legend versus record.",
+      "region": "panjab",
+      "weeks": [
+        2,
+        3
+      ]
+    },
+    {
+      "id": "basant-kites",
+      "title": "Basant: kites and the spring festival in Punjab",
+      "angle": "The festival in Lahore and Amritsar, and the bans and revivals.",
+      "region": "panjab",
+      "weeks": [
+        4,
+        7
+      ]
+    },
+    {
+      "id": "lahore-before-1947",
+      "title": "Lahore before 1947: a capital of Punjabi culture",
+      "angle": "Publishing, film, music and shared city life.",
+      "region": "panjab"
+    },
+    {
+      "id": "green-revolution",
+      "title": "The Green Revolution in Punjab",
+      "angle": "What changed in farming, and the costs that followed, including later migration.",
+      "region": "panjab"
+    },
+    {
+      "id": "bhangra-origins",
+      "title": "Where bhangra comes from",
+      "angle": "Harvest dance, folk practice and its move to the stage and screen.",
+      "region": "music"
+    },
+    {
+      "id": "dhol-tumbi",
+      "title": "The dhol and the tumbi: sounds of Punjab",
+      "angle": "How the instruments are made and played, and their role in Punjabi music.",
+      "region": "music"
+    },
+    {
+      "id": "giddha-women",
+      "title": "Giddha: women's dance and song",
+      "angle": "Verse, boliyan and how giddha is performed today.",
+      "region": "music"
+    },
+    {
+      "id": "surinder-kaur",
+      "title": "Surinder Kaur and the women who sang Punjab",
+      "angle": "Recording history and the songs still sung at weddings.",
+      "region": "music"
+    },
+    {
+      "id": "kuldeep-manak",
+      "title": "Kuldeep Manak and the rise of Punjabi folk on record",
+      "angle": "Kali, kissa singing and the cassette era.",
+      "region": "music"
+    },
+    {
+      "id": "rababis-kirtan",
+      "title": "Rababis and the raag tradition of kirtan",
+      "angle": "Bhai Mardana, the rabab and how the tradition continued.",
+      "region": "music"
+    },
+    {
+      "id": "punjabi-sufi-poets",
+      "title": "Baba Farid, Bulleh Shah and Waris Shah",
+      "angle": "Sufi voices in Punjabi poetry and how they are sung today.",
+      "region": "music"
+    },
+    {
+      "id": "punjabi-cinema",
+      "title": "Punjabi cinema: Lahore, Bombay and beyond",
+      "angle": "Early films, the 1947 break and modern revival.",
+      "region": "music"
+    },
+    {
+      "id": "punjabi-weddings",
+      "title": "Punjabi wedding songs: suhag, ghodiyan and jaago",
+      "angle": "Songs, rituals and what they mean.",
+      "region": "music"
+    }
+  ]
+}

@@ -21,7 +21,12 @@ database_id = "73037eef-a4b7-4e70-8a5d-660d881b90f0"
 migrations_dir = "migrations"
 
 [triggers]
-crons = ["*/5 * * * *"]
+# Runs every 20 minutes. Each run collects ONE group of sources (see REFRESH_GROUPS in src/config.js),
+# so every group is refreshed about every 4 hours while each run stays under Cloudflare's request limit.
+crons = ["*/20 * * * *"]
 
 [vars]
 SITE_ORIGIN = "https://panjabiaagayeoye.com"
+# Outbound requests allowed per run. The default (36) is safe on the free plan (limit 50).
+# On a paid Workers plan you can raise it, for example FETCH_BUDGET = "120".
+# FETCH_BUDGET = "36"

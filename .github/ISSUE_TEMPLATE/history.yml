@@ -26,6 +26,42 @@ body:
       placeholder: "- https://example.org/source"
     validations:
       required: true
+  - type: input
+    id: topics
+    attributes:
+      label: Topics
+      description: Optional. Up to four, separated by commas. They become filter buttons on the History page.
+      placeholder: "Partition, Sikh Empire, Diaspora"
+  - type: input
+    id: year
+    attributes:
+      label: Year
+      description: The year the story is about (for example 1907). It places the article on the timeline. Leave blank for culture and heritage pieces.
+      placeholder: "1907"
+  - type: input
+    id: byline
+    attributes:
+      label: Byline
+      description: Optional. Name shown as the author. Leave blank for "Editorial desk".
+  - type: input
+    id: cover
+    attributes:
+      label: Cover image URL
+      description: Optional. An https link to an image you have the right to use.
+  - type: dropdown
+    id: ai_assistance
+    attributes:
+      label: AI assistance
+      description: If AI helped draft this, say so. The article page then shows a short note to readers.
+      options:
+        - No AI used
+        - Drafted with AI, reviewed and edited by a person
+      default: 0
+  - type: textarea
+    id: verification
+    attributes:
+      label: Verification notes
+      description: Optional. Private notes for editors (disputed figures, quotes to confirm). Never shown on the site.
   - type: checkboxes
     id: editorial
     attributes:

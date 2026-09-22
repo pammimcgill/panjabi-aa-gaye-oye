@@ -1,0 +1,46 @@
+name: Add a community event video
+description: Attach your own concert recording to an existing event or memory page
+title: "[Event video] "
+labels: ["event-media"]
+body:
+  - type: input
+    id: event
+    attributes:
+      label: Event page URL or ID
+      description: Paste the event page or evt-... ID. Past events are supported.
+      placeholder: https://panjabiaagayeoye.com/events/evt-...
+    validations:
+      required: true
+  - type: input
+    id: artist
+    attributes:
+      label: Artist
+      placeholder: Diljit Dosanjh or Karan Aujla
+    validations:
+      required: true
+  - type: input
+    id: video
+    attributes:
+      label: Video URL
+      description: A public or unlisted YouTube URL, or a direct HTTPS MP4/WebM URL.
+      placeholder: https://youtu.be/...
+    validations:
+      required: true
+  - type: input
+    id: caption
+    attributes:
+      label: Caption
+      placeholder: Diljit performing in Vancouver
+  - type: input
+    id: date
+    attributes:
+      label: Recorded date
+      placeholder: 2026-05-24
+  - type: checkboxes
+    id: rights
+    attributes:
+      label: Rights confirmation
+      options:
+        - label: I recorded this video myself or have permission from the owner to share it publicly.
+          required: true
+

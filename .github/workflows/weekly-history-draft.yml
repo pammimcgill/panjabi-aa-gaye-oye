@@ -1,0 +1,36 @@
+name: Weekly history draft
+
+on:
+  schedule:
+    - cron: "0 15 * * 1"   # Mondays 15:00 UTC (8:00 am Pacific in summer, 7:00 am in winter)
+  workflow_dispatch:
+    inputs:
+      topic_id:
+        description: "Optional topic id from editorial/calendar.json"
+        required: false
+        default: ""
+      ready_file:
+        description: "Optional prepared article to open as a draft, e.g. editorial/ready/01-bellingham-1907.md"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Create the draft issue
+        run: node scripts/weekly-history-draft.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_MODEL: ${{ vars.ANTHROPIC_MODEL }}
+          TOPIC_ID: ${{ inputs.topic_id }}
+          READY_FILE: ${{ inputs.ready_file }}
