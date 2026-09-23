@@ -166,8 +166,8 @@ export function articlePage(article, { origin = '', more = [] } = {}) {
 <header class="article-head"><div class="eyebrow small">The arrival${article.chapter && article.chapter.n !== 99 ? ` · Chapter ${article.chapter.n}, ${esc(article.chapter.name)}` : ''}${article.year ? ` · ${article.year}` : ''}</div><h1>${esc(article.title)}</h1><p class="article-dek">${esc(article.dek)}</p>
 <div class="article-meta"><span>${esc(article.byline)}</span><span>${esc(fmtLong(article.publishedAt))}</span><span>${article.minutes} min read</span>${topics}</div></header>
 ${article.imageUrl ? `<img class="article-cover" src="${esc(article.imageUrl)}" alt="" referrerpolicy="no-referrer">` : ''}
-<div class="article-body">${renderMarkdown(article.body)}</div>${article.aiAssisted ? '<p class="ai-note">This article was drafted with AI assistance and checked by a person before publication. Please read the sources listed below for yourself.</p>' : ''}${sources}
-<div class="editorial-note"><strong>Found a mistake?</strong> History needs care. Write to <a href="mailto:events@panjabiaagayeoye.com">events@panjabiaagayeoye.com</a> with the correction and a source.</div></article>${others}</main>
+<div class="article-body">${renderMarkdown(article.body)}</div>${sources}
+<div class="editorial-note"><strong>Found a mistake?</strong> History needs care. Write to <a href="mailto:events@panjabiaagayeoye.com">events@panjabiaagayeoye.com</a> with the correction and a source.</div>${article.aiAssisted ? '<details class="ai-disclosure"><summary>About AI assistance</summary><p>This article was drafted with AI assistance using Claude web search, then reviewed by a person before publication. Please check the listed sources for yourself.</p></details>' : ''}</article>${others}</main>
 <footer class="shell"><a class="brand-wrap" href="/"><div class="logo-mark">ਪੰ</div><div class="brand">PANJABI <span>AA GAYE OYE</span></div></a><p>Read widely. Check sources. Preserve memory.</p></footer></body></html>`;
 }
 

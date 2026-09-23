@@ -1,5 +1,5 @@
 {
-  "about": "Topics for the weekly history draft, in the order they run. The series follows how Punjabis arrived in the Pacific Northwest and British Columbia (Panjabi aa gaye oye). year places a topic on the timeline; weeks = ISO week range when a topic is timely; auto:false topics are never drafted by the automation.",
+  "about": "Topics for the history desk. Automatic weekly drafts use only pnw, bc and usa topics, once each, in the exact order listed. The first automatic story is the 1897 arrival in British Columbia. Panjab-wide and music topics require a manual topic override. year places a topic on the timeline; weeks are editorial reference only; auto:false topics are never drafted by automation.",
   "topics": [
     {
       "id": "why-they-left",

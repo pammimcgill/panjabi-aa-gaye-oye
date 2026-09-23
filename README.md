@@ -63,7 +63,7 @@ Do not skip the remote migration. It preserves every existing event and only add
 - Article pages show a short note when the **AI assistance** field says the article was drafted with AI.
 
 **The weekly routine** (details in `editorial/README.md`)
-- `editorial/calendar.json` holds 63 topics in story order (38 with years). Timely topics jump the queue
+- `editorial/calendar.json` holds the editorial topic bank. Weekly automation follows the North American arrival topics in strict story order, starting with 1897; anniversary weeks do not jump the queue
   (Vaisakhi in April, the Komagata Maru in May, Bellingham in September).
 - `.github/workflows/weekly-history-draft.yml` runs every Monday. It asks Claude to research the next topic with
   web search and opens a **draft** GitHub issue. Drafts are invisible on the site until you add the `history`
@@ -267,7 +267,29 @@ Connect the repository to the Worker once:
 npx wrangler secret put GITHUB_REPO
 ```
 
-Enter `YOUR-GITHUB-USERNAME/YOUR-REPOSITORY`. Public repositories need no GitHub token. For a private repository, also store a read-only fine-grained token with `npx wrangler secret put GITHUB_TOKEN`.
+Enter `YOUR-GITHUB-USERNAME/YOUR-REPOSITORY`.
+
+### Prevent GitHub API rate limits
+
+The Worker reads published history, event moderation and event stories from GitHub Issues. Add a fine-grained personal access token even when the repository is public so those requests are authenticated instead of sharing GitHub's much smaller anonymous allowance.
+
+1. In GitHub, open **Settings → Developer settings → Personal access tokens → Fine-grained tokens** and choose **Generate new token**.
+2. Give it an expiry date and select only this site's repository under **Repository access**.
+3. Under **Repository permissions**, set **Issues** to **Read-only**. Leave every other permission at its default; GitHub adds read-only Metadata automatically.
+4. Copy the token once. In this project folder run:
+
+   ```sh
+   npx wrangler secret put GITHUB_TOKEN
+   ```
+
+   Paste the token when Wrangler asks for the value. Do not put it in `wrangler.toml`, `.env`, source code or a GitHub issue.
+5. Confirm Cloudflare has the secret (its value will not be displayed):
+
+   ```sh
+   npx wrangler secret list
+   ```
+
+`src/worker.js` adds `Authorization: Bearer …` to every GitHub API call whenever this Worker secret is present. After adding or rotating the token, deploy again with `npm run deploy`.
 
 Code and design changes are different: the included GitHub Action automatically tests and deploys them after a push to `main`. Add `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` under **Repository Settings → Secrets and variables → Actions** once. History issues bypass that deployment workflow entirely.
 

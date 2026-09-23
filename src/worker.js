@@ -4,15 +4,16 @@ import { articlePage, notFoundPage, sitemapXml, parseHistoryIssue, isHistoryIssu
 import { describeSource } from './health.js';
 import { eventPath, eventIdFromSlug, rowToEvent, dedupeEvents, moderationRulesFromIssues, applyModeration, mediaFromIssues, storyFromIssues, safeComments, eventPage, eventNotFoundPage, pacificWeekendBounds } from './events.js';
 import { fetchTravel, travelPageShell } from './travel.js';
+import { renderEventSnapshot, renderStorySnapshot, renderHomeHistorySnapshot } from './list-pages.js';
 
-const VERSION='3.9.0';
+const VERSION='3.9.3';
 const JSON_HEADERS={'content-type':'application/json; charset=utf-8','cache-control':'public, max-age=60, s-maxage=300'};
 
 function json(data,status=200,headers={}){return new Response(JSON.stringify(data),{status,headers:{...JSON_HEADERS,...headers}})}
 
 function intParam(url,name,fallback,max){const n=Number(url.searchParams.get(name)||fallback);return Number.isFinite(n)?Math.min(Math.max(Math.trunc(n),1),max):fallback}
 
-async function eventsApi(request,env){
+async function eventsPayload(request,env){
   const url=new URL(request.url); const limit=intParam(url,'limit',100,250);const past=url.searchParams.get('past')==='1';
   const where=past?["datetime(starts_at)<datetime('now','-1 day')"]:["is_active=1","datetime(starts_at)>=datetime('now','-1 day')"]; const bind=[];
   for(const [param,column] of [['region','region'],['category','category']]){const v=url.searchParams.get(param);if(v&&v!=='all'){where.push(`${column}=?`);bind.push(v)}}
@@ -29,15 +30,17 @@ async function eventsApi(request,env){
     const bounds=pacificWeekendBounds();range=bounds.range;
     events=events.filter(x=>x.startsAt>=bounds.start&&x.startsAt<bounds.end);
   }
-  return json({events:events.slice(0,limit),range,archive:past,generatedAt:new Date().toISOString()});
+  return {events:events.slice(0,limit),range,archive:past,generatedAt:new Date().toISOString()};
 }
+
+async function eventsApi(request,env){return json(await eventsPayload(request,env));}
 
 function githubRepoOf(env){
   const repo=String(env.GITHUB_REPO||'').trim().replace(/^https?:\/\/github\.com\//,'').replace(/\/$/,'');
   return /^[\w.-]+\/[\w.-]+$/.test(repo)?repo:'';
 }
 
-function githubHeaders(env){
+export function githubHeaders(env){
   const headers={'accept':'application/vnd.github+json','user-agent':'panjabi-aa-gaye-oye-worker','x-github-api-version':'2022-11-28'};
   if(env.GITHUB_TOKEN)headers.authorization=`Bearer ${env.GITHUB_TOKEN}`;
   return headers;
@@ -91,7 +94,7 @@ function tally(items,pick){
   return [...counts].map(([name,count])=>({name,count})).sort((x,y)=>y.count-x.count||x.name.localeCompare(y.name));
 }
 
-async function contentApi(request,env,section){
+async function contentPayload(request,env,section){
   const url=new URL(request.url);const limit=intParam(url,'limit',40,100);
   // Music news only shows recent stories; history is a lasting archive.
   const recent=section==='music'?` AND datetime(published_at)>=datetime('now','-${NEWS_MAX_AGE_DAYS} days')`:'';
@@ -105,10 +108,12 @@ async function contentApi(request,env,section){
     if(seenUrl.has(item.url)||seenTitle.has(title))return false;
     seenUrl.add(item.url);seenTitle.add(title);return true;
   }).sort((a,b)=>Number(b.featured)-Number(a.featured)||new Date(b.publishedAt)-new Date(a.publishedAt)).slice(0,limit);
-  return json({items,
+  return {items,
     sources:tally(items,x=>[x.source]),topics:tally(items,x=>x.topics||[]),chapters:tally(items.filter(x=>x.chapter),x=>[x.chapter]),
-    githubEnabled:Boolean(env.GITHUB_REPO),generatedAt:new Date().toISOString()});
+    githubEnabled:Boolean(env.GITHUB_REPO),generatedAt:new Date().toISOString()};
 }
+
+async function contentApi(request,env,section){return json(await contentPayload(request,env,section));}
 
 async function articleResponse(request,env,ctx,slug){
   const html=(body,status=200,extra={})=>new Response(body,{status,headers:{'content-type':'text/html; charset=utf-8','cache-control':status===200?'public, max-age=300':'no-store',...extra}});
@@ -190,14 +195,49 @@ async function asset(env,request,file){
   return env.ASSETS.fetch(new Request(url,request));
 }
 
+async function listPageResponse(request,env,ctx,kind){
+  const files={home:'/index.html',weekend:'/weekend.html',history:'/history.html',news:'/news.html'};
+  const cache=typeof caches!=='undefined'?caches.default:null;
+  if(cache){const hit=await cache.match(request);if(hit)return hit;}
+  const original=await asset(env,request,files[kind]);
+  if(!original.ok)return original;
+  let html=await original.text();
+  try{
+    if(kind==='home'){
+      const [eventData,historyData]=await Promise.all([
+        eventsPayload(new Request(new URL('/api/events?limit=16',request.url)),env),
+        contentPayload(new Request(new URL('/api/history?limit=3',request.url)),env,'history')
+      ]);
+      html=renderEventSnapshot(html,eventData.events);
+      html=renderHomeHistorySnapshot(html,historyData.items);
+    }else if(kind==='weekend'){
+      const data=await eventsPayload(new Request(new URL('/api/events?when=weekend&limit=16',request.url)),env);
+      html=renderEventSnapshot(html,data.events,{range:data.range});
+    }else{
+      const section=kind==='news'?'music':'history';
+      const data=await contentPayload(new Request(new URL(`/api/${kind}?limit=20`,request.url)),env,section);
+      html=renderStorySnapshot(html,data.items,{news:kind==='news'});
+    }
+  }catch{
+    // Keep the static shell usable if D1 or GitHub is temporarily unavailable;
+    // the existing browser-side code will make another attempt after load.
+  }
+  const headers=new Headers(original.headers);
+  headers.set('content-type','text/html; charset=utf-8');
+  headers.set('cache-control','public, max-age=60, s-maxage=300');
+  const response=new Response(html,{status:original.status,headers});
+  if(cache)ctx?.waitUntil?.(cache.put(request,response.clone()));
+  return response;
+}
+
 export default {
   async fetch(request,env,ctx){
     const url=new URL(request.url);
     try{
-      if(url.pathname==='/api/events')return eventsApi(request,env);
+      if(url.pathname==='/api/events')return await eventsApi(request,env);
       if(url.pathname==='/api/travel')return json(await fetchTravel(),200,{'cache-control':'public, max-age=180, s-maxage=300'});
-      if(url.pathname==='/api/news')return contentApi(request,env,'music');
-      if(url.pathname==='/api/history')return contentApi(request,env,'history');
+      if(url.pathname==='/api/news')return await contentApi(request,env,'music');
+      if(url.pathname==='/api/history')return await contentApi(request,env,'history');
       if(url.pathname==='/api/sources')return statusApi(env);
       if(url.pathname==='/api/admin/refresh')return refreshApi(request,env,ctx);
       if(url.pathname==='/health')return json({ok:true,service:'panjabi-aa-gaye-oye',version:VERSION});
@@ -207,12 +247,13 @@ export default {
       if(url.pathname==='/sitemap.xml')return sitemapResponse(request,env);
       if(url.pathname.startsWith('/events/')&&url.pathname.length>'/events/'.length)return eventResponse(request,env,decodeURIComponent(url.pathname.slice('/events/'.length)).replace(/\/$/,''));
       if(url.pathname.startsWith('/history/')&&url.pathname.length>'/history/'.length)return articleResponse(request,env,ctx,decodeURIComponent(url.pathname.slice('/history/'.length)).replace(/\/$/,''));
-      if(url.pathname==='/weekend'||url.pathname==='/weekend/')return asset(env,request,'/weekend.html');
+      if(url.pathname==='/weekend'||url.pathname==='/weekend/')return await listPageResponse(request,env,ctx,'weekend');
       if(url.pathname==='/archive'||url.pathname==='/archive/')return asset(env,request,'/archive.html');
       if(url.pathname==='/travel'||url.pathname==='/travel/')return new Response(travelPageShell(),{headers:{'content-type':'text/html; charset=utf-8','cache-control':'public, max-age=3600'}});
-      if(url.pathname==='/news'||url.pathname==='/news/')return asset(env,request,'/news.html');
-      if(url.pathname==='/history'||url.pathname==='/history/')return asset(env,request,'/history.html');
+      if(url.pathname==='/news'||url.pathname==='/news/')return await listPageResponse(request,env,ctx,'news');
+      if(url.pathname==='/history'||url.pathname==='/history/')return await listPageResponse(request,env,ctx,'history');
       if(url.pathname==='/about-crawlers')return asset(env,request,'/about-crawlers.html');
+      if(url.pathname==='/'||url.pathname==='/index.html')return await listPageResponse(request,env,ctx,'home');
       return env.ASSETS.fetch(request);
     }catch(error){return json({error:'Request failed',detail:error.message},500,{'cache-control':'no-store'})}
   },

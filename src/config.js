@@ -176,8 +176,9 @@ export const NEWS_MAX_AGE_DAYS = 120;
 
 // History reading links. Each listing page is scanned for article links whose PATH matches
 // `pathPattern`; new articles are opened (a few per run) and read from their Open Graph tags.
-export const HISTORY_SOURCES = [
-];
+// The public history archive is the chronological arrival series written as reviewed GitHub issues.
+// External research sites belong in each article's Sources section, not as automatic story cards.
+export const HISTORY_SOURCES = [];
 
 export const SEATGEEK_SEARCHES = [
   { q:'Punjabi', country:'US', lat:47.6062, lon:-122.3321, meters:160934, region:'Seattle' },

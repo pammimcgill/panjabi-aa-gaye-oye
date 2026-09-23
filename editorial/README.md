@@ -5,7 +5,7 @@ Punjabis arrived in the Pacific Northwest and British Columbia (the site's name,
 "the Punjabis have arrived").
 
 ## How it works
-1. Every Monday morning (Pacific) a GitHub Action picks the next topic from `calendar.json`.
+1. Every Monday morning (Pacific) a GitHub Action picks the first unused North American arrival topic from `calendar.json`, in exact story order. Claude does not choose the topic.
    Timely topics come first (Vaisakhi in April, the Komagata Maru in May, Bellingham in September).
 2. It asks Claude to research the topic with web search and write a draft that follows `STYLE_GUIDE.md`.
 3. It opens a GitHub issue labeled `draft`. Drafts are invisible on the site.

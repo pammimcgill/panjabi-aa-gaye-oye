@@ -21,20 +21,19 @@ export function usedTopicIds(issues) {
   return new Set((issues || []).map(issue => readMarker(issue.body)).filter(Boolean));
 }
 
-// Timely topics for this week come first, then evergreen topics in calendar order. Topics marked
-// auto:false (sensitive, human-led) are never picked automatically. When every topic has been used
-// once, the cycle starts again.
+// The arrival series runs once, in calendar order. Claude never chooses the subject. Automatic
+// drafting is limited to the North American story (Pacific Northwest, British Columbia and the
+// United States). Panjab-wide and music topics remain available for a deliberate manual override.
+// Topics marked auto:false are always human-led.
 export function pickTopic(calendar, { week, used = new Set(), override = '' } = {}) {
   if (override) {
     const topic = calendar.find(t => t.id === override);
     if (!topic) throw new Error(`Unknown topic "${override}"`);
     return topic;
   }
-  const automatic = calendar.filter(t => t.auto !== false);
-  let pool = automatic.filter(t => !used.has(t.id));
-  if (!pool.length) pool = automatic;
-  const timely = pool.filter(t => t.weeks && week >= t.weeks[0] && week <= t.weeks[1]);
-  return timely[0] || pool.find(t => !t.weeks) || pool[0];
+  const arrivalRegions = new Set(['pnw', 'bc', 'usa']);
+  const automatic = calendar.filter(t => t.auto !== false && arrivalRegions.has(t.region));
+  return automatic.find(t => !used.has(t.id)) || null;
 }
 
 // ---------------------------------------------------------------- prompt
@@ -81,10 +80,11 @@ Write the article. Output ONLY these sections, each starting with the exact head
 }
 
 // ---------------------------------------------------------------- Claude API
-export async function callClaude(fetchImpl, { apiKey, model = DEFAULT_MODEL, system, user, maxSearches = 6 }) {
+export async function callClaude(fetchImpl, { apiKey, model = DEFAULT_MODEL, system, user, maxSearches = 6, maxAttempts = 7 }) {
   const messages = [{ role: 'user', content: user }];
   const blocks = [];
-  for (let turn = 0; turn < 8; turn++) {
+  let lastStopReason = 'unknown';
+  for (let turn = 0; turn < maxAttempts; turn++) {
     const response = await fetchImpl('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: { 'content-type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01' },
@@ -93,11 +93,19 @@ export async function callClaude(fetchImpl, { apiKey, model = DEFAULT_MODEL, sys
     });
     if (!response.ok) throw new Error(`Anthropic API HTTP ${response.status}: ${(await response.text?.().catch(() => '')) || ''}`.slice(0, 300));
     const data = await response.json();
+    lastStopReason = data.stop_reason || 'unknown';
     blocks.push(...(data.content || []));
-    if (data.stop_reason !== 'pause_turn') return blocks;
+    if (lastStopReason !== 'pause_turn') {
+      const hasText = blocks.some(block => block.type === 'text' && String(block.text || '').trim());
+      if (!hasText) {
+        const types = [...new Set(blocks.map(block => block.type || 'unknown'))].join(', ') || 'none';
+        throw new Error(`Anthropic returned no article text (stop_reason: ${lastStopReason}; content blocks: ${types})`);
+      }
+      return blocks;
+    }
     messages.push({ role: 'assistant', content: data.content });
   }
-  return blocks;
+  throw new Error(`Anthropic did not finish the web-search turn after ${maxAttempts} requests (last stop_reason: ${lastStopReason})`);
 }
 
 export const extractText = blocks => blocks.filter(b => b.type === 'text').map(b => b.text).join('');
@@ -230,6 +238,10 @@ export async function runWeekly({ env, fetchImpl = fetch, now = new Date(), log 
   let used = new Set();
   if (repo && token) used = usedTopicIds([...(await listIssues(fetchImpl, { repo, token, label: 'draft' })), ...(await listIssues(fetchImpl, { repo, token, label: 'history' }))]);
   const topic = pickTopic(calendar, { week: isoWeek(now), used, override: topicId });
+  if (!topic) {
+    log('Every automatic North American arrival topic has already been used. Nothing created.');
+    return { skipped: true, reason: 'calendar-complete' };
+  }
   log(`Topic: ${topic.title} (${topic.id})`);
 
   const { system, user } = buildPrompt(topic, { styleGuide, today: now });

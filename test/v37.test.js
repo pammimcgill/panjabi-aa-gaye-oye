@@ -25,7 +25,8 @@ test('the AI assistance field drives the reader note, and private notes never re
   const article = parseHistoryIssue(issue);
   assert.equal(article.aiAssisted, true);
   const html = articlePage(article, { origin: 'https://site.test' });
-  assert.match(html, /drafted with AI assistance/); assert.ok(!/SECRET EDITOR NOTE/.test(html));
+  assert.match(html, /<details class="ai-disclosure"><summary>About AI assistance<\/summary>/);
+  assert.match(html, /drafted with AI assistance using Claude/); assert.ok(!/SECRET EDITOR NOTE/.test(html));
   const plain = parseHistoryIssue({ ...issue, body: issue.body.replace(AI_OPTION, 'No AI used') });
   assert.equal(plain.aiAssisted, false); assert.ok(!/drafted with AI/.test(articlePage(plain, { origin: '' })));
 });
@@ -46,18 +47,17 @@ test('the calendar is well formed', () => {
   for (const id of ['partition-1947', 'nineteen-eighty-four']) assert.equal(calendar.find(t => t.id === id).auto, false);
 });
 
-test('timely topics come first, used topics are skipped, sensitive topics are never automatic', () => {
-  assert.equal(pickTopic(calendar, { week: 36 }).id, 'bellingham-1907');
-  assert.equal(pickTopic(calendar, { week: 21 }).id, 'komagata-maru-1914');
-  assert.notEqual(pickTopic(calendar, { week: 36, used: new Set(['bellingham-1907']) }).id, 'bellingham-1907');
-  for (let week = 1; week <= 53; week++) assert.ok(!['partition-1947', 'nineteen-eighty-four'].includes(pickTopic(calendar, { week }).id), `week ${week}`);
-  // an evergreen topic is preferred over an out-of-season one
-  assert.ok(!pickTopic(calendar, { week: 8 }).weeks);
+test('automatic topics follow the North American arrival timeline without anniversary jumps', () => {
+  assert.equal(pickTopic(calendar, { week: 36 }).id, 'diamond-jubilee-1897');
+  assert.equal(pickTopic(calendar, { week: 21 }).id, 'diamond-jubilee-1897');
+  assert.equal(pickTopic(calendar, { week: 36, used: new Set(['diamond-jubilee-1897']) }).id, 'early-bc-work');
+  const allowed = new Set(['pnw', 'bc', 'usa']);
+  for (let week = 1; week <= 53; week++) assert.ok(allowed.has(pickTopic(calendar, { week }).region), `week ${week}`);
 });
 
-test('once every topic has been used the cycle restarts; overrides work; unknown ids fail', () => {
+test('topics are used once; manual overrides work; unknown ids fail', () => {
   const all = new Set(calendar.map(t => t.id));
-  assert.ok(pickTopic(calendar, { week: 30, used: all }));
+  assert.equal(pickTopic(calendar, { week: 30, used: all }), null);
   assert.equal(pickTopic(calendar, { week: 1, override: 'partition-1947' }).id, 'partition-1947');
   assert.throws(() => pickTopic(calendar, { week: 1, override: 'nope' }), /Unknown topic/);
 });
@@ -172,14 +172,33 @@ test('the API loop continues after pause_turn and keeps the search results from 
   assert.equal(collectSearchResults(blocks).size, 3); assert.match(extractText(blocks), /### Summary/);
 });
 
-test('a weekly run opens a draft issue for the timely topic and never publishes it', async () => {
+test('the API loop can finish after more than four paused web-search turns', async () => {
+  const net = fakeNetwork({ anthropic: n => n <= 5
+    ? jsonResponse({ stop_reason: 'pause_turn', content: [searchBlocks[1]] })
+    : jsonResponse({ stop_reason: 'end_turn', content: [searchBlocks[2]] }) });
+  const blocks = await callClaude(net.fetchImpl, { apiKey: 'k', system: 's', user: 'u' });
+  assert.equal(net.calls.anthropic.length, 6);
+  assert.equal(net.calls.anthropic[0].max_tokens, 10000);
+  assert.equal(net.calls.anthropic[0].tools[0].max_uses, 6);
+  assert.match(extractText(blocks), /### Summary/);
+});
+
+test('the API loop reports the real stop reason when Claude returns no article text', async () => {
+  const net = fakeNetwork({ anthropic: () => jsonResponse({ stop_reason: 'max_tokens', content: [searchBlocks[1]] }) });
+  await assert.rejects(
+    callClaude(net.fetchImpl, { apiKey: 'k', system: 's', user: 'u' }),
+    /no article text.*stop_reason: max_tokens/
+  );
+});
+
+test('a weekly run opens a draft issue for the next chronological topic and never publishes it', async () => {
   const net = fakeNetwork({ anthropic: () => jsonResponse({ stop_reason: 'end_turn', content: searchBlocks }) });
   const logs = [];
   const result = await runWeekly({ env, fetchImpl: net.fetchImpl, now: day('2026-09-04'), calendar, styleGuide, log: m => logs.push(m) });
-  assert.equal(result.created, true); assert.equal(result.topic, 'bellingham-1907');
+  assert.equal(result.created, true); assert.equal(result.topic, 'diamond-jubilee-1897');
   assert.equal(net.calls.posts.length, 1);
   assert.deepEqual(net.calls.posts[0].labels, ['draft', 'ai-draft']); assert.ok(!net.calls.posts[0].labels.includes('history'));
-  assert.match(net.calls.posts[0].body, /topic: bellingham-1907/);
+  assert.match(net.calls.posts[0].body, /topic: diamond-jubilee-1897/);
   assert.match(logs.join('\n'), /3 confirmed sources, 1 unconfirmed removed/);
 });
 
