@@ -81,14 +81,14 @@ Write the article. Output ONLY these sections, each starting with the exact head
 }
 
 // ---------------------------------------------------------------- Claude API
-export async function callClaude(fetchImpl, { apiKey, model = DEFAULT_MODEL, system, user, maxSearches = 8 }) {
+export async function callClaude(fetchImpl, { apiKey, model = DEFAULT_MODEL, system, user, maxSearches = 6 }) {
   const messages = [{ role: 'user', content: user }];
   const blocks = [];
-  for (let turn = 0; turn < 4; turn++) {
+  for (let turn = 0; turn < 8; turn++) {
     const response = await fetchImpl('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: { 'content-type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01' },
-      body: JSON.stringify({ model, max_tokens: 6000, system, messages,
+      body: JSON.stringify({ model, max_tokens: 10000, system, messages,
         tools: [{ type: 'web_search_20250305', name: 'web_search', max_uses: maxSearches }] })
     });
     if (!response.ok) throw new Error(`Anthropic API HTTP ${response.status}: ${(await response.text?.().catch(() => '')) || ''}`.slice(0, 300));
