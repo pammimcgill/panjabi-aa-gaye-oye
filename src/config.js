@@ -177,8 +177,6 @@ export const NEWS_MAX_AGE_DAYS = 120;
 // History reading links. Each listing page is scanned for article links whose PATH matches
 // `pathPattern`; new articles are opened (a few per run) and read from their Open Graph tags.
 export const HISTORY_SOURCES = [
-  { key:'sikhri-history', name:'Sikh Research Institute', url:'https://sikhri.org/articles', type:'history', trusted:true, pathPattern:'^/(articles|videos|blog)/[^/]+' },
-  { key:'sikhri-panjab', name:'Sikh Research Institute', url:'https://sikhri.org/tags/punjab', type:'history', trusted:true, pathPattern:'^/(articles|videos|blog)/[^/]+' }
 ];
 
 export const SEATGEEK_SEARCHES = [
