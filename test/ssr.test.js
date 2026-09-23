@@ -6,6 +6,17 @@ import worker, { githubHeaders } from '../src/worker.js';
 import { renderEventSnapshot, renderStorySnapshot } from '../src/list-pages.js';
 
 const root = new URL('../public/', import.meta.url);
+const projectRoot = new URL('../', import.meta.url);
+
+test('Cloudflare invokes the Worker before serving crawlable list pages', async () => {
+  for (const file of ['wrangler.toml', 'wrangler.toml.example']) {
+    const config = await readFile(new URL(file, projectRoot), 'utf8');
+    assert.match(config, /run_worker_first\s*=\s*\[[^\]]*"\/"/);
+    for (const route of ['/weekend', '/history', '/news']) {
+      assert.ok(config.includes(`"${route}"`), `${file} must run the Worker first for ${route}`);
+    }
+  }
+});
 
 test('GitHub requests use the Worker secret when configured', () => {
   assert.equal(githubHeaders({ GITHUB_TOKEN: 'secret-value' }).authorization, 'Bearer secret-value');
