@@ -11,10 +11,12 @@ const projectRoot = new URL('../', import.meta.url);
 test('Cloudflare invokes the Worker before serving crawlable list pages', async () => {
   for (const file of ['wrangler.toml', 'wrangler.toml.example']) {
     const config = await readFile(new URL(file, projectRoot), 'utf8');
+    assert.match(config, /html_handling\s*=\s*"none"/);
     assert.match(config, /run_worker_first\s*=\s*\[[^\]]*"\/"/);
     for (const route of ['/weekend', '/history', '/news']) {
       assert.ok(config.includes(`"${route}"`), `${file} must run the Worker first for ${route}`);
     }
+    assert.ok(!config.includes('"/history/"'), `${file} must not contain a route made redundant by /history/*`);
   }
 });
 

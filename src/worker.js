@@ -6,7 +6,7 @@ import { eventPath, eventIdFromSlug, rowToEvent, dedupeEvents, moderationRulesFr
 import { fetchTravel, travelPageShell } from './travel.js';
 import { renderEventSnapshot, renderStorySnapshot, renderHomeHistorySnapshot } from './list-pages.js';
 
-const VERSION='3.9.4';
+const VERSION='3.9.5';
 const JSON_HEADERS={'content-type':'application/json; charset=utf-8','cache-control':'public, max-age=60, s-maxage=300'};
 
 function json(data,status=200,headers={}){return new Response(JSON.stringify(data),{status,headers:{...JSON_HEADERS,...headers}})}
