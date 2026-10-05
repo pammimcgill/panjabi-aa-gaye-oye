@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "issueNumber": 4,
+  "articleSlug": "4-1897-sikh-soldiers-see-british-columbia",
+  "articleTitle": "1897: Sikh soldiers see British Columbia",
+  "generatedAt": "2026-10-05T23:26:45.771Z",
+  "storyModel": "claude-sonnet-5",
+  "imageModel": "gpt-image-2.5-sunburst",
+  "subtitle": "Punjabi soldiers glimpse British Columbia during Queen Victoria's Jubilee year",
+  "intro": "A child flipping through an old photo album might wonder who these soldiers in turbans were, so far from home. Let's follow the story, page by page, just as historians have pieced it together.",
+  "pages": [
+    {
+      "title": "A Queen's Diamond Jubilee",
+      "caption": "In 1897, Queen Victoria celebrated sixty years as Queen with a huge Diamond Jubilee. Soldiers from across the British Empire, including Sikh soldiers, gathered in London for the celebrations.",
+      "scene": "A wide view of London's Hyde Park filled with rows of soldiers' tents under a cloudy sky, with flags of the empire fluttering; a present-day child studies an old photograph of the scene through a museum display glass.",
+      "number": 1
+    },
+    {
+      "title": "Soldiers bound for Canada",
+      "caption": "As part of the same jubilee celebrations, Sikh regiments that had marched in London's procession also traveled on to Canada. This was part of an empire-wide tour, not a plan to settle.",
+      "scene": "A large steamship crossing open ocean waters under a grey-blue sky, with faint silhouettes of uniformed soldiers standing on deck; in the corner, a child points at a map tracing a dotted line from Hong Kong to Canada.",
+      "number": 2
+    },
+    {
+      "title": "Landing at Vancouver",
+      "caption": "In May 1897, a group of cavalry officers, including a senior officer named Kesur Singh, sailed from Hong Kong to Vancouver aboard the ship Empress of India. He is remembered as the first Sikh person to reach Canada.",
+      "scene": "The Empress of India ship docked at a misty Vancouver harbor, with uniformed soldiers disembarking onto a wooden pier lined with onlookers; a child watches from behind a dock post, sketching the ship in a notebook.",
+      "number": 3
+    },
+    {
+      "title": "Which way were they going?",
+      "caption": "Historians don't fully agree on this part of the story. Some records say the soldiers were heading toward the Jubilee in London, while others say they passed through Canada afterward, on their way home.",
+      "scene": "A split illustration: on one side a ship sailing toward a glowing London skyline, on the other the same ship sailing toward snowy Canadian mountains, with a question mark drawn faintly between them on an old parchment map.",
+      "number": 4
+    },
+    {
+      "title": "A second visit, five years later",
+      "caption": "In 1902, another group of Punjabi soldiers came to British Columbia, this time for the coronation of King Edward VII. They arrived in Victoria aboard the Empress of Japan, led by an officer named Kadir Khan Bahadur. Some in the Sikh community later remembered that the mountains and valleys reminded the soldiers of Punjab, though this memory was passed down rather than written at the time.",
+      "scene": "The Empress of Japan ship arriving at Victoria's harbor with mountains and forested hills in the background resembling a distant Punjab landscape; a child stands nearby, comparing a photograph of Punjab's hills to the Canadian scenery.",
+      "number": 5
+    },
+    {
+      "title": "Not settlers, just yet",
+      "caption": "These soldiers were not immigrants — they were on duty for the empire. Real Punjabi settlement in British Columbia began later, starting in 1904, but the stories these soldiers carried home may have helped draw future travelers across the Pacific.",
+      "scene": "A quiet dock scene at dusk, the soldiers' ship sailing away into the horizon while a small group of future-looking figures (unnamed, generic) stand on the shore facing the sea; a child closes a scrapbook labeled 'Where it all began.'",
+      "number": 6
+    }
+  ]
+}
