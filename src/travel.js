@@ -34,7 +34,7 @@ export async function fetchTravel(fetchImpl = fetch) {
     ['WSDOT border crossings', 'https://wsdot.wa.gov/traffic/api/BorderCrossings/rss.aspx', 'rss']
   ];
   const settled = await Promise.allSettled(sources.map(async ([name, url, type]) => {
-    const response = await fetchImpl(url, { headers: { accept: type === 'json' ? 'application/json' : 'application/rss+xml, application/xml;q=0.9', 'user-agent': 'PanjabiAaGayeOyeBot/3.9 (+https://panjabiaagayeoye.com/about-crawlers)' }, cf: { cacheEverything: true, cacheTtl: 300 } });
+    const response = await fetchImpl(url, { headers: { accept: type === 'json' ? 'application/json' : 'application/rss+xml, application/xml;q=0.9', 'user-agent': 'PanjabiAaGayeOyeBot/3.9.6 (+https://panjabiaagayeoye.com/about-crawlers)' }, cf: { cacheEverything: true, cacheTtl: 300 } });
     if (!response.ok) throw new Error(`${name} HTTP ${response.status}`);
     return type === 'json' ? parseDriveBc(await response.json()) : parseWsdotRss(await response.text(), name);
   }));
@@ -43,6 +43,46 @@ export async function fetchTravel(fetchImpl = fetch) {
   return { items, errors, sources: TRAVEL_SOURCES, generatedAt: new Date().toISOString() };
 }
 
-export function travelPageShell() {
-  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#fff6df"><title>Seattle–Vancouver Travel — Panjabi Aa Gaye Oye</title><meta name="description" content="Official road closures, highway alerts and border travel links for trips between Seattle and Vancouver."><link rel="stylesheet" href="/styles.css"></head><body><header class="site-header"><a class="brand-wrap" href="/"><div class="logo-mark">ਪੰ</div><div class="brand">PANJABI <span>AA GAYE OYE</span></div></a><nav class="nav" aria-label="Main navigation"><a href="/">Events</a><a href="/weekend">Weekend</a><a class="active" href="/travel">Travel</a><a href="/history">History</a><a href="/news">Music News</a></nav></header><main class="shell"><section class="hero compact"><div class="eyebrow">✈ Seattle to Vancouver</div><h1>Know before<br><em>you go.</em></h1><p class="subhead">Official road closures, incidents and border resources for event trips along the I-5 and Lower Mainland corridor.</p></section><div class="editorial-note"><strong>Check again before leaving.</strong> Conditions can change quickly. This page summarizes official feeds; the agency links remain the authoritative source.</div><section class="section"><div class="section-head"><div><div class="eyebrow small">Live travel board</div><h2>Current advisories</h2></div><div id="travelUpdated" class="count"></div></div><div id="travelSources" class="travel-sources"></div><div id="loadingState" class="loading">Checking WSDOT and DriveBC…</div><div id="errorState" class="error hidden"></div><div id="travelGrid" class="travel-grid"></div></section></main><footer class="shell"><a class="brand-wrap" href="/"><div class="logo-mark">ਪੰ</div><div class="brand">PANJABI <span>AA GAYE OYE</span></div></a><p>Official links · current conditions · safer event travel</p></footer><script type="module">import{mountTravel}from'/app.js';mountTravel();</script></body></html>`;
+const safeHttps = value => {
+  try {
+    const url = new URL(String(value || ''));
+    return url.protocol === 'https:' ? url.href : '';
+  } catch { return ''; }
+};
+
+const formatUpdated = value => {
+  try {
+    return new Intl.DateTimeFormat('en-US', {
+      month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/Los_Angeles', timeZoneName: 'short'
+    }).format(new Date(value));
+  } catch { return ''; }
+};
+
+export function travelCardHtml(item = {}) {
+  const href = safeHttps(item.url);
+  return `<article class="travel-card ${item.severity === 'major' ? 'major' : ''}"><div class="eyebrow small">${esc(item.source || 'Official feed')} · ${esc(item.severity || 'notice')}</div><h2>${esc(item.title || 'Travel advisory')}</h2>${item.road ? `<strong>${esc(item.road)}</strong>` : ''}<p>${esc(item.description || 'Open the official advisory for current details.')}</p>${href ? `<a class="card-link" href="${esc(href)}" target="_blank" rel="noopener noreferrer">Open official advisory ↗</a>` : ''}</article>`;
+}
+
+export function travelPageShell(data = null, { origin = 'https://panjabiaagayeoye.com' } = {}) {
+  const canonical = `${String(origin).replace(/\/$/, '')}/travel`;
+  const items = Array.isArray(data?.items) ? data.items : [];
+  const sources = Array.isArray(data?.sources) ? data.sources : TRAVEL_SOURCES;
+  const errors = Array.isArray(data?.errors) ? data.errors : [];
+  const majorCount = items.filter(item => item.severity === 'major').length;
+  const sourceHtml = sources.map(source => {
+    const href = safeHttps(source.url);
+    return href ? `<a href="${esc(href)}" target="_blank" rel="noopener noreferrer">${esc(source.name)} ↗</a>` : '';
+  }).join('');
+  const cardsHtml = data
+    ? (items.map(travelCardHtml).join('') || '<div class="empty">No corridor advisories were returned. Check the official maps above before leaving.</div>')
+    : '';
+  const updated = formatUpdated(data?.generatedAt);
+  const summary = data
+    ? `${items.length} active corridor ${items.length === 1 ? 'notice' : 'notices'} are shown${majorCount ? `, including ${majorCount} marked major` : ''}. The board combines WSDOT highway and border feeds with DriveBC incidents for people travelling to events between Greater Seattle and Metro Vancouver.`
+    : 'This board combines WSDOT highway and border feeds with DriveBC incidents for people travelling to events between Greater Seattle and Metro Vancouver.';
+  const structured = JSON.stringify({
+    '@context': 'https://schema.org', '@type': 'WebPage', name: 'Seattle–Vancouver Event Travel and Border Advisories',
+    description: summary, url: canonical, ...(data?.generatedAt ? { dateModified: data.generatedAt } : {})
+  }).replace(/</g, '\\u003c');
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#fff6df"><title>Seattle–Vancouver Event Travel &amp; Border Advisories — Panjabi Aa Gaye Oye</title><meta name="description" content="Current I-5, border and Lower Mainland travel advisories for Punjabi and South Asian event trips between Seattle and Vancouver."><link rel="canonical" href="${esc(canonical)}"><meta property="og:title" content="Seattle–Vancouver Event Travel &amp; Border Advisories"><meta property="og:description" content="A current event-travel briefing built from WSDOT and DriveBC feeds."><meta property="og:url" content="${esc(canonical)}"><meta property="og:type" content="website"><link rel="stylesheet" href="/styles.css"><script type="application/ld+json">${structured}</script></head><body><header class="site-header"><a class="brand-wrap" href="/"><div class="logo-mark">ਪੰ</div><div class="brand">PANJABI <span>AA GAYE OYE</span></div></a><nav class="nav" aria-label="Main navigation"><a href="/">Events</a><a href="/weekend">Weekend</a><a class="active" href="/travel">Travel</a><a href="/history">History</a><a href="/news">Music News</a></nav></header><main class="shell"><section class="hero compact"><div class="eyebrow">✈ Seattle to Vancouver</div><h1>Know before<br><em>you go.</em></h1><p class="subhead">Current road closures, incidents and border resources for event trips along the I-5 and Lower Mainland corridor.</p></section><section class="travel-briefing"><div class="eyebrow small">Panjabi Aa Gaye Oye event-trip briefing</div><h2>What may affect the drive</h2><p>${esc(summary)}</p></section><div class="editorial-note"><strong>Check again before leaving.</strong> Conditions can change quickly. This page organizes official feeds for event travellers; use the linked agency notice for final routing and safety decisions.</div><section class="section"><div class="section-head"><div><div class="eyebrow small">Live travel board</div><h2>Current advisories</h2></div><div id="travelUpdated" class="count">${updated ? `Updated ${esc(updated)}` : ''}</div></div><div id="travelSources" class="travel-sources">${sourceHtml}</div><div id="loadingState" class="loading${data ? ' hidden' : ''}">Checking WSDOT and DriveBC…</div><div id="errorState" class="error${errors.length ? '' : ' hidden'}">${esc(errors.join(' · '))}</div><div id="travelGrid" class="travel-grid">${cardsHtml}</div></section></main><footer class="shell"><a class="brand-wrap" href="/"><div class="logo-mark">ਪੰ</div><div class="brand">PANJABI <span>AA GAYE OYE</span></div></a><p>Current corridor briefing · official source links · safer event travel</p></footer><script type="module">import{mountTravel}from'/app.js';mountTravel();</script></body></html>`;
 }

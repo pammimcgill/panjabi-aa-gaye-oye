@@ -12,6 +12,12 @@ body:
     validations:
       required: true
   - type: textarea
+    id: kids_summary
+    attributes:
+      label: Kids summary
+      description: Optional. Explain this story in one or two accurate sentences for ages 8–13. If blank, the regular Summary is used.
+      placeholder: What happened, why it mattered, and how it changed the arrival story—using clear, gentle language.
+  - type: textarea
     id: article
     attributes:
       label: Article
@@ -48,6 +54,36 @@ body:
     attributes:
       label: Cover image URL
       description: Optional. An https link to an image you have the right to use.
+  - type: input
+    id: historical_image
+    attributes:
+      label: Historical image URL
+      description: Optional. Direct https image address from Wikimedia Commons, an archive or another reusable source.
+  - type: input
+    id: historical_caption
+    attributes:
+      label: Historical image caption
+      description: Optional. Identify the person, place or document and its date without adding unsupported claims.
+  - type: input
+    id: historical_credit
+    attributes:
+      label: Historical image credit
+      description: Optional. Photographer, creator or "Unknown photographer," exactly as the source gives it.
+  - type: input
+    id: historical_source
+    attributes:
+      label: Historical image source URL
+      description: Link to the file-description or archive-record page where readers can verify provenance and reuse rights.
+  - type: input
+    id: historical_license
+    attributes:
+      label: Historical image license
+      description: For example "Public domain" or "CC BY-SA 4.0." Copy the wording from the source page.
+  - type: input
+    id: historical_license_url
+    attributes:
+      label: Historical image license URL
+      description: Optional. Link to the public-domain mark or Creative Commons licence.
   - type: dropdown
     id: ai_assistance
     attributes:

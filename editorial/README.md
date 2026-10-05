@@ -40,7 +40,8 @@ Paste this into a chat, with web search on:
 > Write a history article for Panjabi Aa Gaye Oye about: **TOPIC**. Follow the attached style guide.
 > Search the web and use at least three reputable sources. Do not invent quotations or facts. Where
 > sources disagree, give the range. Output only these sections with these exact headings: Summary,
-> Article, Sources (a list of links), Topics, Verification notes.
+> Kids summary (one or two accurate sentences for ages 8–13), Article, Sources (a list of links),
+> Topics, Year, Verification notes.
 
 Then paste the sections into the History issue form and review them the same way.
 

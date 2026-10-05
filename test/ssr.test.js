@@ -13,7 +13,7 @@ test('Cloudflare invokes the Worker before serving crawlable list pages', async 
     const config = await readFile(new URL(file, projectRoot), 'utf8');
     assert.match(config, /html_handling\s*=\s*"none"/);
     assert.match(config, /run_worker_first\s*=\s*\[[^\]]*"\/"/);
-    for (const route of ['/weekend', '/history', '/news']) {
+    for (const route of ['/weekend', '/travel', '/history', '/news', '/sitemap.xml']) {
       assert.ok(config.includes(`"${route}"`), `${file} must run the Worker first for ${route}`);
     }
     assert.ok(!config.includes('"/history/"'), `${file} must not contain a route made redundant by /history/*`);
@@ -23,6 +23,12 @@ test('Cloudflare invokes the Worker before serving crawlable list pages', async 
 test('GitHub requests use the Worker secret when configured', () => {
   assert.equal(githubHeaders({ GITHUB_TOKEN: 'secret-value' }).authorization, 'Bearer secret-value');
   assert.equal(githubHeaders({}).authorization, undefined);
+});
+
+test('the dedicated kids comic route is served as a static page, not mistaken for an article slug', async () => {
+  const env = { ASSETS: { fetch: async request => new Response(new URL(request.url).pathname) } };
+  const response = await worker.fetch(new Request('https://site.test/history/kids'), env, { waitUntil() {} });
+  assert.equal(await response.text(), '/history-kids.html');
 });
 
 test('event snapshots expose the first 16 safe event links without JavaScript', async () => {
@@ -49,7 +55,7 @@ test('history and news snapshots contain crawlable cards and safe outbound links
   const own = { title: 'First arrivals', dek: 'A sourced story.', url: '/history/7-first-arrivals', internal: true, source: 'Panjabi Aa Gaye Oye', topics: ['Arrival'], minutes: 4, year: 1897, chapterNumber: 2, chapter: 'The first arrivals', chapterSpan: '1897–1907', publishedAt: '2026-09-20T00:00:00Z' };
   const second = { ...own, title: 'Second story', url: '/history/8-second', year: 1905 };
   const history = renderStorySnapshot(historyShell, [own, second]);
-  assert.match(history, /Chapter 2/);
+  assert.doesNotMatch(history, /Chapter 2|chapter-head/);
   assert.match(history, /href="\/history\/7-first-arrivals"/);
   assert.match(history, /2 stories/);
   const news = renderStorySnapshot(newsShell, [{ ...own, internal: false, title: 'Music headline', url: 'https://publisher.example/story', source: 'Publisher' }], { news: true });

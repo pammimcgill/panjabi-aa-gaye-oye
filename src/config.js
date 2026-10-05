@@ -151,6 +151,9 @@ export const EVENT_SOURCES = [
   { key:'auburn-pac', name:'Auburn Performing Arts Center', type:'venue', region:'Seattle', city:'Auburn', url:'https://www.auburn.wednet.edu/district-departments/theatres/auburn-performing-arts-center-apac/auburn-performing-arts-center-calendar-of-events', group:'venues-seattle' },
   { key:'federal-way-paec', name:'Federal Way Performing Arts & Event Center', type:'venue', region:'Seattle', city:'Federal Way', url:'https://fwpaec.org/events/', group:'venues-seattle' },
   { key:'showare', name:'accesso ShoWare Center', type:'venue', region:'Seattle', city:'Kent', url:'https://www.accessoshowarecenter.com/p/events-and-tickets', group:'venues-seattle' },
+  { key:'rainier-arts-center', name:'Rainier Arts Center', type:'venue', region:'Seattle', city:'Seattle', url:'https://rainierartscenter.org/events/', group:'venues-seattle' },
+  { key:'tacoma-comedy-club', name:'Tacoma Comedy Club', type:'venue', region:'Seattle', city:'Tacoma', url:'https://www.tacomacomedyclub.com/events', group:'venues-tacoma' },
+  { key:'super-funny-comedy-club', name:"Nate Jackson's Super Funny Comedy Club", type:'venue', region:'Seattle', city:'Tacoma', url:'https://superfunnycomedyclub.com/events/', group:'venues-tacoma' },
   { key:'ticketleader', name:'TicketLeader Vancouver', type:'venue', region:'Vancouver', city:'Vancouver', url:'https://www.ticketleader.ca/events/', group:'venues-vancouver' },
   { key:'bell', name:'Bell Performing Arts Centre', type:'venue', region:'Vancouver', city:'Surrey', url:'https://tickets.bellperformingartscentre.com/TheatreManager/1/online', group:'venues-vancouver' },
   { key:'vct', name:'Vancouver Civic Theatres', type:'venue', region:'Vancouver', city:'Vancouver', url:'https://vancouvercivictheatres.com/events/', group:'venues-vancouver' },
@@ -215,10 +218,10 @@ export const EVENTBRITE_SEARCH_URLS = [
 // Refresh schedule
 // ---------------------------------------------------------------------------
 // The cron fires every 20 minutes and each run collects ONE group, which keeps every run well
-// inside Cloudflare's per-run request limit. All groups are refreshed about every 3 hours 40 minutes.
+// inside Cloudflare's per-run request limit. All groups are refreshed about every 4 hours.
 export const REFRESH_GROUPS = [
   'tickets-core','tickets-artists-a','tickets-artists-b','tickets-comedy-a','tickets-comedy-b',
-  'venues-seattle','venues-vancouver','religious','marketplaces','community','editorial'
+  'venues-seattle','venues-tacoma','venues-vancouver','religious','marketplaces','community','editorial'
 ];
 export const REFRESH_SLOT_MS = 20 * 60 * 1000;
 

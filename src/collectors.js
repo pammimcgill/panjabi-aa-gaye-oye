@@ -8,7 +8,7 @@ import {
   parseFeed, extractOpenGraph, safeDate, stableId
 } from './parsers.js';
 
-const UA='PanjabiAaGayeOyeBot/3.9 (+https://panjabiaagayeoye.com/about-crawlers)';
+const UA='PanjabiAaGayeOyeBot/3.10.2 (+https://panjabiaagayeoye.com/about-crawlers)';
 
 // Cloudflare limits how many outbound requests one Worker run may make (50 on the free plan).
 // Every run only collects one group of sources and stops at this budget. Raise FETCH_BUDGET

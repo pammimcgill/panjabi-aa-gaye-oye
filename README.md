@@ -1,6 +1,117 @@
-# Panjabi Aa Gaye Oye — Event & Culture Hub v3.9
+# Panjabi Aa Gaye Oye — Event & Culture Hub v3.11.0
 
 This Cloudflare Worker package extends the existing Seattle event calendar into a Seattle–Vancouver culture hub.
+
+## v3.11.0 reviewed comic automation
+
+Published history articles can now receive their own optional six-page kids’ comic without making the main History page busy.
+
+- Add the label **`make-comic`** to an open issue that already has the **`history`** label.
+- GitHub Actions first runs every test. Claude then adapts only the published article into a six-page child-friendly storyboard; it does not search for or add new facts.
+- OpenAI generates six landscape illustrations using the existing orange-turban child as the recurring-character reference.
+- Lettering is never generated inside the artwork. Titles and captions remain safe, editable HTML.
+- The automation opens a pull request for review. It never publishes the comic by itself. Merging the pull request publishes it through the normal deploy workflow.
+- Once published, the article links to `/history/<article-slug>/kids`. The simple `/history` article list remains unchanged.
+- An existing comic is not regenerated accidentally, preventing duplicate API charges. A deliberate replacement requires the manual workflow’s **force** option.
+
+### One-time comic setup
+
+1. In GitHub, open **Settings → Secrets and variables → Actions**. Under **Repository secrets**, confirm all three names exist:
+   - `ANTHROPIC_API_KEY`
+   - `OPENAI_API_KEY`
+   - `GITHUB_TOKEN` is supplied automatically by GitHub Actions; do not paste either AI key into a file.
+2. Under **Settings → Actions → General → Workflow permissions**, choose **Read and write permissions** and enable **Allow GitHub Actions to create and approve pull requests**. Save.
+3. In **Issues → Labels**, create `make-comic` if it does not already exist.
+4. Push this package to `main`. The new **Make kids comic** workflow will appear under Actions.
+
+### Make a comic for an article
+
+1. Open the published history issue.
+2. Confirm it has the `history` label and that you have reviewed the article’s dates, claims, quotations and sources.
+3. Add the `make-comic` label. That is the only trigger needed.
+4. Wait for **Actions → Make kids comic** to finish. The issue receives a comment linking to a review pull request.
+5. Open the pull request and check all six pictures and captions. If anything is inaccurate, do not merge it.
+6. When everything is correct, choose **Merge pull request**. The normal deploy Action publishes the article-specific comic.
+
+Each run makes one Claude storyboard request and six OpenAI image-edit requests. OpenAI usage is visible at [platform.openai.com/usage](https://platform.openai.com/usage); Anthropic usage is visible in the Anthropic Console. The workflow uses `gpt-image-2.5-sunburst` at medium quality by default. You can set the repository variable `OPENAI_IMAGE_MODEL` to a compatible image model if needed.
+
+To remake a comic that is already on `main`, open **Actions → Make kids comic → Run workflow**, enter the issue number, and check **force**. This intentionally spends for six new images and creates another review pull request.
+
+## v3.10.2 simpler history page
+
+- The main History page is now only a clean chronological list of published articles.
+- The seven-chapter roadmap and its “Story so far / Newest first” controls are removed from the main page.
+- The kids comic is no longer promoted at the top. A small optional link appears after the article list.
+- The six-page flipbook remains available only at `/history/kids`.
+
+## v3.10.1 simplified history page
+
+- Restores `/history` to the simpler chronological article archive. The seven-stop children's timeline and full comic no longer compete with the main history list.
+- Adds one small **Open the kids’ comic** link on the History page. The six-page swipeable comic now lives by itself at `/history/kids`.
+- Removes the decorative religious symbol from both the History design and the homepage history preview.
+- Reduces the event map from 460 to 300 pixels high on larger screens and from 360 to 240 pixels on phones.
+- The dedicated comic remains fully readable by crawlers and is included in the sitemap.
+- No database migration is required.
+
+## v3.10.0 page-turning kids’ history and archive photographs
+
+- Replaces the dense six-panel **Why They Left** sheet with six separate illustrated pages. Children can use Previous/Next, page dots, keyboard arrows or a horizontal swipe.
+- The illustrations contain no generated lettering. Exact titles, captions and image descriptions are real HTML, which keeps them readable, searchable, accessible and easy to correct.
+- Every comic page remains present in the server HTML so crawlers can read the complete story without executing JavaScript.
+- History issues can now add one historical photograph with caption, creator credit, original file/record link, licence name and licence link. Article pages display all of that information together beneath the image.
+- For Wikimedia Commons, use the direct image URL for **Historical image URL** and the Commons file-description page for **Historical image source URL**. Copy the credit and licence exactly from that page; never assume every Wikipedia image is reusable.
+- No database migration is required.
+
+**Kesur Singh example**
+
+The Commons file page identifies the portrait as an unknown photographer's image published in *The Navy and Army Illustrated* on 10 December 1897 and marks the scan as public domain. Paste the original image address into **Historical image URL**, that file page into **Historical image source URL**, `Unknown photographer` into **Historical image credit**, and `Public domain` into **Historical image license**.
+
+## v3.9.9 Tacoma stand-up comedy sources
+
+- Adds the official Tacoma Comedy Club calendar and Nate Jackson's Super Funny Comedy Club calendar.
+- Both are focused venue sources. The collector follows recognized South Asian comedians and cultural terms, but rejects unrelated acts and general club listings.
+- Russell Peters is already in the recognized comedian list, so a listing bearing his name is kept and categorized as comedy.
+- Tacoma has its own `venues-tacoma` refresh group. This keeps both clubs inside Cloudflare's free-plan request budget; all 12 groups now complete a rotation in about four hours.
+- No database migration is required.
+
+## v3.9.8 Rainier Arts Center
+
+- Adds the official Rainier Arts Center event calendar to the rotating `venues-seattle` collection group.
+- Rainier remains a focused venue source, not a trusted all-events source. Recognized South Asian performers and cultural terms are kept; unrelated meetings, rentals and general venue events are rejected.
+- Current comedian matching already includes Gurleen Pannu and Jaspreet Singh, and qualifying listings are categorized as stand-up comedy.
+- The Seattle venue group remains within the Cloudflare free-plan request budget.
+- No database migration is required.
+
+## v3.9.7 kids’ visual history
+
+- `/history` now begins with a colourful seven-stop story line for families and classrooms (roughly ages 8–13), followed by the complete archive on the same page.
+- The journey starts with the reasons people left Panjab, continues through the first documented arrivals, exclusion and family separation, and ends with the communities here today.
+- Published history articles automatically appear under the correct visual stop according to their **Year**. Each card opens the complete source-backed article.
+- The History issue form has an optional **Kids summary**. Older articles need no editing: their regular Summary is used until a kids summary is added.
+- Future Claude drafts include a child-friendly summary, but it must stay within the sourced article and cannot simplify away uncertainty.
+- The seven-stop explanation and published article cards are server-rendered, so children, schools and search crawlers do not need JavaScript to read them.
+- No database migration is required.
+
+## v3.9.6 event map and search visibility
+
+- The homepage and **Happening this weekend** page now have an interactive OpenStreetMap map. Markers group events by city and open links to the site's own permanent event pages. The map uses city centres because many source listings do not supply trustworthy coordinates; the event page keeps the exact venue and directions.
+- Search, category and region filters update the map and event list together. If the map service is unavailable, every event remains usable in the list.
+- The map is a JavaScript enhancement, not the content source. The Worker still server-renders the first event cards so crawlers, link-preview tools and people without JavaScript can read them.
+- `/travel` now server-renders its current WSDOT and DriveBC briefing, source links, canonical URL and social metadata. Crawlers no longer receive only “Checking WSDOT and DriveBC…”.
+- `/sitemap.xml` explicitly includes Weekend, Travel, Archive, every published history article and every visible current or archived event page, with duplicates removed.
+- No database migration or map API key is required.
+
+**Deploy this update on a Mac**
+
+```sh
+cd ~/Downloads/panjabi-aa-gaye-oye-v3.10.2-clean-history
+npm install
+npm test
+npx wrangler deploy
+curl -s https://panjabiaagayeoye.com/health
+```
+
+The final command should show `"version":"3.10.2"`. Cloudflare Worker secrets already attached to the existing Worker remain in place. Do not create a new Worker name. If GitHub Actions normally deploys the site, copy these files into the existing Git repository, commit and push instead; the included workflow runs the tests before deployment.
 
 ## v3.9 smarter duplicate screening
 
@@ -109,7 +220,7 @@ Fewer routine Gurdwara listings, more DJ and comedy events:
   parking pass or VIP package is refused.
 - **DJ names.** DJ Sats, DJ Prashant, DJ Tejas and a few others seen on Seattle Bollywood nights are
   recognized in titles.
-- **Schedule:** the cron is now every 20 minutes across 11 groups (about 3 hours 40 minutes per cycle). Change
+- **Schedule:** the cron is now every 20 minutes across 12 groups (about 4 hours per cycle). Change
   `crons` in `wrangler.toml` before deploying; run the new groups once with the loop under "Upgrading from 3.3".
 
 ## v3.5 news and history
@@ -170,7 +281,7 @@ Why events were missing, and what changed:
   database reject a whole batch of events. Events now update in place, and one bad row cannot hide the rest.
 - **Rotating refresh.** The cron runs every 20 minutes and each run collects one group of sources, so a run
   never exceeds Cloudflare's request limit even with the extra searches. Every group refreshes about every
-  3 hours 40 minutes.
+  4 hours.
 - **A health panel that explains itself.** Each source now says whether it needs setup, is blocked, loaded a
   page with no event data, or found listings that were all screened out (with examples).
 

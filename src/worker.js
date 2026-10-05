@@ -6,7 +6,7 @@ import { eventPath, eventIdFromSlug, rowToEvent, dedupeEvents, moderationRulesFr
 import { fetchTravel, travelPageShell } from './travel.js';
 import { renderEventSnapshot, renderStorySnapshot, renderHomeHistorySnapshot } from './list-pages.js';
 
-const VERSION='3.9.5';
+const VERSION='3.11.0';
 const JSON_HEADERS={'content-type':'application/json; charset=utf-8','cache-control':'public, max-age=60, s-maxage=300'};
 
 function json(data,status=200,headers={}){return new Response(JSON.stringify(data),{status,headers:{...JSON_HEADERS,...headers}})}
@@ -85,7 +85,7 @@ async function githubHistoryArticles(env,limit=30){
 }
 
 function historyListItem(a){
-  return {id:a.id,title:a.title,dek:a.dek,url:`/history/${a.slug}`,internal:true,imageUrl:a.imageUrl,source:'Panjabi Aa Gaye Oye',author:a.byline,publishedAt:a.publishedAt,featured:a.featured,topics:a.topics,minutes:a.minutes,year:a.year,chapter:a.chapter.name,chapterNumber:a.chapter.n,chapterSpan:a.chapter.span};
+  return {id:a.id,title:a.title,dek:a.dek,kidsDek:a.kidsDek,url:`/history/${a.slug}`,internal:true,imageUrl:a.imageUrl,source:'Panjabi Aa Gaye Oye',author:a.byline,publishedAt:a.publishedAt,featured:a.featured,topics:a.topics,minutes:a.minutes,year:a.year,chapter:a.chapter.name,chapterNumber:a.chapter.n,chapterSpan:a.chapter.span};
 }
 
 function tally(items,pick){
@@ -135,9 +135,33 @@ async function articleResponse(request,env,ctx,slug){
   const others=(await githubHistoryArticles(env,50)).filter(x=>x.number!==number);
   const distance=x=>article.year&&x.year?Math.abs(x.year-article.year):Infinity;
   const more=others.sort((a,b)=>distance(a)-distance(b)||new Date(b.publishedAt)-new Date(a.publishedAt)).slice(0,3).map(historyListItem);
-  const page=html(articlePage(article,{origin,more}));
+  const comicAvailable=await comicAssetExists(env,request,article.slug);
+  const page=html(articlePage(article,{origin,more,comicAvailable}));
   if(cache)ctx.waitUntil(cache.put(request,page.clone()));
   return page;
+}
+
+async function comicResponse(request,env,slug){
+  const html=(body,status=200)=>new Response(body,{status,headers:{'content-type':'text/html; charset=utf-8','cache-control':status===200?'public, max-age=300':'no-store'}});
+  const number=articleNumber(slug),repo=githubRepoOf(env);
+  if(!number||!repo)return html(notFoundPage(),404);
+  let response;
+  try{response=await fetch(`https://api.github.com/repos/${repo}/issues/${number}`,{headers:githubHeaders(env),cf:{cacheEverything:true,cacheTtl:300}});}
+  catch{return html(notFoundPage(),503);}
+  if(!response.ok)return html(notFoundPage(),response.status===404||response.status===410?404:503);
+  const issue=await response.json();
+  if(!isHistoryIssue(issue))return html(notFoundPage(),404);
+  const article=parseHistoryIssue(issue);
+  const origin=String(env.SITE_ORIGIN||new URL(request.url).origin).replace(/\/$/,'');
+  if(slug!==article.slug)return Response.redirect(`${origin}/history/${article.slug}/kids`,301);
+  const page=await asset(env,request,`/history-comics/generated/${article.slug}/index.html`);
+  if(!page.ok)return html('<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Comic not ready</title><body style="font-family:Georgia,serif;max-width:560px;margin:12vh auto;padding:0 22px;line-height:1.6"><h1>This comic is not ready yet</h1><p>The full sourced article is available now.</p><p><a href="/history/'+article.slug+'">← Read the article</a></p></body></html>',404);
+  return page;
+}
+
+async function comicAssetExists(env,request,slug){
+  if(!env.ASSETS?.fetch)return false;
+  try{return (await asset(env,request,`/history-comics/generated/${slug}/index.html`)).ok;}catch{return false;}
 }
 
 async function sitemapResponse(request,env){
@@ -148,7 +172,18 @@ async function sitemapResponse(request,env){
     const events=dedupeEvents((rows.results||[]).map(rowToEvent));
     const rules=moderationRulesFromIssues(await githubIssuesByLabel(env,'event-hide'));
     eventPaths=applyModeration(events,rules).visible.map(eventPath);}
-  return new Response(sitemapXml(origin,articles,eventPaths),{headers:{'content-type':'application/xml; charset=utf-8','cache-control':'public, max-age=3600'}});
+  const comicPaths=(await Promise.all(articles.map(async article=>(await comicAssetExists(env,request,article.slug))?`/history/${article.slug}/kids`:null))).filter(Boolean);
+  return new Response(sitemapXml(origin,articles,[...eventPaths,...comicPaths]),{headers:{'content-type':'application/xml; charset=utf-8','cache-control':'public, max-age=3600'}});
+}
+
+async function travelPageResponse(request,env){
+  const origin=String(env.SITE_ORIGIN||new URL(request.url).origin).replace(/\/$/,'');
+  try{
+    const data=await fetchTravel();
+    return new Response(travelPageShell(data,{origin}),{headers:{'content-type':'text/html; charset=utf-8','cache-control':'public, max-age=60, s-maxage=300'}});
+  }catch{
+    return new Response(travelPageShell(null,{origin}),{headers:{'content-type':'text/html; charset=utf-8','cache-control':'public, max-age=30'}});
+  }
 }
 
 async function statusApi(env){
@@ -246,10 +281,13 @@ export default {
       }
       if(url.pathname==='/sitemap.xml')return sitemapResponse(request,env);
       if(url.pathname.startsWith('/events/')&&url.pathname.length>'/events/'.length)return eventResponse(request,env,decodeURIComponent(url.pathname.slice('/events/'.length)).replace(/\/$/,''));
+      if(url.pathname==='/history/kids'||url.pathname==='/history/kids/')return asset(env,request,'/history-kids.html');
+      const comicMatch=url.pathname.match(/^\/history\/([^/]+)\/kids\/?$/);
+      if(comicMatch)return comicResponse(request,env,decodeURIComponent(comicMatch[1]));
       if(url.pathname.startsWith('/history/')&&url.pathname.length>'/history/'.length)return articleResponse(request,env,ctx,decodeURIComponent(url.pathname.slice('/history/'.length)).replace(/\/$/,''));
       if(url.pathname==='/weekend'||url.pathname==='/weekend/')return await listPageResponse(request,env,ctx,'weekend');
       if(url.pathname==='/archive'||url.pathname==='/archive/')return asset(env,request,'/archive.html');
-      if(url.pathname==='/travel'||url.pathname==='/travel/')return new Response(travelPageShell(),{headers:{'content-type':'text/html; charset=utf-8','cache-control':'public, max-age=3600'}});
+      if(url.pathname==='/travel'||url.pathname==='/travel/')return await travelPageResponse(request,env);
       if(url.pathname==='/news'||url.pathname==='/news/')return await listPageResponse(request,env,ctx,'news');
       if(url.pathname==='/history'||url.pathname==='/history/')return await listPageResponse(request,env,ctx,'history');
       if(url.pathname==='/about-crawlers')return asset(env,request,'/about-crawlers.html');

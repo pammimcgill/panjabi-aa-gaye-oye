@@ -54,7 +54,7 @@ export function renderMarkdown(markdown = '') {
 // ---------------------------------------------------------------- GitHub issue -> article
 // The issue form's own section headings. A section ends only at one of these, so an article may
 // use "###" subheadings of its own without being cut short.
-export const FORM_LABELS = ['Summary', 'Article', 'Sources', 'Topics', 'Year', 'Byline', 'Cover image URL', 'AI assistance', 'Editorial check', 'Verification notes'];
+export const FORM_LABELS = ['Summary', 'Kids summary', 'Article', 'Sources', 'Topics', 'Year', 'Byline', 'Cover image URL', 'Historical image URL', 'Historical image caption', 'Historical image credit', 'Historical image source URL', 'Historical image license', 'Historical image license URL', 'AI assistance', 'Editorial check', 'Verification notes'];
 
 // "Panjabi aa gaye oye" means "the Punjabis have arrived". The archive tells that story in order:
 // each article is placed in a chapter by the year it is about.
@@ -111,7 +111,11 @@ export function parseHistoryIssue(issue) {
   const formArticle = sectionOf(body, 'Article');
   const article = formArticle || body;
   const summary = sectionOf(body, 'Summary') || plainExcerpt(article, 300);
+  const kidsSummary = sectionOf(body, 'Kids summary') || summary;
   const cover = sectionOf(body, 'Cover image URL').split(/\s+/)[0];
+  const historicalImage = sectionOf(body, 'Historical image URL').split(/\s+/)[0];
+  const historicalSource = sectionOf(body, 'Historical image source URL').split(/\s+/)[0];
+  const historicalLicenseUrl = sectionOf(body, 'Historical image license URL').split(/\s+/)[0];
   const topics = sectionOf(body, 'Topics').split(/[,;\n]/).map(t => t.trim()).filter(Boolean).slice(0, 4);
   const number = Number(issue.number);
   const year = Number((sectionOf(body, 'Year').match(/\b(1[0-9]{3}|20[0-9]{2})\b/) || [])[1]) || null;
@@ -120,11 +124,20 @@ export function parseHistoryIssue(issue) {
     slug: `${number}-${slugify(issue.title) || 'article'}`,
     title: String(issue.title || '').trim(),
     dek: plainExcerpt(summary, 420),
+    kidsDek: plainExcerpt(kidsSummary, 240),
     body: article,
     sources: extractSources(sectionOf(body, 'Sources')),
     topics,
     byline: sectionOf(body, 'Byline').split('\n')[0].trim() || 'Editorial desk',
     imageUrl: /^https:\/\//i.test(cover) ? cover : null,
+    historicalImage: /^https:\/\//i.test(historicalImage) ? {
+      url: historicalImage,
+      caption: plainExcerpt(sectionOf(body, 'Historical image caption'), 300),
+      credit: plainExcerpt(sectionOf(body, 'Historical image credit'), 160),
+      sourceUrl: isHttp(historicalSource) ? historicalSource : null,
+      license: plainExcerpt(sectionOf(body, 'Historical image license'), 100),
+      licenseUrl: isHttp(historicalLicenseUrl) ? historicalLicenseUrl : null
+    } : null,
     publishedAt: issue.created_at, updatedAt: issue.updated_at || issue.created_at,
     year, chapter: chapterFor(year),
     featured: labelNames(issue).includes('featured'),
@@ -145,28 +158,34 @@ export function isHistoryIssue(issue) {
 // ---------------------------------------------------------------- pages
 const fmtLong = value => { try { return new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Los_Angeles' }).format(new Date(value)); } catch { return ''; } };
 
-export function articlePage(article, { origin = '', more = [] } = {}) {
+export function articlePage(article, { origin = '', more = [], comicAvailable = false } = {}) {
   const url = `${origin}/history/${article.slug}`;
   const description = article.dek;
-  const image = article.imageUrl ? `<meta property="og:image" content="${esc(article.imageUrl)}"><meta name="twitter:image" content="${esc(article.imageUrl)}">` : '';
+  const socialImage = article.imageUrl || article.historicalImage?.url || null;
+  const image = socialImage ? `<meta property="og:image" content="${esc(socialImage)}"><meta name="twitter:image" content="${esc(socialImage)}">` : '';
   const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'Article', headline: article.title, description,
     datePublished: article.publishedAt, dateModified: article.updatedAt, author: { '@type': 'Person', name: article.byline },
-    mainEntityOfPage: url, ...(article.imageUrl ? { image: article.imageUrl } : {}) }).replace(/</g, '\\u003c');
+    mainEntityOfPage: url, ...(socialImage ? { image: socialImage } : {}) }).replace(/</g, '\\u003c');
   const sources = article.sources.length
     ? `<section class="article-sources"><h2>Sources &amp; further reading</h2><ul>${article.sources.map(s => `<li><a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer nofollow">${esc(s.label)}</a></li>`).join('')}</ul></section>` : '';
   const others = more.length
     ? `<section class="article-more"><h2>Keep following the story</h2><div class="more-grid">${more.map(x => `<a class="history-teaser more-card" href="${esc(x.internal ? x.url : '/history')}"><div class="teaser-meta">${x.year ? esc(x.year) : esc(x.source)}</div><h3>${esc(x.title)}</h3></a>`).join('')}</div></section>` : '';
   const topics = article.topics.map(t => `<span class="pill">${esc(t)}</span>`).join('');
+  const historical = article.historicalImage;
+  const historicalPhoto = historical ? `<figure class="historic-photo"><img src="${esc(historical.url)}" alt="${esc(historical.caption || article.title)}" loading="lazy" referrerpolicy="no-referrer"><figcaption>${historical.caption ? `${esc(historical.caption)} ` : ''}<span class="historic-photo-credit">${historical.credit ? `${esc(historical.credit)} · ` : ''}${historical.sourceUrl ? `<a href="${esc(historical.sourceUrl)}" target="_blank" rel="noopener noreferrer nofollow">Original file and provenance</a>` : 'Source not supplied'}${historical.license ? ` · ${historical.licenseUrl ? `<a href="${esc(historical.licenseUrl)}" target="_blank" rel="noopener noreferrer nofollow">${esc(historical.license)}</a>` : esc(historical.license)}` : ''}</span></figcaption></figure>` : '';
+  const kidsLink = comicAvailable
+    ? `<a class="back-link" href="/history/${esc(article.slug)}/kids">Kids’ comic</a>`
+    : '<a class="back-link" href="/history/kids">Kids’ history</a>';
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#fff6df">
 <title>${esc(article.title)} — Panjabi Aa Gaye Oye</title><meta name="description" content="${esc(description)}"><link rel="canonical" href="${esc(url)}">
-<meta property="og:type" content="article"><meta property="og:site_name" content="Panjabi Aa Gaye Oye"><meta property="og:title" content="${esc(article.title)}"><meta property="og:description" content="${esc(description)}"><meta property="og:url" content="${esc(url)}">${image}<meta name="twitter:card" content="${article.imageUrl ? 'summary_large_image' : 'summary'}">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Panjabi Aa Gaye Oye"><meta property="og:title" content="${esc(article.title)}"><meta property="og:description" content="${esc(description)}"><meta property="og:url" content="${esc(url)}">${image}<meta name="twitter:card" content="${socialImage ? 'summary_large_image' : 'summary'}">
 <link rel="stylesheet" href="/styles.css"><script type="application/ld+json">${ld}</script></head><body>
 <header class="site-header"><a class="brand-wrap" href="/"><div class="logo-mark">ਪੰ</div><div class="brand">PANJABI <span>AA GAYE OYE</span></div></a><nav class="nav" aria-label="Main navigation"><a href="/">Events</a><a href="/weekend">Weekend</a><a href="/travel">Travel</a><a class="active" href="/history">History</a><a href="/news">Music News</a></nav></header>
-<main class="shell"><article class="article"><a class="back-link" href="/history">← All history</a>
+<main class="shell"><article class="article"><div class="article-backlinks"><a class="back-link" href="/history">← All history</a>${kidsLink}</div>
 <header class="article-head"><div class="eyebrow small">The arrival${article.chapter && article.chapter.n !== 99 ? ` · Chapter ${article.chapter.n}, ${esc(article.chapter.name)}` : ''}${article.year ? ` · ${article.year}` : ''}</div><h1>${esc(article.title)}</h1><p class="article-dek">${esc(article.dek)}</p>
 <div class="article-meta"><span>${esc(article.byline)}</span><span>${esc(fmtLong(article.publishedAt))}</span><span>${article.minutes} min read</span>${topics}</div></header>
 ${article.imageUrl ? `<img class="article-cover" src="${esc(article.imageUrl)}" alt="" referrerpolicy="no-referrer">` : ''}
-<div class="article-body">${renderMarkdown(article.body)}</div>${sources}
+${historicalPhoto}<div class="article-body">${renderMarkdown(article.body)}</div>${sources}
 <div class="editorial-note"><strong>Found a mistake?</strong> History needs care. Write to <a href="mailto:events@panjabiaagayeoye.com">events@panjabiaagayeoye.com</a> with the correction and a source.</div>${article.aiAssisted ? '<details class="ai-disclosure"><summary>About AI assistance</summary><p>This article was drafted with AI assistance using Claude web search, then reviewed by a person before publication. Please check the listed sources for yourself.</p></details>' : ''}</article>${others}</main>
 <footer class="shell"><a class="brand-wrap" href="/"><div class="logo-mark">ਪੰ</div><div class="brand">PANJABI <span>AA GAYE OYE</span></div></a><p>Read widely. Check sources. Preserve memory.</p></footer></body></html>`;
 }
@@ -176,6 +195,6 @@ export function notFoundPage() {
 }
 
 export function sitemapXml(origin, articles = [], extraPaths = []) {
-  const urls = ['/', '/weekend', '/travel', '/archive', '/news', '/history', '/about-crawlers', ...articles.map(a => `/history/${a.slug}`), ...extraPaths];
+  const urls = [...new Set(['/', '/weekend', '/travel', '/archive', '/news', '/history', '/history/kids', '/about-crawlers', ...articles.map(a => `/history/${a.slug}`), ...extraPaths].filter(path => /^\/[A-Za-z0-9/_-]*$/.test(path)))];
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(u => `  <url><loc>${esc(origin + u)}</loc></url>`).join('\n')}\n</urlset>\n`;
 }

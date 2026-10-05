@@ -1,3 +1,5 @@
+import { createEventMapController } from './event-map.js';
+
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const fmtDate=value=>{try{return new Intl.DateTimeFormat('en-US',{month:'short',day:'numeric',year:'numeric',timeZone:'America/Los_Angeles'}).format(new Date(value))}catch{return value}};
 
@@ -12,16 +14,16 @@ function wireEventGrid(grid){
 
 export async function mountEvents(){
   const grid=document.querySelector('#eventsGrid'),empty=document.querySelector('#emptyState'),loading=document.querySelector('#loadingState'),error=document.querySelector('#errorState'),count=document.querySelector('#eventCount');
-  const search=document.querySelector('#searchInput'),category=document.querySelector('#categorySelect'),region=document.querySelector('#regionSelect');let events=[];
-  function render(){const q=search.value.trim().toLowerCase(),cat=category.value,reg=region.value;const rows=events.filter(e=>(cat==='all'||e.category===cat)&&(reg==='all'||e.region===reg)&&(!q||`${e.title} ${e.description} ${e.city} ${e.venue} ${e.source} ${(e.performers||[]).join(' ')}`.toLowerCase().includes(q)));count.textContent=`${rows.length} event${rows.length===1?'':'s'}`;grid.innerHTML=rows.map(eventCard).join('');empty.classList.toggle('hidden',rows.length!==0)}
+  const search=document.querySelector('#searchInput'),category=document.querySelector('#categorySelect'),region=document.querySelector('#regionSelect'),eventMap=createEventMapController({container:document.querySelector('#eventMap'),status:document.querySelector('#eventMapStatus'),toggle:document.querySelector('#eventMapToggle')});let events=[];
+  function render(){const q=search.value.trim().toLowerCase(),cat=category.value,reg=region.value;const rows=events.filter(e=>(cat==='all'||e.category===cat)&&(reg==='all'||e.region===reg)&&(!q||`${e.title} ${e.description} ${e.city} ${e.venue} ${e.source} ${(e.performers||[]).join(' ')}`.toLowerCase().includes(q)));count.textContent=`${rows.length} event${rows.length===1?'':'s'}`;grid.innerHTML=rows.map(eventCard).join('');empty.classList.toggle('hidden',rows.length!==0);eventMap?.update(rows)}
   for(const el of [search,category,region])el.addEventListener(el===search?'input':'change',render);
   wireEventGrid(grid);
   try{const data=await getJson('/api/events?limit=250');events=data.events||[];loading.classList.add('hidden');render()}catch(e){loading.classList.add('hidden');error.textContent=`Events could not load: ${e.message}`;error.classList.remove('hidden')}
 }
 
 export async function mountWeekend(){
-  const grid=document.querySelector('#eventsGrid'),empty=document.querySelector('#emptyState'),loading=document.querySelector('#loadingState'),error=document.querySelector('#errorState'),count=document.querySelector('#eventCount'),chips=document.querySelector('#weekendRegion'),range=document.querySelector('#weekendRange');let events=[],region='all';
-  const render=()=>{const rows=events.filter(e=>region==='all'||e.region===region);count.textContent=`${rows.length} event${rows.length===1?'':'s'}`;grid.innerHTML=rows.map(eventCard).join('');empty.classList.toggle('hidden',rows.length!==0);chips.querySelectorAll('.chip').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.region===region)))};
+  const grid=document.querySelector('#eventsGrid'),empty=document.querySelector('#emptyState'),loading=document.querySelector('#loadingState'),error=document.querySelector('#errorState'),count=document.querySelector('#eventCount'),chips=document.querySelector('#weekendRegion'),range=document.querySelector('#weekendRange'),eventMap=createEventMapController({container:document.querySelector('#eventMap'),status:document.querySelector('#eventMapStatus'),toggle:document.querySelector('#eventMapToggle')});let events=[],region='all';
+  const render=()=>{const rows=events.filter(e=>region==='all'||e.region===region);count.textContent=`${rows.length} event${rows.length===1?'':'s'}`;grid.innerHTML=rows.map(eventCard).join('');empty.classList.toggle('hidden',rows.length!==0);chips.querySelectorAll('.chip').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.region===region)));eventMap?.update(rows)};
   chips.addEventListener('click',e=>{const b=e.target.closest?.('.chip');if(!b)return;region=b.dataset.region;render()});wireEventGrid(grid);
   try{const data=await getJson('/api/events?when=weekend&limit=250');events=data.events||[];if(data.range)range.textContent=data.range;loading.classList.add('hidden');render()}catch(e){loading.classList.add('hidden');error.textContent=`Weekend events could not load: ${e.message}`;error.classList.remove('hidden')}
 }
@@ -43,14 +45,13 @@ const timeAgo=value=>{const ms=Date.now()-new Date(value).getTime();if(!(ms>=0))
 export async function mountStories(section){
   const $=q=>document.querySelector(q);
   const grid=$('#storyGrid'),loading=$('#loadingState'),error=$('#errorState'),count=$('#storyCount'),tools=$('#storyTools'),more=$('#loadMore');
-  const isNews=section==='music',PAGE=12,state={items:[],q:'',chip:'',shown:PAGE,chips:[],sort:'newest'};
+  const isNews=section==='music',PAGE=12,state={items:[],q:'',chip:'',shown:PAGE,chips:[]};
   const matches=x=>{
     if(state.chip&&!(isNews?x.source===state.chip:(x.topics||[]).includes(state.chip)))return false;
     const q=state.q.trim().toLowerCase();
     return !q||`${x.title} ${x.dek} ${x.source} ${(x.topics||[]).join(' ')} ${x.year||''}`.toLowerCase().includes(q);
   };
   const chapterOf=x=>x.chapterNumber??(x.internal?99:100);
-  const chapterLabel=x=>({name:x.chapter||(x.internal?'Culture and heritage':'Further reading'),span:x.chapterSpan||(x.internal?'Music, food, language and festivals':'Archives, scholars and institutions')});
   const byTimeline=(a,b)=>chapterOf(a)-chapterOf(b)||(a.year||9999)-(b.year||9999)||new Date(b.publishedAt)-new Date(a.publishedAt);
   const card=(x,lead)=>{
     const own=Boolean(x.internal);
@@ -60,35 +61,25 @@ export async function mountStories(section){
     return `<article class="story-card${lead?' lead':''}${own?' own':''}">${x.imageUrl?`<img src="${esc(x.imageUrl)}" alt="" loading="lazy" referrerpolicy="no-referrer">`:''}<div class="story-copy"><div class="eyebrow small">${meta}</div><h2>${esc(x.title)}</h2>${pills?`<div class="pills">${pills}</div>`:''}<p>${esc(x.dek||'Open the original source to read more.')}</p>${link}</div></article>`;
   };
   const render=()=>{
-    const timeline=!isNews&&state.sort==='timeline';
-    const rows=state.items.filter(matches);if(timeline)rows.sort(byTimeline);
+    const chronological=!isNews;
+    const rows=state.items.filter(matches);if(chronological)rows.sort(byTimeline);
     const visible=rows.slice(0,state.shown);
-    const lead=!timeline&&!state.q&&!state.chip&&rows.length>=4;
+    const lead=isNews&&!state.q&&!state.chip&&rows.length>=4;
     count.textContent=`${rows.length} stor${rows.length===1?'y':'ies'}`;
-    let last=null;
-    grid.innerHTML=visible.length?visible.map((x,i)=>{
-      let head='';
-      if(timeline&&chapterOf(x)!==last){last=chapterOf(x);const c=chapterLabel(x);head=`<div class="chapter-head"><span>${last<99?`Chapter ${last}`:'Beyond the timeline'}</span><h3>${esc(c.name)}</h3><small>${esc(c.span)}</small></div>`}
-      return head+card(x,lead&&i===0);
-    }).join(''):`<div class="empty">${state.items.length?'No stories match that search.':isNews?'No stories have been collected yet. The scheduled refresh will try again.':'The first chapters of the story are being prepared.'}</div>`;
+    grid.innerHTML=visible.length?visible.map((x,i)=>card(x,lead&&i===0)).join(''):`<div class="empty">${state.items.length?'No stories match that search.':isNews?'No stories have been collected yet. The scheduled refresh will try again.':'The first history article is being prepared.'}</div>`;
     if(more)more.classList.toggle('hidden',rows.length<=state.shown);
     if(tools){
       tools.querySelectorAll('.chip').forEach(b=>b.setAttribute('aria-pressed',String((b.dataset.chip||'')===state.chip)));
-      tools.querySelectorAll('.sort').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.sort===state.sort)));
     }
   };
   try{
     const data=await getJson(isNews?'/api/news':'/api/history');
     state.items=data.items||[];
     state.chips=(isNews?data.sources:data.topics)||[];
-    const dated=state.items.filter(x=>x.year).length;
-    if(!isNews&&dated>=2)state.sort='timeline';
     if(tools&&state.items.length>3){
-      const sorter=!isNews&&dated>=2?`<div class="chips sorter" role="group" aria-label="Order"><button class="chip sort" type="button" data-sort="timeline" aria-pressed="true">The story so far</button><button class="chip sort" type="button" data-sort="newest" aria-pressed="false">Newest first</button></div>`:'';
-      tools.innerHTML=`${sorter}<input class="story-search" type="search" placeholder="${isNews?'Search headlines or artists':'Search the archive'}" aria-label="Search stories">${state.chips.length>1?`<div class="chips" role="group" aria-label="${isNews?'Filter by source':'Filter by topic'}"><button class="chip" type="button" data-chip="" aria-pressed="true">All</button>${state.chips.map(c=>`<button class="chip" type="button" data-chip="${esc(c.name)}" aria-pressed="false">${esc(c.name)} <span>${esc(c.count)}</span></button>`).join('')}</div>`:''}`;
+      tools.innerHTML=`<input class="story-search" type="search" placeholder="${isNews?'Search headlines or artists':'Search history articles'}" aria-label="Search stories">${state.chips.length>1?`<div class="chips" role="group" aria-label="${isNews?'Filter by source':'Filter by topic'}"><button class="chip" type="button" data-chip="" aria-pressed="true">All</button>${state.chips.map(c=>`<button class="chip" type="button" data-chip="${esc(c.name)}" aria-pressed="false">${esc(c.name)} <span>${esc(c.count)}</span></button>`).join('')}</div>`:''}`;
       tools.addEventListener('input',e=>{if(e.target.classList.contains('story-search')){state.q=e.target.value;state.shown=PAGE;render()}});
       tools.addEventListener('click',e=>{
-        const s=e.target.closest?.('.sort');if(s){state.sort=s.dataset.sort;state.shown=PAGE;render();return}
         const b=e.target.closest?.('.chip');if(b){state.chip=b.dataset.chip||'';state.shown=PAGE;render()}
       });
     }

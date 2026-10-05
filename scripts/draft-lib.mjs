@@ -62,6 +62,9 @@ Write the article. Output ONLY these sections, each starting with the exact head
 ### Summary
 (two or three sentences)
 
+### Kids summary
+(one or two accurate sentences for ages 8 to 13. Explain difficult events clearly and gently; do not invent a lesson or simplify away uncertainty.)
+
 ### Article
 (markdown; use ## for subheadings. End with a short paragraph headed "## In the story of arrival" saying where this sits in the journey, using only what the sources support.)
 
@@ -134,7 +137,7 @@ export function collectSearchResults(blocks) {
 export function parseDraft(text) {
   const clean = String(text || '').replace(/\r\n?/g, '\n').trim();
   const draft = {};
-  for (const label of ['Summary', 'Article', 'Sources', 'Topics', 'Year', 'Verification notes']) draft[label] = sectionOf(clean, label);
+  for (const label of ['Summary', 'Kids summary', 'Article', 'Sources', 'Topics', 'Year', 'Verification notes']) draft[label] = sectionOf(clean, label);
   return draft;
 }
 
@@ -178,6 +181,7 @@ export function buildIssue({ topic, draft, results = new Map(), today = new Date
     `<!-- drafted ${today.toISOString().slice(0, 10)} with ${model}. Not published until the history label is added. -->`,
     '',
     '### Summary', '', draft.Summary, '',
+    '### Kids summary', '', draft['Kids summary'] || draft.Summary, '',
     '### Article', '', draft.Article, '',
     '### Sources', '', verified.map(s => `- [${s.label}](${s.url})`).join('\n') || '_No confirmed sources yet._', '',
     '### Topics', '', draft.Topics || '', '',

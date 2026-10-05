@@ -34,6 +34,7 @@ that journey:
 - Dates in the form "September 4, 1907". Years as numerals.
 - A local thread (Seattle, Bellingham, Vancouver, Surrey) only where a source supports it.
 - End with why it still matters, not with a moral.
+- Add a "Kids summary" of one or two sentences for ages 8–13. Keep every claim inside the sourced article, explain difficult events gently, and do not turn uncertainty into a simple answer.
 
 ## Sensitive topics
 Partition, 1984 and violence against communities are written by a person, read by a second person, and never left to the automation (they carry `auto: false` in the calendar). If a draft touches them anyway, treat it as sensitive: two readers, every figure checked, no graphic detail that a source does not need.

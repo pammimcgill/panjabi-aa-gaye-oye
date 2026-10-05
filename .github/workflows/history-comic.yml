@@ -1,0 +1,65 @@
+name: Make kids comic
+
+on:
+  issues:
+    types: [labeled]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: "Published history issue number"
+        required: true
+        type: number
+      force:
+        description: "Replace an existing comic after you intentionally requested a revision"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  comic:
+    if: github.event_name == 'workflow_dispatch' || github.event.label.name == 'make-comic'
+    runs-on: ubuntu-latest
+    concurrency:
+      group: history-comic-${{ github.event.issue.number || inputs.issue_number }}
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Check the project before spending on images
+        run: npm test
+      - name: Create six review pages
+        run: node scripts/history-comic.mjs
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number || inputs.issue_number }}
+          FORCE_COMIC: ${{ inputs.force && '1' || '0' }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_MODEL: ${{ vars.ANTHROPIC_MODEL }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_IMAGE_MODEL: ${{ vars.OPENAI_IMAGE_MODEL }}
+      - name: Open a review pull request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number || inputs.issue_number }}
+        run: |
+          branch="comic/issue-${ISSUE_NUMBER}-${GITHUB_RUN_ID}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git add public/history-comics/generated
+          git commit -m "Add kids comic for history issue #${ISSUE_NUMBER}"
+          git push --set-upstream origin "$branch"
+          pr_url=$(gh pr create --base main --head "$branch" --title "Review kids comic for history issue #${ISSUE_NUMBER}" --body "Review every caption and illustration against the published article. If everything is accurate, merge this pull request; merging publishes the comic through the normal deploy workflow. The comic was not published automatically.")
+          gh issue comment "$ISSUE_NUMBER" --body "The six-page kids comic is ready for human review: ${pr_url}"
+          gh issue edit "$ISSUE_NUMBER" --remove-label make-comic || true

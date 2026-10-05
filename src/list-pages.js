@@ -72,19 +72,9 @@ export function renderEventSnapshot(html, events = [], { range = '' } = {}) {
 }
 
 export function renderStorySnapshot(html, items = [], { news = false } = {}) {
-  const dated = items.filter(item => item.year).length;
-  const timeline = !news && dated >= 2;
-  const ordered = timeline ? timelineStories(items) : items;
+  const ordered = news ? items : timelineStories(items);
   const visible = ordered.slice(0, 12);
-  let lastChapter = null;
-  const cards = visible.map((story, index) => {
-    let heading = '';
-    if (timeline && story.chapterNumber !== lastChapter) {
-      lastChapter = story.chapterNumber;
-      heading = `<div class="chapter-head"><span>${lastChapter < 99 ? `Chapter ${esc(lastChapter)}` : 'Beyond the timeline'}</span><h3>${esc(story.chapter || (story.internal ? 'Culture and heritage' : 'Further reading'))}</h3><small>${esc(story.chapterSpan || '')}</small></div>`;
-    }
-    return heading + storyCard(story, { news, lead: !timeline && index === 0 && items.length >= 4 });
-  }).join('');
+  const cards = visible.map((story, index) => storyCard(story, { news, lead: news && index === 0 && items.length >= 4 })).join('');
   let page = replaceContents(html, 'storyGrid', cards);
   page = replaceContents(page, 'storyCount', countLabel(items.length, 'story', 'stories'));
   if (visible.length) page = hide(page, 'loadingState');

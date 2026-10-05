@@ -14,7 +14,7 @@ function fakePage() {
 const item = (n, year, extra = {}) => ({ id: `github-${n}`, title: `Story ${n}`, dek: 'd', url: `/history/${n}-x`, internal: true, source: 'Panjabi Aa Gaye Oye',
   publishedAt: new Date(Date.UTC(2026, 0, n)).toISOString(), topics: [], minutes: 3, year, chapter: extra.chapter, chapterNumber: extra.chapterNumber, chapterSpan: extra.chapterSpan, ...extra });
 
-test('the history page opens as a timeline with chapter headings, in order', async () => {
+test('the history page is a simple chronological article list without chapter roadmap headings', async () => {
   const els = fakePage();
   // the API returns items newest first
   const items = [
@@ -29,16 +29,12 @@ test('the history page opens as a timeline with chapter headings, in order', asy
   await mountStories('history');
   const html = els['#storyGrid'].innerHTML;
   const at = text => html.indexOf(text);
-  assert.ok(at('The first arrivals') > 0 && at('The first arrivals') < at('Putting down roots') && at('Putting down roots') < at('The doors reopen'), 'chapters run in order');
-  assert.ok(at('The doors reopen') < at('Culture and heritage') && at('Culture and heritage') < at('Further reading'), 'undated and external come last');
   assert.ok(at('Story 2') < at('Story 3') && at('Story 3') < at('Story 1'), 'stories are ordered by year');
-  assert.match(html, /Chapter 1/); assert.match(html, /<strong class="year">1907<\/strong>/); assert.match(html, /1897 to 1907/);
-  assert.ok(!/story-card lead/.test(html), 'no lead card in timeline mode');
-  assert.match(els['#storyTools'].innerHTML, /The story so far/); assert.match(els['#storyTools'].innerHTML, /Newest first/);
-  // switching to newest first removes the chapter headings
-  els['#storyTools'].fire('click', { target: { closest: sel => (sel === '.sort' ? { dataset: { sort: 'newest' } } : null) } });
-  assert.ok(!/chapter-head/.test(els['#storyGrid'].innerHTML));
-  assert.ok(els['#storyGrid'].innerHTML.indexOf('External reading') < els['#storyGrid'].innerHTML.indexOf('Story 1'), 'newest first puts the newest story first');
+  assert.ok(at('Story 1') < at('Story 4') && at('Story 4') < at('External reading'), 'undated and external reading come last');
+  assert.match(html, /<strong class="year">1907<\/strong>/);
+  assert.ok(!/chapter-head/.test(html));
+  assert.ok(!/story-card lead/.test(html));
+  assert.doesNotMatch(els['#storyTools'].innerHTML, /The story so far|Newest first/);
 });
 
 test('the news page never shows chapters', async () => {
