@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "issueNumber": 5,
+  "articleSlug": "5-mills-railways-and-farms-how-the-first-punjabis-found-work-in-british",
+  "articleTitle": "Mills, railways and farms: how the first Punjabis found work in British Columbia",
+  "generatedAt": "2026-10-05T23:27:13.674Z",
+  "storyModel": "claude-sonnet-5",
+  "imageModel": "gpt-image-2.5-sunburst",
+  "subtitle": "How Punjabi men found work in early British Columbia",
+  "intro": "Step back to 1902 and watch how the first Punjabi men built new lives in the mills, farms and rail lines of British Columbia. This is a sourced story about hard work, unfair treatment, and the start of a community.",
+  "pages": [
+    {
+      "title": "Arriving in Golden",
+      "caption": "In 1902, the first Sikh men arrived in Golden, British Columbia, to work at a sawmill run by the Columbia River Lumber Company. This small settlement was an early sign of what would grow across the province.",
+      "scene": "A river valley sawmill town surrounded by mountains, with stacked lumber and a mill building near the water, and a small group of men arriving on foot near the riverside.",
+      "number": 1
+    },
+    {
+      "title": "Counting the Newcomers",
+      "caption": "In 1904, Canadian officials opened an immigration office to record how many people arrived from India. That year only 45 people came, but thousands more would follow within a few years.",
+      "scene": "An immigration office interior with a clerk writing in a large ledger book at a desk, a dock visible through a window with a ship and arriving passengers in the distance.",
+      "number": 2
+    },
+    {
+      "title": "Soldiers Who Stayed",
+      "caption": "Many of the Punjabi men arriving were former soldiers who had worked the land back home. Some had seen British Columbia before while serving in British Indian Army regiments, and they said its rivers and mountains reminded them of Panjab.",
+      "scene": "A small group of men standing on a hillside looking out over a river valley with mountains, their postures thoughtful, comparing the view to a faraway memory.",
+      "number": 3
+    },
+    {
+      "title": "Working in the Mills",
+      "caption": "Between 1904 and 1908, about 5,000 Punjabi men arrived in British Columbia. Many found work in sawmills along the Fraser River and False Creek, in places like Kitsilano, Fraser Mills and Queensborough, including at the Seymour Lumber Company.",
+      "scene": "A busy sawmill yard with workers stacking lumber and tending machinery near a green chain conveyor, a river and forested hills in the background.",
+      "number": 4
+    },
+    {
+      "title": "Harder Jobs, Lower Pay",
+      "caption": "At mills like Seymour Lumber Company, Punjabi workers were given the hardest jobs, called 'unskilled,' and paid less than white workers. They were also the first to lose their jobs when work slowed down.",
+      "scene": "A mill workyard divided into two work areas, one busier and more strained than the other, with a young onlooker standing at the edge watching the workers.",
+      "number": 5
+    },
+    {
+      "title": "Farms, Rails and Worship",
+      "caption": "Beyond the mills, Punjabi men worked on farms, in construction, and laying railway track across the Fraser Valley. By 1909, dozens worked on farms in Mission and Matsqui, and many more worked in mills in Abbotsford and Harrison Mills. Workers also began gathering to worship together in rented rooms and homes, long before any temple was built.",
+      "scene": "A split scene showing a farm field with workers, a railway track being laid nearby, and in another section a simple rented room where a small group sits together quietly for worship.",
+      "number": 6
+    }
+  ]
+}
