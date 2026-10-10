@@ -3,3 +3,5 @@ node_modules/
 .dev.vars
 wrangler.toml
 *.log
+.kids-preview/
+.kids-test-output/
