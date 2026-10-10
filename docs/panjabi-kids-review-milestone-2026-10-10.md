@@ -38,3 +38,8 @@ The complete twenty-chapter requirement is not finished. England, East Africa an
 - Browser test found and fixed the chapter-four select/grid overflow at 320px.
 - Explicit Cloudflare dry run: no bindings found; static asset upload only.
 - Generated desktop/mobile screenshots for visual inspection. No claim of a full screen-reader or cross-browser audit.
+
+## Preview deployed and family illustration follow-up
+The first isolated deployment succeeded in GitHub Actions run 38030690635, including all 75 browser assertions. Preview: https://panjabi-kids-pr13-review-202610.pammimcgill.workers.dev . HTTP 200 verified.
+
+At the owner’s request, chapter five now uses a watercolor comic based on the supplied photograph of the grandfather and two grandchildren. Likenesses are retained; the setting and storytelling actions are imagined. The original photograph is not uploaded to the repository or preview. Captions and both reading modes explain the distinction. The preview build now copies only the five active WebP images and reader, excluding editorial asset notes and superseded SVGs. Deployment CLI pinned to the locally validated version; URL extraction uses grep because GitHub's runner did not have rg installed.
