@@ -1,36 +1,11 @@
-// Run: node --test prototypes/panjabi-kids-pnw-pilot.test.cjs
-// Static smoke tests; browser interaction and historical accuracy require separate review.
-const {test}=require('node:test');
-const assert=require('node:assert/strict');
-const fs=require('node:fs');
-const path=require('node:path');
+const {test}=require('node:test');const assert=require('node:assert/strict');const fs=require('node:fs');const path=require('node:path');const vm=require('node:vm');
 const html=fs.readFileSync(path.join(__dirname,'panjabi-kids-pnw-pilot.html'),'utf8');
-test('five chapters and story-first reading surface',()=>{
- assert.equal((html.match(/title:"/g)||[]).length,5);
- assert.match(html,/<article class="panel"/);
- assert.match(html,/id="story"/);
- assert.match(html,/id="question"/);
-});
-test('two modes and browser-only progress',()=>{
- assert.match(html,/<option value="young">Young Readers<\/option>/);
- assert.match(html,/<option value="grown">Grown-Ups<\/option>/);
- assert.match(html,/panjabi-kids-reading-mode/);
- assert.match(html,/panjabi-kids-pnw-seen/);
- assert.match(html,/localStorage/);
-});
-test('narration honestly disabled pending review',()=>{
- assert.match(html,/Audio awaiting review/);
- assert.match(html,/<button disabled aria-disabled="true">/);
-});
-test('no live AI calls, tracking, or destructive production config',()=>{
- assert.doesNotMatch(html,/<script[^>]+src=/);
- assert.doesNotMatch(html,/\bfetch\s*\(/);
- assert.doesNotMatch(html,/\bXMLHttpRequest\b/);
- assert.doesNotMatch(html,/\bwrangler\b|\bD1\b|adsbygoogle|google-analytics/);
-});
-test('history is presented as editorial material',()=>{
- assert.match(html,/Editorial demonstration only/);
- assert.match(html,/not historical evidence/);
- assert.match(html,/Bellingham in 1907/);
- assert.match(html,/Komagata Maru/);
-});
+const script=html.match(/<script>([\s\S]*)<\/script>/)[1];
+const manuscript=script.slice(0,script.indexOf('const $='));
+const state=vm.runInNewContext(manuscript+';({data,chapterSources,regions,artDescriptions})');
+test('five paired chapters, claim-level citations and real art assets',()=>{assert.equal(state.data.length,5);state.data.forEach((c,i)=>{assert.ok(c.young.length>200);assert.ok(c.grown.length>700);for(const mode of ['young','grown'])for(const m of c[mode].matchAll(/\[(\d+)\]/g))assert.ok(state.chapterSources[i][Number(m[1])-1]);assert.ok(fs.statSync(path.join(__dirname,`art/pnw-chapter-${i+1}.webp`)).size>10000);assert.ok(c.correct>=0&&c.correct<c.answers.length)})});
+test('three unfinished regions are distinct, honest chapter plans',()=>{assert.equal(Object.keys(state.regions).length,3);Object.values(state.regions).forEach(r=>assert.equal(r.chapters.length,5));assert.match(html,/These are chapter plans, not completed history chapters/)});
+test('reading modes, explicit completion and reset are present',()=>{assert.match(html,/panjabi-kids-reading-mode/);assert.match(html,/panjabi-kids-pnw-progress-v2/);assert.match(html,/I’ve finished this chapter/);assert.doesNotMatch(html,/seen\.add/);assert.match(html,/id="reset-yes"/);assert.match(html,/storage is unavailable/)});
+test('narration and generated art are honestly labeled',()=>{assert.match(html,/Audio awaiting review/);assert.match(html,/<button disabled aria-disabled="true">/);assert.match(html,/not historical evidence/);assert.match(html,/Original AI-assisted illustration/)});
+test('standalone reader makes no tracking or live AI requests',()=>{assert.doesNotMatch(html,/<script[^>]+src=/);assert.doesNotMatch(html,/\bfetch\s*\(|\bXMLHttpRequest\b|google-analytics/);new vm.Script(script)});
+test('preview config permits only isolated static hosting',()=>{const c=JSON.parse(fs.readFileSync(path.join(__dirname,'../wrangler.kids-preview.json')));assert.equal(c.name,'panjabi-kids-pr13-review-202610');assert.deepEqual(c.routes,[]);assert.deepEqual(c.triggers,{crons:[]});assert.equal(c.assets.directory,'.kids-preview');assert.equal(c.workers_dev,true);for(const k of ['main','d1_databases','services','kv_namespaces','r2_buckets','durable_objects'])assert.equal(c[k],undefined)});
