@@ -5,6 +5,7 @@ on:
     paths:
       - 'prototypes/**'
       - 'scripts/build-kids-preview.mjs'
+      - 'scripts/generate-kids-audio.mjs'
       - 'scripts/test-kids-browser.cjs'
       - 'wrangler.kids-preview.json'
       - '.github/workflows/kids-preview.yml'
@@ -27,6 +28,18 @@ jobs:
           cache: npm
       - run: npm ci
       - run: node --test prototypes/panjabi-kids-pnw-pilot.test.cjs
+      - uses: actions/cache@v4
+        with:
+          path: prototypes/audio/welcome-pa-v1.mp3
+          key: kids-welcome-pa-v1
+      - name: Generate one bounded Punjabi voice sample if absent
+        env:
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+        run: node scripts/generate-kids-audio.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: punjabi-welcome-sample
+          path: prototypes/audio/welcome-pa-v1.mp3
       - run: node scripts/build-kids-preview.mjs
       - run: npm install --no-save --package-lock=false playwright@1.51.1
       - run: npx playwright install --with-deps chromium

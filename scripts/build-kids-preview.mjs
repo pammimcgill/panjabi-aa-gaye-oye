@@ -5,3 +5,5 @@ await cp(new URL('../prototypes/panjabi-kids-pnw-pilot.html',import.meta.url),ne
 await mkdir(new URL('art/',dest));
 for(const region of ['pnw','england','east-africa','asia'])for(let chapter=1;chapter<=5;chapter++)await cp(new URL(`../prototypes/art/${region}-chapter-${chapter}.webp`,import.meta.url),new URL(`art/${region}-chapter-${chapter}.webp`,dest));
 console.log('Built isolated static storybook: four regions, twenty chapters.');
+
+await cp(new URL('../prototypes/audio/',import.meta.url),new URL('audio/',dest),{recursive:true});
