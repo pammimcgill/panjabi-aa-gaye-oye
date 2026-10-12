@@ -5,6 +5,7 @@ on:
     paths:
       - 'prototypes/**'
       - 'scripts/build-kids-preview.mjs'
+      - 'scripts/test-kids-browser.cjs'
       - 'wrangler.kids-preview.json'
       - '.github/workflows/kids-preview.yml'
 permissions:
