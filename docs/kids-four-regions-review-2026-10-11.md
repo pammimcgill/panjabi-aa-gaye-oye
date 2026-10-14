@@ -61,3 +61,9 @@ Only the existing isolated static worker `panjabi-kids-pr13-review-202610` may b
 Connected the repository's ELEVENLABS_API_KEY secret through the isolated preview workflow. Generated one 24.764-second introductory Punjabi welcome using Eleven v3 and stock voice JBFqnCBsd6RMkjVDRZzb. The text and English translation are in prototypes/audio/welcome-pa-v1.json; the MP3 is retained with the source to prevent repeat synthesis on subsequent builds. No family voice was cloned. This is an introductory voice test, not a completed chapter recording. Punjabi translation, pronunciation and suitability of the voice still require listening review before producing the twenty chapter recordings.
 
 The player has native play/pause/seeking controls, no autoplay, downloadable MP3 and both transcripts. Changing chapters or reading modes pauses playback. Credentials remain in GitHub Actions; the preview contains only static audio. Production resources are unchanged.
+
+## Older, slower Punjabi voice revision — 14 October 2026
+
+Owner requested a slower, older, raspy Punjabi grandfather voice. A single ElevenLabs Voice Design attempt returned HTTP 403 feature_unavailable; no custom voice was created. The fallback uses the stock older male voice pqHfZKP75CvOlQylNhV4 with Eleven v3, Punjabi language, slow/raspy performance directions and speed 0.8. This is a synthetic stock voice speaking Punjabi, not a verified native Punjabi elder. Listening review remains necessary. The original MP3 remains available for comparison, and the player offers additional pitch-preserving slowdown. No chapter narration batch has been generated.
+
+The generated sample was further slowed with FFmpeg atempo=0.8 (pitch preserved), giving approximately 33 seconds versus the original 25 seconds. Normal preview builds now use committed audio only; paid generation steps and audio cache restoration were removed from the workflow.

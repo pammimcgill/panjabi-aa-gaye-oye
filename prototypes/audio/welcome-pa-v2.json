@@ -7,5 +7,10 @@
   "english": "You’re here! Come, children, sit beside me. Today we will hear stories of people living far from Punjab. Some people travelled to distant countries looking for work. Each journey was different. They carried memories of home, their language and their dreams. Let’s discover together how they built their lives in new places.",
   "review_status": "Voice and Punjabi language review pending",
   "voice_direction": "Older stock male voice; slow, warm, raspy Punjabi delivery",
-  "speed": 0.8
+  "speed": 0.8,
+  "post_processing": {
+    "filter": "atempo=0.8",
+    "pitch_preserved": true,
+    "purpose": "Additional 20 percent slower tempo for unhurried listening"
+  }
 }
