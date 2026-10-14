@@ -1,0 +1,11 @@
+{
+  "id": "welcome-pa-v2",
+  "voice_id": "pqHfZKP75CvOlQylNhV4",
+  "model_id": "eleven_v3",
+  "language_code": "pa",
+  "text": "ਆ ਗਏ ਓਏ! ਆਓ ਬੱਚਿਓ, ਮੇਰੇ ਕੋਲ ਬੈਠੋ। ਅੱਜ ਅਸੀਂ ਪੰਜਾਬ ਤੋਂ ਦੂਰ ਵੱਸਦੇ ਲੋਕਾਂ ਦੀਆਂ ਕਹਾਣੀਆਂ ਸੁਣਾਂਗੇ। ਕੁਝ ਲੋਕ ਕੰਮ ਦੀ ਭਾਲ ਵਿੱਚ ਦੂਰ ਦੇਸਾਂ ਨੂੰ ਗਏ। ਹਰ ਕਿਸੇ ਦੀ ਯਾਤਰਾ ਵੱਖਰੀ ਸੀ। ਨਾਲ ਲੈ ਕੇ ਗਏ ਆਪਣੇ ਘਰ ਦੀਆਂ ਯਾਦਾਂ, ਆਪਣੀ ਬੋਲੀ ਅਤੇ ਆਪਣੇ ਸੁਪਨੇ। ਆਓ, ਮਿਲ ਕੇ ਜਾਣੀਏ ਕਿ ਉਨ੍ਹਾਂ ਨੇ ਨਵੀਆਂ ਥਾਵਾਂ ਉੱਤੇ ਆਪਣੀ ਜ਼ਿੰਦਗੀ ਕਿਵੇਂ ਬਣਾਈ।",
+  "english": "You’re here! Come, children, sit beside me. Today we will hear stories of people living far from Punjab. Some people travelled to distant countries looking for work. Each journey was different. They carried memories of home, their language and their dreams. Let’s discover together how they built their lives in new places.",
+  "review_status": "Voice and Punjabi language review pending",
+  "voice_direction": "Older stock male voice; slow, warm, raspy Punjabi delivery",
+  "speed": 0.8
+}
