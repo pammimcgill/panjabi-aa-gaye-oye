@@ -1,3 +1,4 @@
+import { matchesSpotifyArtist } from "./spotify-artists.js";
 // ---------------------------------------------------------------------------
 // Identity terms
 // ---------------------------------------------------------------------------
@@ -286,6 +287,7 @@ export function screenEventIdentity(raw, source={}) {
   // or unrelated marketing copy does not let events in.
   if (source.type==='religious' && relevant(description,EVENT_TERMS)) return {keep:true,reason:'accepted_description'};
   if (relevant(description,DESCRIPTION_TERMS)) return {keep:true,reason:'accepted_description'};
+  if (matchesSpotifyArtist(raw)) return {keep:true,reason:'spotify_artist'};
   return {keep:false,reason:'no_south_asian_identity_signal'};
 }
 
