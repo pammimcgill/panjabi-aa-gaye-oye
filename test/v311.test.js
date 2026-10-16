@@ -101,7 +101,8 @@ test('workflow triggers on make-comic and opens a review pull request rather tha
 
 test('article pages point to their own comic only after it exists', () => {
   const article = parseHistoryIssue(historyIssue());
-  assert.match(articlePage(article, { origin: 'https://site.test' }), /href="\/history\/kids">Kids’ history/);
+  assert.match(articlePage(article, { origin: 'https://site.test' }), /Comic for this article coming soon/);
+  assert.doesNotMatch(articlePage(article, { origin: 'https://site.test' }), /href="\/history\/kids"/);
   assert.match(articlePage(article, { origin: 'https://site.test', comicAvailable: true }), new RegExp(`href="/history/${article.slug}/kids">Kids’ comic`));
 });
 
