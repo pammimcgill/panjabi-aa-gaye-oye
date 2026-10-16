@@ -18,6 +18,8 @@ async function eventsPayload(request,env){
   const where=past?["datetime(starts_at)<datetime('now','-1 day')"]:["is_active=1","datetime(starts_at)>=datetime('now','-1 day')"]; const bind=[];
   for(const [param,column] of [['region','region'],['category','category']]){const v=url.searchParams.get(param);if(v&&v!=='all'){where.push(`${column}=?`);bind.push(v)}}
   const q=(url.searchParams.get('q')||'').trim(); if(q){where.push('(title LIKE ? OR description LIKE ? OR city LIKE ? OR venue LIKE ?)');for(let i=0;i<4;i++)bind.push(`%${q}%`)}
+  const bounds=url.searchParams.get('when')==='weekend'?pacificWeekendBounds():null;
+  if(bounds){where.push('datetime(starts_at)>=datetime(?)','datetime(starts_at)<datetime(?)');bind.push(bounds.start,bounds.end);}
   const order=past?'DESC':'ASC';
   const result=await env.DB.prepare(`SELECT id,title,description,category,region,city,venue,venue_address,performers,starts_at,ends_at,url,image_url,video_url,video_caption,source_name,source_kind,source_event_id,is_active
     FROM hub_events WHERE ${where.join(' AND ')} ORDER BY datetime(starts_at) ${order} LIMIT ?`).bind(...bind,Math.min(limit*4,1000)).all();
@@ -25,11 +27,7 @@ async function eventsPayload(request,env){
   if(past)events.reverse();
   const rules=moderationRulesFromIssues(await githubIssuesByLabel(env,'event-hide'));
   events=applyModeration(events,rules).visible;
-  let range='';
-  if(url.searchParams.get('when')==='weekend'){
-    const bounds=pacificWeekendBounds();range=bounds.range;
-    events=events.filter(x=>x.startsAt>=bounds.start&&x.startsAt<bounds.end);
-  }
+  const range=bounds?.range||'';
   return {events:events.slice(0,limit),range,archive:past,generatedAt:new Date().toISOString()};
 }
 

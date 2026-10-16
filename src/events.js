@@ -97,12 +97,16 @@ function titlesCompatible(a, b) {
 
 export function eventsAreDuplicates(a, b) {
   if (localDate(a.startsAt) !== localDate(b.startsAt)) return false;
+  return sameDayDuplicates(a, b);
+}
+function sameDayDuplicates(a, b) {
   const urlA = canonicalEventUrl(a.ticketUrl || a.url), urlB = canonicalEventUrl(b.ticketUrl || b.url);
   if (urlA && urlB && urlA === urlB && locationsCompatible(a, b)) return true;
   return locationsCompatible(a, b) && titlesCompatible(a, b);
 }
+const localDateFormatter = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles', year: 'numeric', month: '2-digit', day: '2-digit' });
 const localDate = value => {
-  try { return new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(value)); }
+  try { return localDateFormatter.format(new Date(value)); }
   catch { return String(value || '').slice(0, 10); }
 };
 
@@ -134,13 +138,16 @@ function richness(event) {
 // matches on the same local date and location, then keep the richest source. Different dates and
 // different cities remain separate events.
 export function dedupeEvents(events = []) {
-  const chosen = [];
+  const days = new Map();
   for (const event of events) {
-    const index = chosen.findIndex(current => eventsAreDuplicates(current, event));
+    const day = localDate(event.startsAt);
+    if (!days.has(day)) days.set(day, []);
+    const chosen = days.get(day);
+    const index = chosen.findIndex(current => sameDayDuplicates(current, event));
     if (index < 0) chosen.push(event);
     else if (richness(event) > richness(chosen[index])) chosen[index] = event;
   }
-  return chosen.sort((a, b) => new Date(a.startsAt) - new Date(b.startsAt));
+  return [...days.values()].flat().sort((a, b) => new Date(a.startsAt) - new Date(b.startsAt));
 }
 
 function idOrUrl(value = '') {
