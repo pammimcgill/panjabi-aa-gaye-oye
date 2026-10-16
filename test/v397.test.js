@@ -30,7 +30,8 @@ test('the main history page is a plain article list and keeps the kids comic as 
 
 test('article pages link to the separate kids comic', () => {
   const article = parseHistoryIssue(historyIssue('### Summary\n\nS.\n\n### Article\n\nBody.\n\n### Sources\n\n- https://example.org/source'));
-  assert.match(articlePage(article, { origin: 'https://site.test' }), /href="\/history\/kids">Kids’ history/);
+  assert.match(articlePage(article, { origin: 'https://site.test' }), /Comic for this article coming soon/);
+  assert.doesNotMatch(articlePage(article, { origin: 'https://site.test' }), /href="\/history\/kids"/);
   assert.match(articlePage(article, { origin: 'https://site.test', comicAvailable: true }), /href="\/history\/17-the-first-journey\/kids">Kids’ comic/);
 });
 
