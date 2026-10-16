@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "issueNumber": 14,
+  "articleSlug": "14-the-khalsa-diwan-society-and-the-first-vancouver-gurdwaras",
+  "articleTitle": "The Khalsa Diwan Society and the first Vancouver gurdwaras",
+  "generatedAt": "2026-10-16T20:00:20.283Z",
+  "storyModel": "claude-sonnet-5",
+  "imageModel": "gpt-image-2.5-sunburst",
+  "subtitle": "How Punjabi Sikh workers built community and North America's first gurdwara",
+  "intro": "Step back to 1906 Vancouver, where Punjabi Sikh workers far from home decided to build something lasting together. Follow along as a community turns hardship into a place of worship and belonging.",
+  "pages": [
+    {
+      "title": "Crossing the Ocean",
+      "caption": "Between 1904 and 1908, thousands of Punjabi Sikh men, and a few women, arrived in British Columbia to work on farms and in lumber mills. Many had served in the British Indian Army or traveled through other parts of the British Empire before coming to Canada.",
+      "scene": "A wide dockside view in Vancouver with a ship in the background and a line of Punjabi Sikh men carrying simple bundles and tools, some wearing turbans, walking toward forested hills with lumber mills in the distance. A curious child stands to one side, watching the new arrivals.",
+      "number": 1
+    },
+    {
+      "title": "An Unwelcoming Place",
+      "caption": "Life in Vancouver was hard. In 1906, Sikh newcomers faced discrimination, including being evicted from homes and excluded from public facilities. This made the community feel it urgently needed a place of its own.",
+      "scene": "A street scene showing a Sikh family's belongings set outside a house door, with a closed sign on a public building nearby. The child narrator looks on from a distance with a concerned expression, not part of the action.",
+      "number": 2
+    },
+    {
+      "title": "Forming a Society",
+      "caption": "On July 22, 1906, Punjabi Sikh men in Vancouver formed the Khalsa Diwan Society to support each other. Before building anything permanent, they rented a simple house to use as their first gurdwara, a Sikh place of worship.",
+      "scene": "A small rented wooden house in early 1900s Vancouver with a few Sikh men standing together outside in discussion, no signage or text visible. The child narrator peeks around a nearby fence, observing quietly.",
+      "number": 3
+    },
+    {
+      "title": "Raising the Gurdwara",
+      "caption": "By 1908, the community had built the first Sikh gurdwara in North America at 1866 West 2nd Avenue in Vancouver, designed by architect William Henry Archer. It was built through donations, as South Asian workers across British Columbia gave part of their wages to help pay for it.",
+      "scene": "Construction scene of a wooden temple building with a peaked roof, workers carrying lumber and tools, a collection box visible on a table. The child narrator watches from nearby, holding nothing, just observing the builders at work.",
+      "number": 4
+    },
+    {
+      "title": "Heart of the Community",
+      "caption": "The new gurdwara welcomed everyone with langar, a free shared meal, and gave food and housing to new arrivals. For decades, it also became a meeting place for important causes, including support for India's independence and the fight for voting rights for South Asians in Canada during the 1940s.",
+      "scene": "Inside the gurdwara, people of different ages sit together on the floor sharing a simple meal from a communal kitchen, while in another corner a small group sits in quiet discussion. The child narrator sits respectfully near the doorway, watching the scene.",
+      "number": 5
+    },
+    {
+      "title": "A New Temple Rises",
+      "caption": "The Khalsa Diwan Society later helped build gurdwaras in other towns like Victoria, Abbotsford, and New Westminster. By 1970, the original Vancouver gurdwara was sold to help fund a new temple on Southeast Marine Drive, designed by Arthur Erickson, which still serves the community today and opened a museum in 2012.",
+      "scene": "A side-by-side composition showing the old wooden Second Avenue gurdwara fading on one side and the modern concrete Ross Street Temple rising on the other, connected by a path. The child narrator stands at the center of the path, looking toward the new building.",
+      "number": 6
+    }
+  ]
+}
