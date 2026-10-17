@@ -3,6 +3,7 @@ import { CONFIGURED_SOURCE_KEYS, REFRESH_GROUPS, NEWS_MAX_AGE_DAYS, matchText } 
 import { articlePage, notFoundPage, sitemapXml, parseHistoryIssue, isHistoryIssue, articleNumber } from './articles.js';
 import { describeSource } from './health.js';
 import { eventPath, eventIdFromSlug, rowToEvent, dedupeEvents, moderationRulesFromIssues, applyModeration, mediaFromIssues, storyFromIssues, safeComments, eventPage, eventNotFoundPage, pacificWeekendBounds } from './events.js';
+import { artistEvents, artistPage, artistNotFoundPage, upcomingArtistPaths } from './artists.js';
 import { fetchTravel, travelPageShell } from './travel.js';
 import { renderEventSnapshot, renderStorySnapshot, renderHomeHistorySnapshot } from './list-pages.js';
 
@@ -70,6 +71,16 @@ async function eventResponse(request,env,slug){
   const similar=dedupeEvents((nearby.results||[]).map(rowToEvent)).slice(0,3);
   return html(eventPage(event,{origin,media:mediaFromIssues(mediaIssues,event),story,comments,similar,
     mediaForm:githubTemplate(env,'event-media.yml',`[Event video] ${event.title}`),storyForm:githubTemplate(env,'event-story.yml',`[Event story] ${event.title}`)}));
+}
+
+async function artistResponse(request,env,slug){
+  const html=(body,status=200)=>new Response(body,{status,headers:{'content-type':'text/html; charset=utf-8','cache-control':status===200?'public, max-age=300':'no-store'}});
+  if(!/^[a-z0-9-]{1,70}$/.test(slug))return html(artistNotFoundPage(),404);
+  const origin=String(env.SITE_ORIGIN||new URL(request.url).origin).replace(/\/$/,'');
+  const rows=await env.DB.prepare('SELECT * FROM hub_events ORDER BY datetime(starts_at) DESC LIMIT 2000').all();
+  const events=applyModeration(dedupeEvents((rows.results||[]).map(rowToEvent)),moderationRulesFromIssues(await githubIssuesByLabel(env,'event-hide'))).visible;
+  const found=artistEvents(events,slug);
+  return found?html(artistPage(found,{origin})):html(artistNotFoundPage(),404);
 }
 
 // History articles written as GitHub issues (label: history).
@@ -165,13 +176,13 @@ async function comicAssetExists(env,request,slug){
 async function sitemapResponse(request,env){
   const origin=String(env.SITE_ORIGIN||new URL(request.url).origin).replace(/\/$/,'');
   const articles=await githubHistoryArticles(env,50);
-  let eventPaths=[];
+  let eventPaths=[];let artistPaths=[];
   if(env.DB){const rows=await env.DB.prepare("SELECT * FROM hub_events ORDER BY datetime(starts_at) DESC LIMIT 1000").all();
     const events=dedupeEvents((rows.results||[]).map(rowToEvent));
     const rules=moderationRulesFromIssues(await githubIssuesByLabel(env,'event-hide'));
-    eventPaths=applyModeration(events,rules).visible.map(eventPath);}
+    const visible=applyModeration(events,rules).visible;eventPaths=visible.map(eventPath);artistPaths=upcomingArtistPaths(visible);}
   const comicPaths=(await Promise.all(articles.map(async article=>(await comicAssetExists(env,request,article.slug))?`/history/${article.slug}/kids`:null))).filter(Boolean);
-  return new Response(sitemapXml(origin,articles,[...eventPaths,...comicPaths]),{headers:{'content-type':'application/xml; charset=utf-8','cache-control':'public, max-age=3600'}});
+  return new Response(sitemapXml(origin,articles,[...eventPaths,...artistPaths,...comicPaths]),{headers:{'content-type':'application/xml; charset=utf-8','cache-control':'public, max-age=3600'}});
 }
 
 async function travelPageResponse(request,env){
@@ -279,6 +290,7 @@ export default {
       }
       if(url.pathname==='/sitemap.xml')return sitemapResponse(request,env);
       if(url.pathname.startsWith('/events/')&&url.pathname.length>'/events/'.length)return eventResponse(request,env,decodeURIComponent(url.pathname.slice('/events/'.length)).replace(/\/$/,''));
+      if(url.pathname.startsWith('/artists/')&&url.pathname.length>'/artists/'.length)return artistResponse(request,env,decodeURIComponent(url.pathname.slice('/artists/'.length)).replace(/\/$/,'').toLowerCase());
       if(url.pathname==='/history/kids'||url.pathname==='/history/kids/')return asset(env,request,'/history-kids.html');
       const comicMatch=url.pathname.match(/^\/history\/([^/]+)\/kids\/?$/);
       if(comicMatch)return comicResponse(request,env,decodeURIComponent(comicMatch[1]));
