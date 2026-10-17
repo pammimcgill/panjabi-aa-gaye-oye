@@ -1,12 +1,13 @@
 import {
   EVENT_SOURCES, NEWS_SOURCES, HISTORY_SOURCES, SEATGEEK_SEARCHES, TICKETMASTER_AREAS, TICKETMASTER_KEYWORDS,
-  EVENTBRITE_SEARCH_URLS, EVENT_TERMS, NEWS_TERMS, NEWS_MAX_AGE_DAYS, REFRESH_GROUPS, groupForTime,
+  EVENTBRITE_SEARCH_URLS, EVENT_TERMS, NEWS_TERMS, NEWS_MAX_AGE_DAYS, REFRESH_GROUPS, groupForTime, refreshCycle,
   matchText, hasTerm, relevant, categoryFor, screenEventIdentity
 } from './config.js';
 import {
   cleanText, discoverEventLinks, discoverLinks, extractJsonLdEvents, extractJsonLdArticles,
   parseFeed, extractOpenGraph, safeDate, stableId
 } from './parsers.js';
+import { spotifySearchNames, spotifyBatch } from './spotify-artists.js';
 
 const UA='PanjabiAaGayeOyeBot/3.10.2 (+https://panjabiaagayeoye.com/about-crawlers)';
 
@@ -238,7 +239,9 @@ const TICKETMASTER_STATUS={
   artistsA:{key:'ticketmaster-artists-a',name:'Ticketmaster (artist search 1)'},
   artistsB:{key:'ticketmaster-artists-b',name:'Ticketmaster (artist search 2)'},
   comedyA:{key:'ticketmaster-comedy-a',name:'Ticketmaster (comedy search 1)'},
-  comedyB:{key:'ticketmaster-comedy-b',name:'Ticketmaster (comedy search 2)'}
+  comedyB:{key:'ticketmaster-comedy-b',name:'Ticketmaster (comedy search 2)'},
+  spotifyA:{key:'ticketmaster-spotify-a',name:'Ticketmaster (Spotify artists 1)'},
+  spotifyB:{key:'ticketmaster-spotify-b',name:'Ticketmaster (Spotify artists 2)'}
 };
 export const TICKETMASTER_STATUS_KEYS=Object.values(TICKETMASTER_STATUS).map(x=>x.key);
 
@@ -249,19 +252,26 @@ export function ticketmasterEvent(item={}){
   const image=[...(item.images||[])].sort((a,b)=>(b.width||0)-(a.width||0))[0]?.url||'';
   const kind=item.classifications?.[0]||{};
   const category=/comedy/i.test(`${kind.genre?.name||''} ${kind.subGenre?.name||''}`)?'comedy':'';
-  return {sourceEventId:String(item.id||item.url),idIsUnique:true,title:item.name||'',performers,
+  const genre=kind.segment?.name||'';
+  return {sourceEventId:String(item.id||item.url),idIsUnique:true,title:item.name||'',performers,genre,
     description:cleanText(`${item.info||''} ${item.pleaseNote||''}`),
     startsAt:item.dates?.start?.dateTime||item.dates?.start?.localDate,endsAt:null,
     venue:venue.name||'',city:venue.city?.name||'',url:item.url||'',imageUrl:image,category};
 }
 
-export async function collectTicketmaster(env, run=newRun(env), set='core'){
+// Names the fixed keyword lists already search, so the Spotify rotation does not repeat them.
+const FIXED_TICKETMASTER_KEYWORDS=Object.values(TICKETMASTER_KEYWORDS).flat();
+export function spotifyKeywords(part,ms=Date.now()){
+  return spotifyBatch(spotifySearchNames(FIXED_TICKETMASTER_KEYWORDS),part,refreshCycle(ms));
+}
+
+export async function collectTicketmaster(env, run=newRun(env), set='core', keywords=null){
   const eventSource={key:'ticketmaster',name:'Ticketmaster',url:'https://app.ticketmaster.com/discovery/v2/events.json',type:'ticketing'};
   const statusSource={...eventSource,...(TICKETMASTER_STATUS[set]||TICKETMASTER_STATUS.core)};
   if(!env.TICKETMASTER_API_KEY){await setSourceStatus(env.DB,statusSource,0,'Waiting for TICKETMASTER_API_KEY');return {source:statusSource.key,count:0,disabled:true};}
   const diag=newDiag(); const items=[]; const errors=[]; let requests=0;
   for(const area of TICKETMASTER_AREAS){
-    for(const keyword of TICKETMASTER_KEYWORDS[set]||[]){
+    for(const keyword of keywords||TICKETMASTER_KEYWORDS[set]||[]){
       const p=new URLSearchParams({apikey:env.TICKETMASTER_API_KEY,keyword,latlong:area.latlong,radius:'100',unit:'miles',countryCode:area.countryCode,
         startDateTime:new Date().toISOString().replace(/\.\d{3}Z$/,'Z'),size:'50',sort:'date,asc'});
       try{
@@ -496,13 +506,21 @@ export async function collectHistorySource(db,source,run){
 // ---------------------------------------------------------------------------
 // Maintenance
 // ---------------------------------------------------------------------------
+// The performers column holds every credit; older rows only have the "Featuring ..." line in the description.
+export function storedPerformers(row){
+  const saved=String(row?.performers||'').split('|').map(x=>x.trim()).filter(Boolean);
+  return saved.length?saved:splitFeaturing(row?.description);
+}
+
 export async function rescreenStoredEvents(db){
-  const rows=await db.prepare(`SELECT id,title,description,region,city,venue,starts_at,url,source_name,source_kind
+  const rows=await db.prepare(`SELECT id,title,description,performers,region,city,venue,starts_at,url,source_name,source_kind
     FROM hub_events WHERE is_active=1 AND datetime(starts_at)>=datetime('now','-1 day') LIMIT 5000`).all();
   const rejected={}; const updates=[]; let kept=0;
   for(const row of rows.results||[]){
     const configured=EVENT_SOURCES.find(s=>s.name===row.source_name);
-    const decision=screenEventIdentity({title:row.title,description:row.description,performers:splitFeaturing(row.description)},{type:row.source_kind,trusted:configured?.trusted});
+    const decision=screenEventIdentity({title:row.title,description:row.description,performers:storedPerformers(row),
+      // Genre is not stored. Ticketing rows were already genre-checked when collected.
+      genre:row.source_kind==='ticketing'?'Music':''},{type:row.source_kind,trusted:configured?.trusted});
     if(decision.keep){kept++;continue;}
     rejected[decision.reason]=(rejected[decision.reason]||0)+1;
     updates.push(db.prepare('UPDATE hub_events SET is_active=0 WHERE id=?').bind(row.id));
@@ -515,7 +533,7 @@ export async function rescreenStoredEvents(db){
 // ---------------------------------------------------------------------------
 // Scheduling
 // ---------------------------------------------------------------------------
-export async function collectGroup(env, group){
+export async function collectGroup(env, group, now=Date.now()){
   if(!REFRESH_GROUPS.includes(group)) throw new Error(`Unknown group "${group}"`);
   const run=newRun(env); const results=[];
   if(group==='tickets-core'){ results.push(await collectTicketmaster(env,run,'core')); results.push(await collectGithubEvents(env,run)); }
@@ -523,6 +541,8 @@ export async function collectGroup(env, group){
   if(group==='tickets-artists-b') results.push(await collectTicketmaster(env,run,'artistsB'));
   if(group==='tickets-comedy-a') results.push(await collectTicketmaster(env,run,'comedyA'));
   if(group==='tickets-comedy-b') results.push(await collectTicketmaster(env,run,'comedyB'));
+  if(group==='tickets-spotify-a') results.push(await collectTicketmaster(env,run,'spotifyA',spotifyKeywords(0,now)));
+  if(group==='tickets-spotify-b') results.push(await collectTicketmaster(env,run,'spotifyB',spotifyKeywords(1,now)));
   if(group==='marketplaces'){ results.push(await collectEventbrite(env,run)); results.push(await collectSeatGeek(env,run)); }
   for(const source of EVENT_SOURCES.filter(s=>s.group===group)) results.push(await collectWebSource(env.DB,source,run));
   if(group==='editorial'){
@@ -535,7 +555,7 @@ export async function collectGroup(env, group){
 }
 
 export async function collectScheduled(env, scheduledTime=Date.now()){
-  return collectGroup(env,groupForTime(scheduledTime));
+  return collectGroup(env,groupForTime(scheduledTime),scheduledTime);
 }
 
 // Runs every group one after another. Fine on a paid Workers plan; on the free plan run groups one

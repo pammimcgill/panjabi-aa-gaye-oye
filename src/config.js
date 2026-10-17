@@ -222,6 +222,7 @@ export const EVENTBRITE_SEARCH_URLS = [
 // inside Cloudflare's per-run request limit. All groups are refreshed about every 4 hours.
 export const REFRESH_GROUPS = [
   'tickets-core','tickets-artists-a','tickets-artists-b','tickets-comedy-a','tickets-comedy-b',
+  'tickets-spotify-a','tickets-spotify-b',
   'venues-seattle','venues-tacoma','venues-vancouver','religious','marketplaces','community','editorial'
 ];
 export const REFRESH_SLOT_MS = 20 * 60 * 1000;
@@ -230,11 +231,16 @@ export function groupForTime(ms = Date.now()) {
   return REFRESH_GROUPS[Math.floor(ms / REFRESH_SLOT_MS) % REFRESH_GROUPS.length];
 }
 
+// How many full passes through REFRESH_GROUPS have happened; the Spotify searches use it to rotate names.
+export function refreshCycle(ms = Date.now()) {
+  return Math.floor(Math.floor(ms / REFRESH_SLOT_MS) / REFRESH_GROUPS.length);
+}
+
 export const CONFIGURED_SOURCE_KEYS = new Set([
   ...EVENT_SOURCES.map(s => s.key),
   ...NEWS_SOURCES.map(s => s.key),
   ...HISTORY_SOURCES.map(s => s.key),
-  'ticketmaster','ticketmaster-artists-a','ticketmaster-artists-b','ticketmaster-comedy-a','ticketmaster-comedy-b','eventbrite','seatgeek','github-events'
+  'ticketmaster','ticketmaster-artists-a','ticketmaster-artists-b','ticketmaster-comedy-a','ticketmaster-comedy-b','ticketmaster-spotify-a','ticketmaster-spotify-b','eventbrite','seatgeek','github-events'
 ]);
 
 // ---------------------------------------------------------------------------
