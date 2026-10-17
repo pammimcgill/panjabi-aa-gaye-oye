@@ -98,3 +98,5 @@ footer{padding-top:30px;padding-bottom:50px;color:#706777;border-top:1px solid r
 .history-article-list{padding-top:8px}.history-article-list .section-head p{margin:8px 0 0;color:var(--muted);line-height:1.55}.kids-comic-note{margin:36px 0 18px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}.kids-comic-note a{color:var(--purple);font-weight:900}.kids-care-note{margin-top:34px;padding:18px 21px;border-left:5px solid var(--gold);border-radius:0 16px 16px 0;background:#fff;color:#62596a;line-height:1.55}.kids-care-note strong{color:var(--ink)}.kids-comic-shell{max-width:1050px}.kids-comic-hero{padding-bottom:28px}
 
 .meta a,.event-facts h2 a{color:inherit;text-decoration:underline;text-underline-offset:3px}.meta a:hover,.event-facts h2 a:hover{text-decoration-thickness:2px}
+
+.heritage-art{margin:0 calc(-1 * clamp(20px,5vw,60px));background:#081d2c}.heritage-art img{display:block;width:100%;height:auto;max-height:78vh;object-fit:contain}@media(max-width:610px){.heritage-art img{max-height:none}}

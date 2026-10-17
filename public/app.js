@@ -35,10 +35,7 @@ export async function mountArchive(){
   try{const data=await getJson('/api/events?past=1&limit=250');events=data.events||[];loading.classList.add('hidden');render()}catch(e){loading.classList.add('hidden');error.textContent=`Past events could not load: ${e.message}`;error.classList.remove('hidden')}
 }
 
-export async function mountTravel(){
-  const grid=document.querySelector('#travelGrid'),sources=document.querySelector('#travelSources'),loading=document.querySelector('#loadingState'),error=document.querySelector('#errorState'),updated=document.querySelector('#travelUpdated');
-  try{const data=await getJson('/api/travel');sources.innerHTML=(data.sources||[]).map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.name)} ↗</a>`).join('');grid.innerHTML=(data.items||[]).map(x=>`<article class="travel-card ${x.severity==='major'?'major':''}"><div class="eyebrow small">${esc(x.source)} · ${esc(x.severity||'notice')}</div><h2>${esc(x.title)}</h2>${x.road?`<strong>${esc(x.road)}</strong>`:''}<p>${esc(x.description)}</p>${x.url?`<a class="card-link" href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">Open official advisory ↗</a>`:''}</article>`).join('')||'<div class="empty">No corridor advisories were returned. Check the official maps above before leaving.</div>';updated.textContent=`Updated ${fmtDate(data.generatedAt)}`;loading.classList.add('hidden');if(data.errors?.length){error.textContent=data.errors.join(' · ');error.classList.remove('hidden')}}catch(e){loading.classList.add('hidden');error.textContent=`Travel information could not load: ${e.message}`;error.classList.remove('hidden')}
-}
+export async function mountTravel(){} // Focused board is server-rendered with source timestamps.
 
 const timeAgo=value=>{const ms=Date.now()-new Date(value).getTime();if(!(ms>=0))return fmtDate(value);const h=Math.floor(ms/3600000);if(h<1)return'Just now';if(h<24)return`${h}h ago`;const d=Math.floor(h/24);return d<7?`${d}d ago`:fmtDate(value)};
 
