@@ -88,8 +88,8 @@ test('official travel feeds are reduced to Seattle-Vancouver corridor advisories
   assert.equal(parseWsdotRss(rss).length, 1);
   const bc = parseDriveBc({ events: [{ id: 'd1', headline: 'Highway 99 closure', description: 'Closed near Surrey', severity: 'MAJOR', updated: '2026-09-20T12:00:00Z', url: '/events/drivebc.ca/1', roads: [{ name: 'Highway 99', direction: 'BOTH' }] }] });
   assert.equal(bc[0].severity, 'major');assert.match(bc[0].road, /Highway 99/);
-  const fakeFetch = async url => String(url).includes('open511') ? { ok: true, json: async () => ({ events: [] }) } : { ok: true, text: async () => rss };
-  const result = await fetchTravel(fakeFetch);assert.equal(result.errors.length, 0);assert.equal(result.items.length, 2);
+  const fakeFetch = async url => String(url).includes('FeatureServer') ? { ok: true, json: async () => ({ features: [] }) } : { ok: true, text: async () => rss };
+  const result = await fetchTravel(fakeFetch);assert.equal(result.errors.length, 0);assert.equal(result.items.length, 0);
 });
 
 test('expired events remain searchable and every listing opens its own server-rendered page', async t => {

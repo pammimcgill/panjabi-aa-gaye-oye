@@ -45,9 +45,20 @@ export function githubHeaders(env){
   return headers;
 }
 
+export async function githubRead(url, env, cacheTtl = 300) {
+  const options = {headers:githubHeaders(env),cf:{cacheEverything:true,cacheTtl}};
+  const response = await fetch(url,options);
+  // Invalid credentials must not hide this site's publicly readable articles.
+  // Anonymous retry still obeys GitHub's public repository permissions.
+  if(response.status===401 && env.GITHUB_TOKEN) {
+    return fetch(url,{...options,headers:githubHeaders({...env,GITHUB_TOKEN:''})});
+  }
+  return response;
+}
+
 async function githubIssuesByLabel(env,label,limit=100){
   const repo=githubRepoOf(env);if(!repo)return [];
-  try{const response=await fetch(`https://api.github.com/repos/${repo}/issues?state=open&labels=${encodeURIComponent(label)}&sort=updated&direction=desc&per_page=${Math.min(limit,100)}`,{headers:githubHeaders(env),cf:{cacheEverything:true,cacheTtl:120}});return response.ok?(await response.json()):[];}catch{return []}
+  try{const response=await githubRead(`https://api.github.com/repos/${repo}/issues?state=open&labels=${encodeURIComponent(label)}&sort=updated&direction=desc&per_page=${Math.min(limit,100)}`,env,120);return response.ok?(await response.json()):[];}catch{return []}
 }
 
 function githubTemplate(env,template,title=''){
@@ -87,7 +98,7 @@ async function artistResponse(request,env,slug){
 async function githubHistoryArticles(env,limit=30){
   const repo=githubRepoOf(env); if(!repo)return [];
   try{
-    const response=await fetch(`https://api.github.com/repos/${repo}/issues?state=open&labels=history&sort=created&direction=desc&per_page=${Math.min(limit,50)}`,{headers:githubHeaders(env),cf:{cacheEverything:true,cacheTtl:300}});
+    const response=await githubRead(`https://api.github.com/repos/${repo}/issues?state=open&labels=history&sort=created&direction=desc&per_page=${Math.min(limit,50)}`,env,300);
     if(!response.ok)return [];
     return (await response.json()).filter(isHistoryIssue).map(parseHistoryIssue);
   }catch{return []}
@@ -131,7 +142,7 @@ async function articleResponse(request,env,ctx,slug){
   const cache=typeof caches!=='undefined'?caches.default:null;
   if(cache){const hit=await cache.match(request);if(hit)return hit;}
   let response;
-  try{response=await fetch(`https://api.github.com/repos/${repo}/issues/${number}`,{headers:githubHeaders(env),cf:{cacheEverything:true,cacheTtl:300}});}
+  try{response=await githubRead(`https://api.github.com/repos/${repo}/issues/${number}`,env,300);}
   catch{return html('<!doctype html><meta charset="utf-8"><title>Try again</title><p style="font-family:Georgia,serif;margin:12vh auto;max-width:520px">This article is temporarily unavailable. Please try again in a minute.</p>',503);}
   if(response.status===404||response.status===410)return html(notFoundPage(),404);
   if(!response.ok)return html('<!doctype html><meta charset="utf-8"><title>Try again</title><p style="font-family:Georgia,serif;margin:12vh auto;max-width:520px">This article is temporarily unavailable. Please try again in a minute.</p>',503);
@@ -155,7 +166,7 @@ async function comicResponse(request,env,slug){
   const number=articleNumber(slug),repo=githubRepoOf(env);
   if(!number||!repo)return html(notFoundPage(),404);
   let response;
-  try{response=await fetch(`https://api.github.com/repos/${repo}/issues/${number}`,{headers:githubHeaders(env),cf:{cacheEverything:true,cacheTtl:300}});}
+  try{response=await githubRead(`https://api.github.com/repos/${repo}/issues/${number}`,env,300);}
   catch{return html(notFoundPage(),503);}
   if(!response.ok)return html(notFoundPage(),response.status===404||response.status===410?404:503);
   const issue=await response.json();
