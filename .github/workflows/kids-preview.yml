@@ -27,6 +27,14 @@ jobs:
         with:
           node-version: 22
           cache: npm
+      - name: Generate requested Baba Ji welcome sample
+        env:
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+        run: node scripts/preview-baba-ji.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: baba-ji-welcome
+          path: prototypes/audio/welcome-baba-ji.*
       - run: npm ci
       - run: node --test prototypes/panjabi-kids-pnw-pilot.test.cjs
       - run: node scripts/build-kids-preview.mjs
