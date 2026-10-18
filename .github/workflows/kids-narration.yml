@@ -1,0 +1,31 @@
+name: Record requested Baba Ji chapters
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths: ['public/kids/audio/chapters-pa.json', 'scripts/generate-kids-chapters.mjs', '.github/workflows/kids-narration.yml']
+permissions:
+  contents: read
+concurrency:
+  group: baba-ji-chapter-recording
+  cancel-in-progress: false
+jobs:
+  record:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'feature/kids-chapter-audio-20261018'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/generate-kids-chapters.mjs
+        env:
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: baba-ji-chapters
+          path: |
+            public/kids/audio/*-pa-babaji-v1.mp3
+            public/kids/audio/*-pa-babaji-v1.mp3.json
