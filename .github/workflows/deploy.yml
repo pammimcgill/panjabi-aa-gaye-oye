@@ -23,10 +23,9 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npm test
       - run: npm install --no-save --package-lock=false playwright@1.51.1
       - run: npx playwright install --with-deps chromium
-      - run: node scripts/test-kids-browser.cjs
+      - run: npm test
       # wrangler.toml is git-ignored, so build it from the example when it is not in the repo.
       - run: test -f wrangler.toml || cp wrangler.toml.example wrangler.toml
       # Database migrations require an explicit manual workflow request. If permission is absent, skip
