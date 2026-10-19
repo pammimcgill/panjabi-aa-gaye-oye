@@ -52,3 +52,7 @@ $('complete').onclick=()=>{const r=region,c=chapter;completed.add(chapter);persi
 $('art-dialog').addEventListener('click',e=>{if(e.target===$('art-dialog'))$('art-dialog').close()});
 window.addEventListener('hashchange',()=>{if(location.hash==='#journeys')$('journey-picker').open=true;});
 const last=read('panjabi-kids-last-chapter');if(!location.hash&&/^(pnw|england|east-africa|asia)\/[1-5]$/.test(last||'')){location.hash='/'+last;}render();
+
+// Destination badges use the same device-only progress as the chapter trail.
+const originalPassport=passport;passport=function(){originalPassport();document.querySelectorAll("[data-region-progress]").forEach(el=>{const n=progressByRegion[el.dataset.regionProgress].completed.size;el.textContent=n===5?"✓ Stamp collected!":n+" / 5 chapters complete";});};passport();
+if(location.hash==="#journeys")$("journey-picker").open=true;
