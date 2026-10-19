@@ -1,0 +1,26 @@
+name: Align existing Kids recordings
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths: ['scripts/align-kids-audio.mjs', '.github/workflows/kids-alignment.yml']
+permissions:
+  contents: read
+jobs:
+  align:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'feature/kids-adventure-20261019'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/align-kids-audio.mjs
+        env:
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: kids-alignment
+          path: public/kids/audio/alignment/
