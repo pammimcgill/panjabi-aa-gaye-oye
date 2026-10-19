@@ -1,0 +1,10 @@
+name: Record requested Baba Ji chapters
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  saved_audio:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'Chapter recordings are saved in git. No automatic paid generation.'

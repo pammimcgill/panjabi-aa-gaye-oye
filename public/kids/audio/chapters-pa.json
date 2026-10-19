@@ -1,0 +1,303 @@
+{
+  "voice_id": "hTSJyWl3f0iFc4PF12Mk",
+  "voice_name": "Baba ji",
+  "model_id": "eleven_v3",
+  "language_code": "pa",
+  "speed": 1,
+  "reading_mode": "young",
+  "review_status": "Punjabi translation and pronunciation await community listening review",
+  "chapters": [
+    {
+      "id": "pnw-1",
+      "title": "Leaving Punjab",
+      "text": "ਨੇੜੇ ਆਓ ਬੱਚਿਓ, ਦਾਦਾ ਜੀ ਕਹਿੰਦੇ ਹਨ। ਸਾਡੀ ਕਹਾਣੀ ਪੰਜਾਬ ਤੋਂ ਸ਼ੁਰੂ ਹੁੰਦੀ ਹੈ।\nਬਹੁਤ ਸਮਾਂ ਪਹਿਲਾਂ, ਕੁਝ ਪੰਜਾਬੀ ਲੋਕਾਂ ਨੇ ਦੂਰ ਦੇਸਾਂ ਵਿੱਚ ਕੰਮ ਬਾਰੇ ਸੁਣਿਆ। ਉਨ੍ਹਾਂ ਨੇ ਸਫ਼ਰ ਕਰਨ ਦਾ ਫ਼ੈਸਲਾ ਕੀਤਾ। ਹਰ ਕੋਈ ਇੱਕੋ ਕਾਰਨ ਕਰਕੇ ਨਹੀਂ ਗਿਆ ਸੀ।\nਕੁਝ ਪਰਿਵਾਰ ਪੰਜਾਬ ਵਿੱਚ ਹੀ ਰਹੇ। ਕਾਮੇ ਉਨ੍ਹਾਂ ਦੀ ਮਦਦ ਲਈ ਘਰ ਪੈਸੇ ਭੇਜਦੇ ਸਨ। ਇੱਕ ਸਫ਼ਰ ਦੋ ਥਾਵਾਂ ਨੂੰ ਜੋੜ ਸਕਦਾ ਸੀ, ਪਰ ਪਿਆਰਿਆਂ ਨੂੰ ਦੂਰ ਵੀ ਰੱਖਦਾ ਸੀ।\nਇੱਕ ਅਜਾਇਬ ਘਰ ਕੋਲ ਪੁਰਾਣੇ ਸੁਨੇਹੇ ਦੀ ਨਕਲ ਹੈ। ਉਸ ਵਿੱਚ ਗੇਹਾ ਸਿੰਘ ਦਾ ਨਾਂ ਹੈ, ਜੋ ਉੱਨੀ ਸੌ ਦੋ ਵਿੱਚ ਕੈਨੇਡਾ ਦੇ ਗੋਲਡਨ ਸ਼ਹਿਰ ਵਿੱਚ ਰਹਿੰਦੇ ਸਨ। ਇਹ ਨਿੱਕਾ ਜਿਹਾ ਸਬੂਤ ਸਾਨੂੰ ਬੀਤੇ ਸਮੇਂ ਬਾਰੇ ਜਾਣਨ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ।\nਪਰ ਇਹ ਸਾਨੂੰ ਸਭ ਕੁਝ ਨਹੀਂ ਦੱਸ ਸਕਦਾ, ਦਾਦਾ ਜੀ ਕਹਿੰਦੇ ਹਨ। ਸਾਨੂੰ ਨਹੀਂ ਪਤਾ ਕਿ ਉਹ ਕੀ ਸੋਚ ਰਹੇ ਸਨ।\nਦੂਰ ਰਹਿੰਦੇ ਕਿਸੇ ਆਪਣੇ ਨਾਲ ਜੁੜੇ ਮਹਿਸੂਸ ਕਰਨ ਵਿੱਚ ਤੁਹਾਡੀ ਕੀ ਮਦਦ ਕਰੇਗਾ?",
+      "english": "“Come closer, beta,” Grandpa says. “Our story begins in Punjab.”\n\nLong ago, some Punjabi people heard about work far away. They chose to travel. Not everyone left for the same reason. [1]\n\nSome families stayed in Punjab. Workers sent money home to help them. A journey could connect two places while keeping loved ones apart. [2]\n\nA museum has a copy of an old message. It names Geha Singh, who lived in Golden, Canada, in 1902. That small clue helps us learn about the past! [2]\n\n“But it cannot tell us everything,” Grandpa says. “We do not know what he was thinking.”\n\nWhat would help you feel close to someone far away?",
+      "sources": [
+        [
+          "University of Washington — migration context and Bellingham, 4 September 1907",
+          "https://depts.washington.edu/civilr/bham_history.shtml"
+        ],
+        [
+          "Golden Museum — 1902 telegram, mill employment and family remittances",
+          "https://goldenbcmuseums.com/first-sikh-temple-in-north-america/"
+        ]
+      ],
+      "audio": "audio/pnw-1-pa-babaji-v1.mp3"
+    },
+    {
+      "id": "pnw-2",
+      "title": "Crossing the Ocean",
+      "text": "ਕੀ ਤੁਹਾਨੂੰ ਲਹਿਰਾਂ ਦੀ ਆਵਾਜ਼ ਸੁਣਦੀ ਹੈ? ਦਾਦਾ ਜੀ ਪੁੱਛਦੇ ਹਨ।\nਸਮੁੰਦਰ ਪਾਰ ਕਰਦੇ ਇੱਕ ਜਹਾਜ਼ ਦੀ ਕਲਪਨਾ ਕਰੋ। ਲੋਕ ਨਵੀਆਂ ਥਾਵਾਂ ਤੱਕ ਪਹੁੰਚਣ ਲਈ ਲੰਮੇ ਸਫ਼ਰ ਕਰਦੇ ਸਨ। ਸਭ ਨੇ ਇੱਕੋ ਰਸਤਾ ਨਹੀਂ ਲਿਆ ਸੀ।\nਸਾਨੂੰ ਕਾਮਾਗਾਟਾ ਮਾਰੂ ਨਾਂ ਦੇ ਇੱਕ ਜਹਾਜ਼ ਬਾਰੇ ਪਤਾ ਹੈ। ਉਹ ਉੱਨੀ ਸੌ ਚੌਦਾਂ ਵਿੱਚ ਵੈਨਕੂਵਰ ਪਹੁੰਚਿਆ। ਉਸ ਵਿੱਚ ਤਿੰਨ ਸੌ ਛਿਹੱਤਰ ਮੁਸਾਫ਼ਰ ਸਨ, ਜਿਨ੍ਹਾਂ ਵਿੱਚ ਸਿੱਖ, ਮੁਸਲਮਾਨ ਅਤੇ ਹਿੰਦੂ ਸ਼ਾਮਲ ਸਨ।\nਜ਼ਿਆਦਾਤਰ ਮੁਸਾਫ਼ਰਾਂ ਨੂੰ ਕੈਨੇਡਾ ਵਿੱਚ ਦਾਖ਼ਲ ਨਹੀਂ ਹੋਣ ਦਿੱਤਾ ਗਿਆ। ਕੰਢੇ ਉੱਤੇ ਰਹਿੰਦੇ ਲੋਕਾਂ ਨੇ ਉਨ੍ਹਾਂ ਦੀ ਮਦਦ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕੀਤੀ। ਚੌਥੇ ਅਧਿਆਇ ਵਿੱਚ ਅਸੀਂ ਹੋਰ ਜਾਣਾਂਗੇ।\nਕਿਸੇ ਥਾਂ ਪਹੁੰਚਣਾ ਅਤੇ ਉੱਥੇ ਸੁਆਗਤ ਹੋਣਾ ਵੱਖਰੀਆਂ ਗੱਲਾਂ ਹਨ, ਦਾਦਾ ਜੀ ਕਹਿੰਦੇ ਹਨ।\nਸਾਡੀ ਤਸਵੀਰ ਇੱਕ ਕਲਪਨਾ ਕੀਤਾ ਸਫ਼ਰ ਦਿਖਾਉਂਦੀ ਹੈ। ਇਹ ਉਸ ਅਸਲੀ ਜਹਾਜ਼ ਦੀ ਤਸਵੀਰ ਨਹੀਂ ਹੈ।",
+      "english": "“Can you hear the waves?” Grandpa asks.\n\nImagine a ship crossing the sea. People took long journeys to reach new places. They did not all take the same route. [1]\n\nWe know about one ship called the Komagata Maru. It reached Vancouver in 1914. There were 376 passengers, including Sikhs, Muslims and Hindus. [1]\n\nMost were not allowed to enter Canada. People on shore tried to help them. We will learn more in chapter four. [1]\n\n“Reaching a place and being welcomed are different things,” Grandpa says.\n\nOur picture shows an imagined voyage. It is not a picture of that real ship.",
+      "sources": [
+        [
+          "Parks Canada — 1914 arrival, passengers, exclusion and legal support",
+          "https://parks.canada.ca/culture/designation/evenement-event/komagata-maru"
+        ]
+      ],
+      "audio": "audio/pnw-2-pa-babaji-v1.mp3"
+    },
+    {
+      "id": "pnw-3",
+      "title": "Work and Neighbors",
+      "text": "ਲੱਕੜ ਦੇ ਕਾਰਖ਼ਾਨੇ ਵਿੱਚ ਕੀ ਹੁੰਦਾ ਹੈ? ਦਾਦਾ ਜੀ ਪੁੱਛਦੇ ਹਨ।\nਉੱਥੇ ਰੁੱਖਾਂ ਦੇ ਤਣਿਆਂ ਨੂੰ ਕੱਟ ਕੇ ਵਰਤਣ ਜੋਗੀ ਲੱਕੜ ਬਣਾਈ ਜਾਂਦੀ ਹੈ। ਬ੍ਰਿਟਿਸ਼ ਕੋਲੰਬੀਆ ਵਿੱਚ ਕੁਝ ਨਵੇਂ ਆਏ ਪੰਜਾਬੀ ਅਜਿਹੇ ਕਾਰਖ਼ਾਨਿਆਂ ਵਿੱਚ ਕੰਮ ਕਰਦੇ ਸਨ।\nਲੋਕਾਂ ਨੂੰ ਮਿਲਣ ਅਤੇ ਇੱਕ ਦੂਜੇ ਦੀ ਮਦਦ ਕਰਨ ਲਈ ਥਾਵਾਂ ਵੀ ਚਾਹੀਦੀਆਂ ਸਨ। ਵੈਨਕੂਵਰ ਵਿੱਚ ਉੱਨੀ ਸੌ ਅੱਠ ਵਿੱਚ ਇੱਕ ਗੁਰਦੁਆਰਾ ਖੁੱਲ੍ਹਿਆ। ਗੁਰਦੁਆਰਾ ਸਿੱਖਾਂ ਦਾ ਧਾਰਮਿਕ ਅਸਥਾਨ ਹੁੰਦਾ ਹੈ। ਉੱਥੇ ਵੱਖ ਵੱਖ ਦੱਖਣੀ ਏਸ਼ੀਆਈ ਭਾਈਚਾਰਿਆਂ ਦੇ ਲੋਕਾਂ ਨੂੰ ਸਹਾਰਾ ਮਿਲਦਾ ਸੀ।\nਹੋਰ ਦੱਖਣ ਵੱਲ, ਕੈਲੀਫ਼ੋਰਨੀਆ ਵਿੱਚ, ਸਟਾਕਟਨ ਗੁਰਦੁਆਰੇ ਦੀ ਸਥਾਪਨਾ ਉੱਨੀ ਸੌ ਬਾਰਾਂ ਵਿੱਚ ਹੋਈ। ਉੱਥੇ ਪਰਿਵਾਰ ਅਤੇ ਵੱਖ ਵੱਖ ਧਰਮਾਂ ਦੇ ਲੋਕ ਇਕੱਠੇ ਹੁੰਦੇ ਸਨ।\nਕੰਮ ਜ਼ਿੰਦਗੀ ਦਾ ਇੱਕ ਹਿੱਸਾ ਸੀ, ਦਾਦਾ ਜੀ ਕਹਿੰਦੇ ਹਨ। ਗੁਆਂਢੀਆਂ ਦਾ ਖ਼ਿਆਲ ਰੱਖਣਾ ਵੀ ਜ਼ਿੰਦਗੀ ਦਾ ਹਿੱਸਾ ਸੀ।",
+      "english": "“What happens at a sawmill?” Grandpa asks.\n\nA sawmill cuts logs into wood people can use. Some Punjabi newcomers worked in sawmills in British Columbia. [1]\n\nPeople also needed places to meet and help each other. In Vancouver, a Sikh place of worship called a gurdwara opened in 1908. It offered support to people from different South Asian communities. [2]\n\nFarther south, in California, the Stockton Gurdwara was founded in 1912. Families and people of different faiths gathered there. [3]\n\n“Work was part of life,” Grandpa says. “So was caring for neighbors.”",
+      "sources": [
+        [
+          "Golden Museum — 1902 telegram, mill employment and family remittances",
+          "https://goldenbcmuseums.com/first-sikh-temple-in-north-america/"
+        ],
+        [
+          "Canadian Register of Historic Places — Vancouver gurdwara, 1908 and community support",
+          "https://www.historicplaces.ca/en/rep-reg/place-lieu.aspx?id=22922"
+        ],
+        [
+          "UC Davis — Stockton Gurdwara, 1912 and family/community connections",
+          "https://punjabidiaspora.ucdavis.edu/contributions/religion/stockton-temple/"
+        ]
+      ],
+      "audio": "audio/pnw-3-pa-babaji-v1.mp3"
+    },
+    {
+      "id": "pnw-4",
+      "title": "When People Were Treated Unfairly",
+      "text": "ਦਾਦਾ ਜੀ ਦੀ ਆਵਾਜ਼ ਹੌਲੀ ਹੋ ਜਾਂਦੀ ਹੈ।\nਉੱਨੀ ਸੌ ਸੱਤ ਵਿੱਚ ਬੈਲਿੰਗਹੈਮ ਵਿੱਚ ਗੋਰੇ ਲੋਕਾਂ ਦੀ ਇੱਕ ਭੀੜ ਨੇ ਦੱਖਣੀ ਏਸ਼ੀਆਈ ਕਾਮਿਆਂ ਉੱਤੇ ਹਮਲਾ ਕੀਤਾ। ਸੁਰੱਖਿਆ ਲੱਭਣ ਲਈ ਲੋਕਾਂ ਨੂੰ ਸ਼ਹਿਰ ਛੱਡਣਾ ਪਿਆ।\nਇਹ ਗ਼ਲਤ ਸੀ। ਹਰ ਕਿਸੇ ਨੂੰ ਸੁਰੱਖਿਆ ਅਤੇ ਇੱਜ਼ਤ ਮਿਲਣੀ ਚਾਹੀਦੀ ਹੈ।\nਉੱਨੀ ਸੌ ਚੌਦਾਂ ਵਿੱਚ ਕਾਮਾਗਾਟਾ ਮਾਰੂ ਦੇ ਜ਼ਿਆਦਾਤਰ ਮੁਸਾਫ਼ਰਾਂ ਨੂੰ ਕੈਨੇਡਾ ਵਿੱਚ ਦਾਖ਼ਲ ਨਹੀਂ ਹੋਣ ਦਿੱਤਾ ਗਿਆ। ਕੰਢੇ ਉੱਤੇ ਰਹਿੰਦੇ ਲੋਕਾਂ ਨੇ ਪੈਸੇ ਇਕੱਠੇ ਕੀਤੇ ਅਤੇ ਬੇਇਨਸਾਫ਼ ਨਿਯਮਾਂ ਨੂੰ ਚੁਣੌਤੀ ਦੇਣ ਵਿੱਚ ਉਨ੍ਹਾਂ ਦੀ ਮਦਦ ਕੀਤੀ।\nਇਹ ਘਟਨਾਵਾਂ ਵੱਖ ਵੱਖ ਥਾਵਾਂ ਅਤੇ ਵੱਖ ਵੱਖ ਸਾਲਾਂ ਵਿੱਚ ਹੋਈਆਂ ਸਨ।\nਲੋਕ ਆਪਣੇ ਹੱਕਾਂ ਲਈ ਖੜ੍ਹੇ ਹੋਏ, ਦਾਦਾ ਜੀ ਕਹਿੰਦੇ ਹਨ। ਉਨ੍ਹਾਂ ਦੀਆਂ ਕਹਾਣੀਆਂ ਮਹੱਤਵਪੂਰਨ ਹਨ।\nਤੁਸੀਂ ਇੱਥੇ ਰੁਕ ਕੇ ਕਿਸੇ ਵੱਡੇ ਨਾਲ ਗੱਲ ਕਰ ਸਕਦੇ ਹੋ।",
+      "english": "Grandpa’s voice grows quiet.\n\n“In Bellingham in 1907, a white crowd attacked South Asian workers. People had to leave the city to find safety.” [1]\n\nThat was wrong. Everyone deserves safety and respect.\n\n“In 1914, most passengers on the Komagata Maru were not allowed to enter Canada. People on shore raised money and helped them challenge the unfair rules.” [2]\n\nThese events happened in different places and years.\n\n“The people stood up for their rights,” Grandpa says. “Their stories matter.”\n\nYou can pause here and talk with a grown-up.",
+      "sources": [
+        [
+          "University of Washington — migration context and Bellingham, 4 September 1907",
+          "https://depts.washington.edu/civilr/bham_history.shtml"
+        ],
+        [
+          "Parks Canada — 1914 arrival, passengers, exclusion and legal support",
+          "https://parks.canada.ca/culture/designation/evenement-event/komagata-maru"
+        ]
+      ],
+      "audio": "audio/pnw-4-pa-babaji-v1.mp3"
+    },
+    {
+      "id": "pnw-5",
+      "title": "Aa Gaye Oye!",
+      "text": "ਆ ਗਏ ਓਏ! ਅਸੀਂ ਪਹੁੰਚ ਗਏ! ਦਾਦਾ ਜੀ ਕਹਿੰਦੇ ਹਨ।\nਪਰ ਘਰ ਬਣਾਉਣਾ ਸਿਰਫ਼ ਕਿਸੇ ਨਵੀਂ ਥਾਂ ਪਹੁੰਚ ਜਾਣਾ ਨਹੀਂ ਹੁੰਦਾ।\nਵੈਨਕੂਵਰ ਵਿੱਚ ਇੱਕ ਗੁਰਦੁਆਰਾ ਵੱਖ ਵੱਖ ਭਾਈਚਾਰਿਆਂ ਦੇ ਲੋਕਾਂ ਦੀ ਮਦਦ ਕਰਦਾ ਸੀ। ਉਸ ਦੇ ਮੈਂਬਰਾਂ ਨੇ ਕਾਮਾਗਾਟਾ ਮਾਰੂ ਦੇ ਮੁਸਾਫ਼ਰਾਂ ਲਈ ਵੀ ਆਵਾਜ਼ ਉਠਾਈ।\nਕੈਲੀਫ਼ੋਰਨੀਆ ਦੇ ਸਟਾਕਟਨ ਵਿੱਚ ਵੀ ਪਰਿਵਾਰ ਅਤੇ ਬੱਚੇ ਭਾਈਚਾਰੇ ਦੀ ਜ਼ਿੰਦਗੀ ਦਾ ਹਿੱਸਾ ਸਨ।\nਸਾਡੀ ਆਖ਼ਰੀ ਤਸਵੀਰ ਵਿੱਚ ਕਲਪਨਾ ਕੀਤੇ ਗੁਆਂਢੀ ਇੱਕ ਦੂਜੇ ਦਾ ਸੁਆਗਤ ਕਰਦੇ ਹਨ, ਇਕੱਠੇ ਖਾਣਾ ਖਾਂਦੇ ਹਨ ਅਤੇ ਕਹਾਣੀ ਸੁਣਦੇ ਹਨ। ਇਹ ਕਿਸੇ ਅਸਲੀ ਪਰਿਵਾਰ ਦੀ ਫ਼ੋਟੋ ਨਹੀਂ ਹੈ। ਸ਼ਾਇਦ ਇਹ ਤੁਹਾਨੂੰ ਆਪਣੇ ਜਾਣੇ ਪਛਾਣੇ ਲੋਕਾਂ ਦੀ ਯਾਦ ਦਿਵਾਏ।\nਤੁਸੀਂ ਇੱਕ ਤੋਂ ਵੱਧ ਥਾਵਾਂ ਨਾਲ ਪਿਆਰ ਕਰ ਸਕਦੇ ਹੋ।\nਤੁਸੀਂ ਕਿਹੜੀਆਂ ਕਹਾਣੀਆਂ ਆਪਣੇ ਨਾਲ ਲੈ ਕੇ ਜਾਓਗੇ? ਦਾਦਾ ਜੀ ਪੁੱਛਦੇ ਹਨ। ਸਾਡੀ ਕਹਾਣੀ ਅੱਗੇ ਚੱਲਦੀ ਰਹਿੰਦੀ ਹੈ।",
+      "english": "“Aa gaye oye! We have arrived!” Grandpa says.\n\nBut making a home takes more than getting to a new place.\n\nIn Vancouver, a gurdwara offered help to people from different communities. Its members also spoke up for people on the Komagata Maru. [1]\n\nIn Stockton, California, families and children were part of community life too. [2]\n\nOur last picture imagines neighbors welcoming one another, sharing a meal and listening to a story. It is not a photograph of a real family. Perhaps it makes you think of people you know.\n\nYou can care about more than one place.\n\n“What stories will you carry with you?” Grandpa asks. “Our story goes on.”",
+      "sources": [
+        [
+          "Canadian Register of Historic Places — Vancouver gurdwara, 1908 and community support",
+          "https://www.historicplaces.ca/en/rep-reg/place-lieu.aspx?id=22922"
+        ],
+        [
+          "UC Davis — Stockton Gurdwara, 1912 and family/community connections",
+          "https://punjabidiaspora.ucdavis.edu/contributions/religion/stockton-temple/"
+        ]
+      ],
+      "audio": "audio/pnw-5-pa-babaji-v1.mp3"
+    },
+    {
+      "id": "england-1",
+      "title": "An Earlier Journey",
+      "text": "ਬੱਚਿਓ, ਸਾਡੀ ਕਹਾਣੀ ਦੀ ਇੱਕ ਤੋਂ ਵੱਧ ਸ਼ੁਰੂਆਤ ਹੈ, ਦਾਦਾ ਜੀ ਕਹਿੰਦੇ ਹਨ।\nਅਗਲੇ ਅਧਿਆਇ ਦੇ ਸਾਊਥਾਲ ਵਾਲੇ ਪਰਿਵਾਰਾਂ ਤੋਂ ਬਹੁਤ ਪਹਿਲਾਂ, ਪੰਜਾਬ ਦਾ ਇੱਕ ਨੌਜਵਾਨ ਸ਼ਾਸਕ ਇੰਗਲੈਂਡ ਆਇਆ ਸੀ। ਉਸ ਦਾ ਨਾਂ ਦਲੀਪ ਸਿੰਘ ਸੀ। ਅੰਗਰੇਜ਼ ਹਾਕਮਾਂ ਨੇ ਅਠਾਰਾਂ ਸੌ ਉਣੰਜਾ ਵਿੱਚ ਪੰਜਾਬ ਉੱਤੇ ਕਬਜ਼ਾ ਕਰ ਲਿਆ ਸੀ। ਉਹ ਆਪਣਾ ਰਾਜ ਗੁਆ ਬੈਠਾ ਅਤੇ ਅਠਾਰਾਂ ਸੌ ਚੁਰੰਜਾ ਵਿੱਚ ਉਸ ਨੂੰ ਲੰਡਨ ਲਿਆਂਦਾ ਗਿਆ।\nਇਹ ਛੁੱਟੀਆਂ ਦਾ ਸਫ਼ਰ ਨਹੀਂ ਸੀ, ਦਾਦਾ ਜੀ ਨਰਮੀ ਨਾਲ ਕਹਿੰਦੇ ਹਨ। ਹਕੂਮਤ ਦੀ ਤਾਕਤ ਬਦਲ ਸਕਦੀ ਹੈ ਕਿ ਲੋਕ ਕਿੱਥੇ ਰਹਿ ਸਕਦੇ ਹਨ।\nਇੱਕ ਅਜਾਇਬ ਘਰ ਵਿੱਚ ਉਸ ਦੀਆਂ ਤਸਵੀਰਾਂ ਹਨ। ਤਸਵੀਰ ਸਾਨੂੰ ਸਵਾਲ ਪੁੱਛਣ ਵਿੱਚ ਮਦਦ ਕਰ ਸਕਦੀ ਹੈ। ਪਰ ਉਹ ਉਸ ਦੇ ਮਨ ਦੀ ਹਰ ਗੱਲ ਨਹੀਂ ਦੱਸ ਸਕਦੀ।\nਕਿਸੇ ਤਸਵੀਰ ਵਿੱਚ ਦਿਖਦੇ ਵਿਅਕਤੀ ਬਾਰੇ ਤੁਸੀਂ ਕੀ ਪੁੱਛੋਗੇ?",
+      "english": "“Our story has more than one beginning, beta,” Grandpa says.\n\nLong before the Southall families in our next chapter, a young ruler from Punjab came to England. His name was Duleep Singh. British rulers had taken over Punjab in 1849. He lost his kingdom and was brought to London in 1854. [1]\n\n“That was not a holiday,” Grandpa says gently. “Power can change where people are able to live.”\n\nA museum keeps portraits of him. A picture can help us ask questions. But it cannot tell us every thought he had.\n\nWhat would you ask about the person in a portrait?",
+      "sources": [
+        [
+          "Royal Collection Trust — Maharaja Duleep Singh",
+          "https://www.rct.uk/collection/stories/maharaja-duleep-singh"
+        ]
+      ],
+      "audio": "audio/england-1-pa-babaji-v1.mp3"
+    },
+    {
+      "id": "england-2",
+      "title": "A Suitcase in Southall",
+      "text": "ਹੁਣ ਕਈ ਸਾਲ ਅੱਗੇ ਚੱਲੀਏ, ਦਾਦਾ ਜੀ ਕਹਿੰਦੇ ਹਨ। ਆਓ ਇੰਗਲੈਂਡ ਦੇ ਸਾਊਥਾਲ ਚੱਲੀਏ।\nਲੋਕਾਂ ਦੀਆਂ ਜ਼ਬਾਨੀ ਯਾਦਾਂ ਇਕੱਠੀਆਂ ਕਰਨ ਵਾਲਾ ਇੱਕ ਪ੍ਰੋਜੈਕਟ ਉਨ੍ਹਾਂ ਪੰਜਾਬੀਆਂ ਬਾਰੇ ਦੱਸਦਾ ਹੈ ਜੋ ਉੱਨੀ ਸੌ ਪੰਜਾਹ ਅਤੇ ਸੱਠ ਦੇ ਦਹਾਕਿਆਂ ਵਿੱਚ ਉੱਥੇ ਵੱਸੇ। ਉਨ੍ਹਾਂ ਨੇ ਕੰਮ ਅਤੇ ਰਹਿਣ ਲਈ ਥਾਵਾਂ ਲੱਭੀਆਂ। ਉਨ੍ਹਾਂ ਨੇ ਕਾਰੋਬਾਰ ਅਤੇ ਭਾਈਚਾਰਕ ਜੀਵਨ ਵੀ ਬਣਾਇਆ।\nਕਿਸੇ ਅਣਜਾਣ ਗਲੀ ਵਿੱਚ ਪਹੁੰਚਣ ਦੀ ਕਲਪਨਾ ਕਰੋ। ਤੁਹਾਨੂੰ ਰਸਤਾ ਲੱਭਣ ਵਿੱਚ ਕੌਣ ਮਦਦ ਕਰ ਸਕਦਾ ਹੈ? ਸਾਡੀ ਤਸਵੀਰ ਵਾਲਾ ਪਰਿਵਾਰ ਕਲਪਨਾ ਕੀਤਾ ਹੋਇਆ ਹੈ, ਪਰ ਇਨ੍ਹਾਂ ਸਫ਼ਰਾਂ ਦਾ ਇਤਿਹਾਸ ਅਸਲੀ ਹੈ।\nਹਰ ਪਰਿਵਾਰ ਇਕੱਠਾ ਨਹੀਂ ਆਇਆ ਸੀ, ਦਾਦਾ ਜੀ ਯਾਦ ਦਿਵਾਉਂਦੇ ਹਨ। ਅਤੇ ਇੱਕ ਪਰਿਵਾਰ ਦੀ ਕਹਾਣੀ ਸਭ ਦੀ ਕਹਾਣੀ ਨਹੀਂ ਹੋ ਸਕਦੀ।\nਸੂਟਕੇਸ ਵਿੱਚ ਚੀਜ਼ਾਂ ਹੁੰਦੀਆਂ ਹਨ। ਕਹਾਣੀ ਵਿੱਚ ਉਹ ਲੋਕ ਅਤੇ ਥਾਵਾਂ ਵੱਸ ਸਕਦੀਆਂ ਹਨ ਜਿਨ੍ਹਾਂ ਨੂੰ ਅਸੀਂ ਯਾਦ ਕਰਦੇ ਹਾਂ।",
+      "english": "“Now turn forward many years,” Grandpa says. “Let us visit Southall, in England.”\n\nAn oral-history project tells of Punjabi people who moved there in the 1950s and 1960s. They looked for work and places to live. They built businesses and community life too. [1]\n\nImagine arriving on an unfamiliar street. Who could help you find your way? Our illustrated family is made up, but the history of these journeys is real.\n\n“Not every family came together,” Grandpa reminds us. “And one family’s story cannot stand for everyone.”\n\nA suitcase holds things. A story can hold the people and places we remember.",
+      "sources": [
+        [
+          "digital:works — Panjabis of Southall project description",
+          "https://digital-works.co.uk/southall.html"
+        ]
+      ],
+      "audio": "audio/england-2-pa-babaji-v1.mp3"
+    },
+    {
+      "id": "england-3",
+      "title": "The Women Who Tell the Story",
+      "text": "ਅਸੀਂ ਅਜੇ ਕਿਨ੍ਹਾਂ ਦੀਆਂ ਕਹਾਣੀਆਂ ਨਹੀਂ ਸੁਣੀਆਂ? ਦਾਦਾ ਜੀ ਪੁੱਛਦੇ ਹਨ।\nਫ਼ੌਰਨ ਲੈਂਡ ਨਾਂ ਦਾ ਇੱਕ ਪ੍ਰੋਜੈਕਟ ਔਰਤਾਂ ਦੀਆਂ ਯਾਦਾਂ ਦਰਜ ਕਰਦਾ ਹੈ। ਉਨ੍ਹਾਂ ਵਿੱਚੋਂ ਬਹੁਤ ਸਾਰੀਆਂ ਪੰਜਾਬੀ ਸਨ। ਉੱਨੀ ਸੌ ਸੰਤਾਲੀ ਵਿੱਚ ਭਾਰਤ ਦੀ ਵੰਡ ਤੋਂ ਬਾਅਦ ਦੇ ਸਾਲਾਂ ਵਿੱਚ ਉਹ ਕੰਮ ਦੀ ਭਾਲ ਵਿੱਚ ਇੰਗਲੈਂਡ ਗਈਆਂ। ਉਨ੍ਹਾਂ ਦੀਆਂ ਕਹਾਣੀਆਂ ਸਾਨੂੰ ਸਾਊਥਾਲ ਲੈ ਜਾਂਦੀਆਂ ਹਨ।\nਇਸ ਇਤਿਹਾਸ ਵਿੱਚ ਔਰਤਾਂ ਦੀ ਅਹਿਮ ਥਾਂ ਹੈ। ਸਾਨੂੰ ਉਨ੍ਹਾਂ ਦੇ ਕੰਮ, ਫ਼ੈਸਲਿਆਂ ਅਤੇ ਦੋਸਤੀਆਂ ਬਾਰੇ ਪੁੱਛਣਾ ਚਾਹੀਦਾ ਹੈ।\nਕਿਸੇ ਵੱਡੀ ਉਮਰ ਦੇ ਰਿਸ਼ਤੇਦਾਰ ਕੋਲ ਬੈਠ ਕੇ ਸੁਣਨ ਦੀ ਕਲਪਨਾ ਕਰੋ। ਤੁਸੀਂ ਪੁੱਛ ਸਕਦੇ ਹੋ, ਤੁਸੀਂ ਬੱਚਿਆਂ ਨੂੰ ਕੀ ਦੱਸਣਾ ਚਾਹੋਗੇ?\nਫਿਰ ਉਨ੍ਹਾਂ ਨੂੰ ਸਮਾਂ ਦਿਓ, ਦਾਦਾ ਜੀ ਕਹਿੰਦੇ ਹਨ। ਸੁਣਨਾ ਵੀ ਸਿੱਖਣ ਦਾ ਹਿੱਸਾ ਹੈ।",
+      "english": "“Whose stories have we not heard yet?” Grandpa asks.\n\nA project called Foreign Land records women’s memories. Many of the women were Punjabi. They went to England looking for work in the years after India was divided in 1947. Their stories lead us to Southall. [1]\n\nWomen belong at the center of this history. We should ask them about their work, choices and friendships.\n\nImagine sitting with an older relative and listening. You might ask, “What would you like children to know?”\n\n“Then give them time,” Grandpa says. “Listening is part of learning.”",
+      "sources": [
+        [
+          "Sheba Remy Kharbanda — Vilayati Tarti / Foreign Land project description",
+          "https://www.shebaremy.com/oral-history"
+        ]
+      ],
+      "audio": "audio/england-3-pa-babaji-v1.mp3"
+    },
+    {
+      "id": "england-4",
+      "title": "Standing Together",
+      "text": "ਘਰ ਵਸਾਉਣ ਦਾ ਮਤਲਬ ਬੇਇਨਸਾਫ਼ੀ ਸਹਿਣਾ ਨਹੀਂ ਹੋਣਾ ਚਾਹੀਦਾ, ਦਾਦਾ ਜੀ ਕਹਿੰਦੇ ਹਨ।\nਸਾਊਥਾਲ ਵਿੱਚ ਇੰਡੀਅਨ ਵਰਕਰਜ਼ ਐਸੋਸੀਏਸ਼ਨ ਨੇ ਕਾਮਿਆਂ ਦੀ ਮਦਦ ਕੀਤੀ ਅਤੇ ਭੇਦਭਾਵ ਦਾ ਵਿਰੋਧ ਕੀਤਾ। ਭੇਦਭਾਵ ਦਾ ਮਤਲਬ ਹੈ ਲੋਕਾਂ ਦੀ ਪਛਾਣ ਕਰਕੇ ਉਨ੍ਹਾਂ ਨਾਲ ਬੇਇਨਸਾਫ਼ੀ ਕਰਨਾ। ਇਹ ਸੰਸਥਾ ਸਲਾਹ ਅਤੇ ਸਹਾਰਾ ਵੀ ਦਿੰਦੀ ਸੀ।\nਇੱਕ ਮੀਟਿੰਗ ਦੀ ਕਲਪਨਾ ਕਰੋ ਜਿੱਥੇ ਗੁਆਂਢੀ ਵਾਰੀ ਵਾਰੀ ਬੋਲਦੇ ਹਨ। ਕਿਸੇ ਨੂੰ ਮੁਸ਼ਕਲ ਹੈ। ਬਾਕੀ ਸੁਣਦੇ ਹਨ ਅਤੇ ਸੋਚਦੇ ਹਨ ਕਿ ਕਿਵੇਂ ਮਦਦ ਕੀਤੀ ਜਾਵੇ।\nਸਾਡੀ ਮੀਟਿੰਗ ਕਲਪਨਾ ਕੀਤੀ ਹੋਈ ਹੈ। ਸੰਸਥਾ ਅਸਲੀ ਸੀ।\nਲੋਕਾਂ ਨੂੰ ਹਰ ਮੁਸ਼ਕਲ ਇਕੱਲਿਆਂ ਹੱਲ ਕਰਨ ਦੀ ਲੋੜ ਨਹੀਂ, ਦਾਦਾ ਜੀ ਕਹਿੰਦੇ ਹਨ। ਇਨਸਾਫ਼ ਵਾਲੇ ਭਾਈਚਾਰੇ ਵਿੱਚ ਹਰ ਆਵਾਜ਼ ਲਈ ਥਾਂ ਹੁੰਦੀ ਹੈ।\nਜਦੋਂ ਤੁਹਾਡਾ ਗਰੁੱਪ ਫ਼ੈਸਲਾ ਕਰਦਾ ਹੈ, ਤਾਂ ਸਭ ਨੂੰ ਬੋਲਣ ਦੀ ਵਾਰੀ ਕਿਵੇਂ ਮਿਲ ਸਕਦੀ ਹੈ?",
+      "english": "“Finding a home should not mean accepting unfair treatment,” Grandpa says.\n\nIn Southall, the Indian Workers’ Association helped workers and challenged discrimination. Discrimination means treating people unfairly because of who they are. The association also offered advice and support. [1]\n\nImagine a meeting where neighbors take turns speaking. One person has a problem. Others listen and think about how to help.\n\nOur meeting is imagined. The organization was real.\n\n“People do not have to solve every problem alone,” Grandpa says. “A fair community makes room for each voice.”\n\nWhat helps everyone get a turn when your group makes a decision?",
+      "sources": [
+        [
+          "digital:works — Indian Workers’ Association oral-history project",
+          "https://digital-works.co.uk/iwa/"
+        ],
+        [
+          "London Museum — Sophia Duleep Singh",
+          "https://www.londonmuseum.org.uk/collections/london-stories/sophia-duleep-singh-suffragette-princess/"
+        ]
+      ],
+      "audio": "audio/england-4-pa-babaji-v1.mp3"
+    },
+    {
+      "id": "england-5",
+      "title": "Aa Gaye Oye — Keep the Story",
+      "text": "ਆ ਗਏ ਓਏ! ਅਸੀਂ ਇੱਕ ਹੋਰ ਸਫ਼ੇ ਉੱਤੇ ਪਹੁੰਚ ਗਏ ਹਾਂ, ਦਾਦਾ ਜੀ ਮੁਸਕਰਾਉਂਦੇ ਹਨ।\nਸਾਊਥਾਲ ਦੇ ਇਤਿਹਾਸ ਵਿੱਚ ਲੋਕਾਂ ਨੇ ਮਿਲਣ ਲਈ ਥਾਵਾਂ ਬਣਾਈਆਂ ਅਤੇ ਬੇਇਨਸਾਫ਼ੀ ਵਿਰੁੱਧ ਖੜ੍ਹੇ ਹੋਏ। ਭਾਈਚਾਰਕ ਪ੍ਰੋਜੈਕਟਾਂ ਨੇ ਉਨ੍ਹਾਂ ਦੀਆਂ ਕੁਝ ਕਹਾਣੀਆਂ ਦਰਜ ਕੀਤੀਆਂ ਹਨ।\nਪਰ ਕਹਾਣੀ ਲਿਖ ਲੈਣ ਨਾਲ ਮੁੱਕ ਨਹੀਂ ਜਾਂਦੀ, ਉਹ ਕਹਿੰਦੇ ਹਨ। ਅਜੇ ਹੋਰ ਲੋਕਾਂ ਨੂੰ ਸੁਣਨਾ ਬਾਕੀ ਹੈ।\nਇਕੱਠੇ ਬੈਠ ਕੇ ਇੱਕ ਐਲਬਮ ਖੋਲ੍ਹਣ ਦੀ ਕਲਪਨਾ ਕਰੋ। ਪੁੱਛੋ, ਹਰ ਤਸਵੀਰ ਵਿੱਚ ਕੌਣ ਹੈ? ਇਹ ਕਿੱਥੇ ਖਿੱਚੀ ਗਈ ਸੀ? ਜੇ ਕਿਸੇ ਨੂੰ ਅਜੇ ਨਹੀਂ ਪਤਾ, ਤਾਂ ਕੋਈ ਗੱਲ ਨਹੀਂ!\nਤੁਸੀਂ ਇੰਗਲੈਂਡ ਨੂੰ ਆਪਣਾ ਘਰ ਮੰਨ ਸਕਦੇ ਹੋ ਅਤੇ ਪੰਜਾਬ ਨਾਲ ਵੀ ਪਿਆਰ ਕਰ ਸਕਦੇ ਹੋ। ਸੰਭਾਲਣ ਲਈ ਸਿਰਫ਼ ਇੱਕ ਯਾਦ ਚੁਣਨ ਦੀ ਲੋੜ ਨਹੀਂ।\nਤੁਸੀਂ ਅਗਲੇ ਪਾਠਕ ਨੂੰ ਕਿਹੜੀ ਕਹਾਣੀ ਸੌਂਪੋਗੇ?",
+      "english": "“Aa gaye oye! We have arrived at another page,” Grandpa smiles.\n\nSouthall’s history includes people building places to gather and standing up against unfairness. Community projects have recorded some of their stories. [1]\n\n“But a story is not finished because we have written it down,” he adds. “There are more people to listen to.”\n\nImagine opening an album together. Ask who is in each picture. Ask where it was taken. It is fine if nobody knows yet!\n\nYou can feel at home in England and care about Punjab too. You do not have to choose just one memory to keep.\n\nWhat story would you pass to the next reader?",
+      "sources": [
+        [
+          "digital:works — Panjabis of Southall project description",
+          "https://digital-works.co.uk/southall.html"
+        ]
+      ],
+      "audio": "audio/england-5-pa-babaji-v1.mp3"
+    },
+    {
+      "id": "east-africa-1",
+      "title": "Across the Indian Ocean",
+      "text": "ਬੱਚਿਓ, ਹਿੰਦ ਮਹਾਂਸਾਗਰ ਲੱਭੋ, ਦਾਦਾ ਜੀ ਕਹਿੰਦੇ ਹਨ। ਸਾਡਾ ਅਗਲਾ ਸਫ਼ਰ ਪੂਰਬੀ ਅਫ਼ਰੀਕਾ ਵੱਲ ਹੈ।\nਯੂਗਾਂਡਾ ਰੇਲਵੇ ਨਾਂ ਦੀ ਰੇਲ ਲਾਈਨ ਦਾ ਕੰਮ ਅਠਾਰਾਂ ਸੌ ਛਿਆਨਵੇਂ ਵਿੱਚ ਮੋਮਬਾਸਾ ਤੋਂ ਸ਼ੁਰੂ ਹੋਇਆ। ਉੱਨੀ ਸੌ ਇੱਕ ਵਿੱਚ ਇਹ ਵਿਕਟੋਰੀਆ ਝੀਲ ਦੇ ਕੰਢੇ ਕਿਸੂਮੂ ਤੱਕ ਪਹੁੰਚੀ। ਅੱਜ ਇਹ ਦੋਵੇਂ ਥਾਵਾਂ ਕੀਨੀਆ ਵਿੱਚ ਹਨ।\nਭਾਰਤ ਦੇ ਲੋਕਾਂ ਨੇ, ਜਿਨ੍ਹਾਂ ਵਿੱਚ ਬਹੁਤ ਸਾਰੇ ਪੰਜਾਬ ਤੋਂ ਸਨ, ਇਸ ਦੀ ਉਸਾਰੀ ਵਿੱਚ ਕੰਮ ਕੀਤਾ। ਇਹ ਗੱਲ ਸਾਨੂੰ ਬਰਤਾਨਵੀ ਸੰਸਦ ਦੀ ਇੱਕ ਪੁਰਾਣੀ ਰਿਪੋਰਟ ਤੋਂ ਪਤਾ ਲੱਗਦੀ ਹੈ।\nਇਹ ਖ਼ਾਲੀ ਧਰਤੀ ਨਹੀਂ ਸੀ ਜੋ ਨਵੇਂ ਆਉਣ ਵਾਲਿਆਂ ਦੀ ਉਡੀਕ ਕਰ ਰਹੀ ਹੋਵੇ, ਦਾਦਾ ਜੀ ਯਾਦ ਦਿਵਾਉਂਦੇ ਹਨ। ਇੱਥੇ ਲੋਕਾਂ ਦੇ ਘਰ ਅਤੇ ਜ਼ਿੰਦਗੀਆਂ ਪਹਿਲਾਂ ਹੀ ਸਨ।\nਸਾਡੀ ਤਸਵੀਰ ਵਿੱਚ ਸਮੁੰਦਰੀ ਕੰਢੇ ਦਾ ਸਫ਼ਰ ਅਤੇ ਮੁਲਾਕਾਤ ਕਲਪਨਾ ਕੀਤੇ ਹੋਏ ਹਨ। ਇਹ ਹਰ ਮੁਸਾਫ਼ਰ ਦਾ ਰਸਤਾ ਨਹੀਂ ਦਿਖਾ ਸਕਦੀ।\nਰੇਲਵੇ ਦਾ ਨਾਂ ਸਿਰਫ਼ ਇੱਕ ਸੁਰਾਗ ਹੈ। ਨਕਸ਼ੇ ਨੂੰ ਹਮੇਸ਼ਾ ਧਿਆਨ ਨਾਲ ਵੇਖੋ!",
+      "english": "“Find the Indian Ocean, beta,” Grandpa says. “Our next journey takes us toward East Africa.”\n\nA railway called the Uganda Railway began at Mombasa in 1896. It reached Kisumu, beside Lake Victoria, in 1901. Both places are in Kenya today. [1]\n\nPeople from India, many from Punjab, worked on its construction. We know this from an old report to the British Parliament. [2]\n\n“This was not empty land waiting for newcomers,” Grandpa reminds us. “People already had homes and lives here.”\n\nOur picture imagines a journey and a meeting at the coast. It cannot show every traveler’s route.\n\nA railway’s name is only one clue. Always look closely at the map!",
+      "sources": [
+        [
+          "Uganda Railways Corporation — Our history",
+          "https://urc.go.ug/our-history/"
+        ],
+        [
+          "UK Parliament, 6 May 1902 — Indian Labourers in East Africa",
+          "https://hansard.parliament.uk/commons/1902-05-06/debates/62c4da35-575e-482d-9e70-52c62264bc85/IndianLabourersInEastAfrica"
+        ]
+      ],
+      "audio": "audio/east-africa-1-pa-babaji-v1.mp3"
+    },
+    {
+      "id": "east-africa-2",
+      "title": "Tracks and Unequal Power",
+      "text": "ਪਟੜੀਆਂ ਕਿਸ ਨੇ ਬਣਾਈਆਂ? ਦਾਦਾ ਜੀ ਪੁੱਛਦੇ ਹਨ। ਅਤੇ ਨਿਯਮ ਕਿਸ ਨੇ ਬਣਾਏ?\nਬਰਤਾਨਵੀ ਸੰਸਦ ਦੀ ਇੱਕ ਪੁਰਾਣੀ ਬਹਿਸ ਵਿੱਚ ਅਫ਼ਰੀਕੀ ਅਤੇ ਭਾਰਤੀ ਰੇਲ ਕਾਮਿਆਂ ਦਾ ਜ਼ਿਕਰ ਹੈ। ਉਸ ਵਿੱਚ ਉਨ੍ਹਾਂ ਨੂੰ ਮਜ਼ਦੂਰੀ ਦੇਣ ਦੇ ਵੱਖ ਵੱਖ ਤਰੀਕੇ ਦੱਸੇ ਗਏ ਹਨ। ਪੁਰਾਣੇ ਰਿਕਾਰਡ ਦੇ ਕੁਝ ਸ਼ਬਦ ਬੇਇਨਸਾਫ਼ ਅਤੇ ਦੁੱਖ ਪਹੁੰਚਾਉਣ ਵਾਲੇ ਹਨ।\nਅਸੀਂ ਕਿਸੇ ਰਿਕਾਰਡ ਤੋਂ ਸਿੱਖ ਸਕਦੇ ਹਾਂ, ਭਾਵੇਂ ਉਸ ਦੀ ਹਰ ਗੱਲ ਨਾਲ ਸਹਿਮਤ ਨਾ ਹੋਈਏ।\nਇਹ ਰੇਲਵੇ ਬਰਤਾਨਵੀ ਬਸਤੀਵਾਦੀ ਰਾਜ ਹੇਠ ਬਣੀ ਸੀ। ਇਸ ਦਾ ਮਤਲਬ ਹੈ ਕਿ ਬਾਹਰਲੀ ਤਾਕਤ ਉਸ ਇਲਾਕੇ ਉੱਤੇ ਰਾਜ ਕਰਦੀ ਸੀ। ਕਾਮਿਆਂ ਦੀ ਮਿਹਨਤ ਅਤੇ ਹਾਕਮਾਂ ਦੀ ਤਾਕਤ, ਦੋਵੇਂ ਕਹਾਣੀ ਦੇ ਹਿੱਸੇ ਹਨ।\nਇੱਕ ਪੁਰਾਣੇ ਔਜ਼ਾਰ ਨੂੰ ਵੇਖਣ ਦੀ ਕਲਪਨਾ ਕਰੋ। ਉਹ ਆਪਣੇ ਮਾਲਕ ਦਾ ਨਾਂ ਜਾਂ ਉਸ ਦੇ ਦਿਨ ਦਾ ਹਾਲ ਨਹੀਂ ਦੱਸ ਸਕਦਾ।\nਕੰਮ ਦੇ ਪਿੱਛੇ ਜਿਹੜੇ ਲੋਕ ਸਨ, ਉਨ੍ਹਾਂ ਨੂੰ ਯਾਦ ਰੱਖੋ, ਦਾਦਾ ਜੀ ਕਹਿੰਦੇ ਹਨ।",
+      "english": "“Who built the tracks?” Grandpa asks. “And who made the rules?”\n\nAn old British Parliament debate mentions African and Indian railway workers. It describes different ways of paying them. The words in the old record are sometimes unfair and hurtful. [1]\n\nWe can learn from a record without agreeing with it.\n\nThe railway was built under British colonial rule. That means an outside power controlled the territory. Workers’ effort and the rulers’ power are both part of the story. [2]\n\nImagine looking at an old tool. It cannot tell us its owner’s name or how their day felt.\n\n“Remember the people behind the work,” Grandpa says.",
+      "sources": [
+        [
+          "UK Parliament, 18 December 1902 — railway labour debate (contains colonial terminology)",
+          "https://api.parliament.uk/historic-hansard/commons/1902/dec/18/uganda-railway-coolie-and-native-labour"
+        ],
+        [
+          "Uganda Railways Corporation — Our history",
+          "https://urc.go.ug/our-history/"
+        ]
+      ],
+      "audio": "audio/east-africa-2-pa-babaji-v1.mp3"
+    },
+    {
+      "id": "east-africa-3",
+      "title": "A Place to Gather",
+      "text": "ਹੁਣ ਇੱਕ ਹੋਰ ਥਾਂ ਚੱਲੀਏ, ਦਾਦਾ ਜੀ ਕਹਿੰਦੇ ਹਨ। ਦਾਰ ਏਸ ਸਲਾਮ ਤਨਜ਼ਾਨੀਆ ਵਿੱਚ ਹੈ।\nਰਿਚਾ ਨਾਗਰ ਨਾਂ ਦੀ ਖੋਜਕਰਤਾ ਨੇ ਉੱਥੋਂ ਦੇ ਭਾਈਚਾਰਕ ਜੀਵਨ ਦਾ ਅਧਿਐਨ ਕੀਤਾ। ਉਨ੍ਹਾਂ ਦਾ ਕੰਮ ਉੱਨੀ ਸੌ ਸਤਾਨਵੇਂ ਵਿੱਚ ਛਪਿਆ। ਉਸ ਵਿੱਚ ਸਿੱਖ ਪਰਿਵਾਰਾਂ ਦੇ ਗੁਰਦੁਆਰੇ ਵਿੱਚ ਇਕੱਠੇ ਹੋਣ ਦਾ ਵਰਣਨ ਹੈ। ਲੋਕ ਅਰਦਾਸ ਕਰਦੇ, ਭੋਜਨ ਤਿਆਰ ਕਰਦੇ ਅਤੇ ਪਰਿਵਾਰ ਦੇ ਅਹਿਮ ਮੌਕੇ ਇਕੱਠੇ ਮਨਾਉਂਦੇ ਸਨ।\nਗੁਰਦੁਆਰਾ ਸਿੱਖਾਂ ਦਾ ਧਾਰਮਿਕ ਅਸਥਾਨ ਹੈ। ਸਾਂਝਾ ਭੋਜਨ ਲੋਕਾਂ ਨੂੰ ਜੋੜ ਸਕਦਾ ਹੈ।\nਪਰ ਹਰ ਵਿਅਕਤੀ ਦੀ ਆਪਣੀ ਕਹਾਣੀ ਹੁੰਦੀ ਹੈ, ਦਾਦਾ ਜੀ ਕਹਿੰਦੇ ਹਨ। ਇੱਕੋ ਕਮਰੇ ਵਿੱਚ ਬੈਠੇ ਲੋਕ ਵੀ ਜ਼ਿੰਦਗੀ ਨੂੰ ਵੱਖ ਵੱਖ ਤਰੀਕਿਆਂ ਨਾਲ ਮਹਿਸੂਸ ਕਰ ਸਕਦੇ ਹਨ।\nਸਾਡੀ ਤਸਵੀਰ ਵਿੱਚ ਲੋਕਾਂ ਨੂੰ ਸਾਂਝੇ ਭੋਜਨ ਦੀ ਤਿਆਰੀ ਕਰਦੇ ਹੋਏ ਕਲਪਨਾ ਕੀਤਾ ਗਿਆ ਹੈ। ਇਹ ਉਸ ਅਧਿਐਨ ਦੀ ਫ਼ੋਟੋ ਨਹੀਂ ਹੈ।\nਕਿਸੇ ਇਕੱਠ ਵਿੱਚ ਸਭ ਦਾ ਸੁਆਗਤ ਹੋਵੇ, ਇਸ ਲਈ ਕਿਹੜਾ ਕੰਮ ਕਰਨਾ ਪੈਂਦਾ ਹੈ?",
+      "english": "“Let us visit a different place now,” Grandpa says. “Dar es Salaam is in Tanzania.”\n\nA researcher named Richa Nagar studied community life there. Her work, published in 1997, describes Sikh families gathering at a gurdwara. People prayed, prepared food and shared important family occasions. [1]\n\nA gurdwara is a Sikh place of worship. A community meal can bring people together.\n\n“But each person has their own story,” Grandpa says. “Even people in the same room may experience life differently.”\n\nOur drawing imagines people getting ready for a shared meal. It is not a photograph from the study.\n\nWhat work helps a gathering feel welcoming?",
+      "sources": [
+        [
+          "Richa Nagar (1997) — Communal places and Tanzanian Asian identities",
+          "https://experts.umn.edu/en/publications/communal-places-and-the-politics-of-multiple-identities-the-case-/"
+        ]
+      ],
+      "audio": "audio/east-africa-3-pa-babaji-v1.mp3"
+    },
+    {
+      "id": "east-africa-4",
+      "title": "When Home Was Taken Away",
+      "text": "ਇਹ ਇੱਕ ਔਖਾ ਸਫ਼ਾ ਹੈ, ਦਾਦਾ ਜੀ ਕਹਿੰਦੇ ਹਨ। ਅਸੀਂ ਇਸ ਨੂੰ ਆਰਾਮ ਨਾਲ ਪੜ੍ਹ ਸਕਦੇ ਹਾਂ।\nਉੱਨੀ ਸੌ ਬਹੱਤਰ ਵਿੱਚ ਯੂਗਾਂਡਾ ਦੇ ਹਾਕਮ ਈਦੀ ਅਮੀਨ ਨੇ ਏਸ਼ੀਆਈ ਲੋਕਾਂ ਨੂੰ ਦੇਸ਼ ਛੱਡਣ ਦਾ ਹੁਕਮ ਦਿੱਤਾ। ਪਰਿਵਾਰਾਂ ਨੂੰ ਉਹ ਥਾਵਾਂ ਛੱਡਣ ਲਈ ਮਜਬੂਰ ਕੀਤਾ ਗਿਆ ਜਿਨ੍ਹਾਂ ਨੂੰ ਉਹ ਆਪਣਾ ਘਰ ਕਹਿੰਦੇ ਸਨ। ਇਸ ਨੂੰ ਦੇਸ਼ ਵਿੱਚੋਂ ਕੱਢਿਆ ਜਾਣਾ ਕਹਿੰਦੇ ਹਨ।\nਇਹ ਛੁੱਟੀਆਂ ਦਾ ਸਫ਼ਰ ਜਾਂ ਆਮ ਘਰ ਬਦਲਣਾ ਨਹੀਂ ਸੀ। ਲੋਕ ਸੁਰੱਖਿਆ ਅਤੇ ਇਨਸਾਫ਼ ਦੇ ਹੱਕਦਾਰ ਸਨ।\nਇਹ ਯੂਗਾਂਡਾ ਵਿੱਚ ਹੋਇਆ ਸੀ, ਦਾਦਾ ਜੀ ਕਹਿੰਦੇ ਹਨ। ਸਾਨੂੰ ਇਸ ਤਰ੍ਹਾਂ ਨਹੀਂ ਦੱਸਣਾ ਚਾਹੀਦਾ ਜਿਵੇਂ ਪੂਰਬੀ ਅਫ਼ਰੀਕਾ ਦੇ ਹਰ ਦੇਸ਼ ਨੇ ਇਹੋ ਕੀਤਾ ਹੋਵੇ।\nਸਾਡੀ ਤਸਵੀਰ ਇੱਕ ਕਲਪਨਾ ਕੀਤੇ ਪਰਿਵਾਰ ਨੂੰ ਇੱਕ ਦੂਜੇ ਦੇ ਨੇੜੇ ਦਿਖਾਉਂਦੀ ਹੈ। ਸਾਨੂੰ ਨਹੀਂ ਪਤਾ ਕਿ ਹਰ ਪਰਿਵਾਰ ਨੇ ਕਿਵੇਂ ਮਹਿਸੂਸ ਕੀਤਾ।\nਤੁਸੀਂ ਇੱਥੇ ਰੁਕ ਸਕਦੇ ਹੋ। ਜਦੋਂ ਤਿਆਰ ਹੋਵੋਗੇ, ਅਸੀਂ ਜਾਣਾਂਗੇ ਕਿ ਕੁਝ ਸਫ਼ਰ ਅੱਗੇ ਕਿਵੇਂ ਵਧੇ।",
+      "english": "“This is a difficult page,” Grandpa says. “We can read it slowly.”\n\nIn 1972, Uganda’s ruler Idi Amin ordered Asian people to leave. Families were forced to leave places they called home. This is called expulsion. [1]\n\nIt was not a holiday or an ordinary move. People deserved safety and fair treatment.\n\n“This happened in Uganda,” Grandpa says. “We must not tell it as though every country in East Africa did the same thing.”\n\nOur picture shows an imagined family holding each other close. We do not know how every family felt.\n\nYou can pause here. When you are ready, we will learn how some journeys continued.",
+      "sources": [
+        [
+          "The National Archives — Ugandan Asians education pack, background and source transcripts",
+          "https://cdn.nationalarchives.gov.uk/documents/education/ugandan-asians.pdf"
+        ]
+      ],
+      "audio": "audio/east-africa-4-pa-babaji-v1.mp3"
+    },
+    {
+      "id": "east-africa-5",
+      "title": "Connections That Continue",
+      "text": "ਲੋਕ ਅੱਗੇ ਕਿੱਥੇ ਗਏ? ਦਾਦਾ ਜੀ ਪੁੱਛਦੇ ਹਨ।\nਉਹ ਸਾਰੇ ਇੱਕੋ ਦੇਸ਼ ਨਹੀਂ ਗਏ। ਦਸੰਬਰ ਉੱਨੀ ਸੌ ਬਹੱਤਰ ਦੇ ਬਰਤਾਨਵੀ ਸੰਸਦ ਦੇ ਰਿਕਾਰਡ ਵਿੱਚ ਯੂਗਾਂਡਾ ਤੋਂ ਏਸ਼ੀਆਈ ਲੋਕਾਂ ਦੇ ਕੈਨੇਡਾ, ਆਸਟ੍ਰੇਲੀਆ ਅਤੇ ਨਿਊਜ਼ੀਲੈਂਡ ਪਹੁੰਚਣ ਦਾ ਜ਼ਿਕਰ ਹੈ।\nਇੱਕ ਗਿਣਤੀ ਦੱਸ ਸਕਦੀ ਹੈ ਕਿ ਲੋਕ ਪਹੁੰਚੇ ਸਨ। ਪਰ ਉਹ ਹਰ ਪਰਿਵਾਰ ਦੀ ਪੂਰੀ ਕਹਾਣੀ ਨਹੀਂ ਦੱਸ ਸਕਦੀ।\nਇੱਕ ਹੋਰ ਸਮੁੰਦਰ ਪਾਰ ਕਰਦੀ ਚਿੱਠੀ ਦੀ ਕਲਪਨਾ ਕਰੋ। ਕੋਈ ਉਸ ਨੂੰ ਖੋਲ੍ਹਦਾ ਹੈ ਅਤੇ ਜਾਣਿਆ ਪਛਾਣਿਆ ਨਾਂ ਪੜ੍ਹ ਕੇ ਦੂਰ ਦੇ ਲੋਕ ਕੁਝ ਨੇੜੇ ਲੱਗਣ ਲੱਗਦੇ ਹਨ।\nਉਹ ਚਿੱਠੀ ਸਾਡੀ ਕਲਪਨਾ ਕੀਤੀ ਤਸਵੀਰ ਦਾ ਹਿੱਸਾ ਹੈ, ਕਿਸੇ ਅਸਲੀ ਪਰਿਵਾਰ ਦਾ ਰਿਕਾਰਡ ਨਹੀਂ।\nਆ ਗਏ ਓਏ, ਦਾਦਾ ਜੀ ਨਰਮੀ ਨਾਲ ਕਹਿੰਦੇ ਹਨ। ਪੁਰਾਣੇ ਅਧਿਆਇ ਨੂੰ ਮਿਟਾਏ ਬਿਨਾਂ ਨਵਾਂ ਅਧਿਆਇ ਸ਼ੁਰੂ ਹੋ ਸਕਦਾ ਹੈ।\nਤੁਸੀਂ ਨਵੇਂ ਦੋਸਤ ਨੂੰ ਆਪਣੀ ਕਹਾਣੀ ਬਾਰੇ ਕੀ ਦੱਸਣਾ ਚਾਹੋਗੇ?",
+      "english": "“Where did people go next?” Grandpa asks.\n\nThey did not all go to the same country. A British Parliament record from December 1972 reports arrivals of Ugandan Asians in Canada, Australia and New Zealand. [1]\n\nA number can show that people arrived. It cannot tell us each family’s whole story.\n\nImagine a letter crossing another ocean. Someone opens it, and a familiar name brings faraway people a little closer.\n\nThat letter is part of our imagined picture, not a real family’s record.\n\n“Aa gaye oye,” Grandpa says softly. “A new chapter can begin without erasing the old one.”\n\nWhat would you like a new friend to know about your story?",
+      "sources": [
+        [
+          "UK Parliament, 11 December 1972 — Ugandan Asians: Commonwealth settlement",
+          "https://api.parliament.uk/historic-hansard/commons/1972/dec/11/ugandan-asians-commonwealth-settlement"
+        ]
+      ],
+      "audio": "audio/east-africa-5-pa-babaji-v1.mp3"
+    },
+    {
+      "id": "asia-1",
+      "title": "A Port and a New Chapter",
+      "text": "ਬੱਚਿਓ, ਅਸੀਂ ਅਜੇ ਵੀ ਏਸ਼ੀਆ ਵਿੱਚ ਹਾਂ, ਦਾਦਾ ਜੀ ਕਹਿੰਦੇ ਹਨ। ਪੰਜਾਬ ਵੀ ਏਸ਼ੀਆ ਵਿੱਚ ਹੀ ਹੈ!\nਹੁਣ ਸਾਡੀ ਕਹਾਣੀ ਸਾਨੂੰ ਸਿੰਗਾਪੁਰ ਲੈ ਜਾਂਦੀ ਹੈ। ਮਾਰਚ ਅਠਾਰਾਂ ਸੌ ਇਕਿਆਸੀ ਵਿੱਚ ਪੰਜਾਬ ਤੋਂ ਸਿੱਖ ਆਦਮੀਆਂ ਦਾ ਇੱਕ ਜਥਾ ਪੁਲਿਸ ਵਿੱਚ ਕੰਮ ਕਰਨ ਲਈ ਆਇਆ। ਸਿੰਗਾਪੁਰ ਦੇ ਨੈਸ਼ਨਲ ਲਾਇਬ੍ਰੇਰੀ ਬੋਰਡ ਵੱਲੋਂ ਛਾਪੇ ਇਤਿਹਾਸ ਵਿੱਚ ਉਨ੍ਹਾਂ ਦੇ ਆਉਣ ਦਾ ਜ਼ਿਕਰ ਹੈ।\nਸਿੰਗਾਪੁਰ ਬਰਤਾਨਵੀ ਬਸਤੀਵਾਦੀ ਰਾਜ ਹੇਠ ਸੀ। ਬਾਹਰਲੀ ਹਕੂਮਤ ਇਹ ਤੈਅ ਕਰਨ ਵਿੱਚ ਭੂਮਿਕਾ ਨਿਭਾਉਂਦੀ ਸੀ ਕਿ ਕਿਸ ਨੂੰ ਭਰਤੀ ਕੀਤਾ ਜਾਵੇ ਅਤੇ ਉਹ ਕਿਹੜਾ ਕੰਮ ਕਰੇ।\nਇੱਕ ਰੌਣਕ ਵਾਲੀ ਬੰਦਰਗਾਹ ਦੀ ਕਲਪਨਾ ਕਰੋ, ਜਿੱਥੇ ਬਹੁਤ ਸਾਰੇ ਲੋਕ ਆਪਣੇ ਕੰਮ ਕਰ ਰਹੇ ਹਨ। ਸਾਡੀ ਤਸਵੀਰ ਕਲਪਨਾ ਕੀਤੀ ਹੋਈ ਹੈ। ਇਹ ਉਨ੍ਹਾਂ ਦੇ ਆਉਣ ਦਾ ਹੂਬਹੂ ਦ੍ਰਿਸ਼ ਨਹੀਂ ਹੈ।\nਨੌਕਰੀ ਕਿਸੇ ਦੀ ਜ਼ਿੰਦਗੀ ਦਾ ਇੱਕ ਹਿੱਸਾ ਹੈ, ਦਾਦਾ ਜੀ ਕਹਿੰਦੇ ਹਨ। ਉਹ ਪੂਰਾ ਵਿਅਕਤੀ ਨਹੀਂ ਹੁੰਦੀ।",
+      "english": "“We are still in Asia, beta,” Grandpa says. “Punjab is in Asia too!”\n\nOur story now takes us to Singapore. In March 1881, a group of Sikh men from Punjab arrived to work in the police. A history published by Singapore’s National Library Board records their arrival. [1]\n\nSingapore was under British colonial rule. An outside power helped decide who was recruited and what work they did. [1]\n\nImagine a busy port, with many people going about their day. Our drawing is imagined. It does not show the exact arrival.\n\n“A job is part of a person’s life,” Grandpa says. “It is never the whole person.”",
+      "sources": [
+        [
+          "National Library Board, BiblioAsia — Men in Blue: police history",
+          "https://biblioasia.nlb.gov.sg/all-sections/vol-11-issue-3-oct-dec-2015-history-of-singapore-police-force/"
+        ]
+      ],
+      "audio": "audio/asia-1-pa-babaji-v1.mp3"
+    },
+    {
+      "id": "asia-2",
+      "title": "Another Harbor, Another History",
+      "text": "ਹੁਣ ਇੱਕ ਹੋਰ ਬੰਦਰਗਾਹ ਵੱਲ ਚੱਲੀਏ, ਦਾਦਾ ਜੀ ਕਹਿੰਦੇ ਹਨ। ਇਹ ਹਾਂਗਕਾਂਗ ਹੈ।\nਇਸ ਦਾ ਪੁਲਿਸ ਅਜਾਇਬ ਘਰ ਦੱਸਦਾ ਹੈ ਕਿ ਬਰਤਾਨਵੀ ਅਧਿਕਾਰੀਆਂ ਨੇ ਅਠਾਰਾਂ ਸੌ ਬਾਹਠ ਤੋਂ ਸਿੱਖ ਆਦਮੀਆਂ ਨੂੰ ਸਿੱਧਾ ਪੰਜਾਬ ਤੋਂ ਭਰਤੀ ਕਰਨਾ ਸ਼ੁਰੂ ਕੀਤਾ। ਉਹ ਇਹ ਵੀ ਦੱਸਦਾ ਹੈ ਕਿ ਸਿੱਖ ਪੁਲਿਸ ਵਾਲੇ ਆਪਣੀ ਵਰਦੀ ਦੇ ਹਿੱਸੇ ਵਜੋਂ ਪੱਗ ਬੰਨ੍ਹਦੇ ਸਨ।\nਇਹ ਸਿੰਗਾਪੁਰ ਤੋਂ ਵੱਖਰੀ ਥਾਂ ਅਤੇ ਵੱਖਰੀ ਕਹਾਣੀ ਹੈ।\nਅਜਾਇਬ ਘਰ ਦੀ ਵਰਦੀ ਸਾਨੂੰ ਇੱਕ ਸੁਰਾਗ ਦਿੰਦੀ ਹੈ, ਦਾਦਾ ਜੀ ਕਹਿੰਦੇ ਹਨ। ਪਰ ਇਹ ਉਸ ਨੂੰ ਪਹਿਨਣ ਵਾਲੇ ਵਿਅਕਤੀ ਬਾਰੇ ਸਭ ਕੁਝ ਨਹੀਂ ਦੱਸ ਸਕਦੀ।\nਸ਼ੀਸ਼ੇ ਦੇ ਬਕਸੇ ਵਿੱਚ ਰੱਖੇ ਪੁਰਾਣੇ ਕੋਟ ਨੂੰ ਵੇਖਣ ਦੀ ਕਲਪਨਾ ਕਰੋ। ਤੁਸੀਂ ਕੀ ਪੁੱਛੋਗੇ? ਇਹ ਕਿਸ ਨੇ ਪਹਿਨਿਆ ਸੀ? ਉਹ ਕੰਮ ਤੋਂ ਬਾਅਦ ਕੀ ਕਰਦੇ ਸਨ?\nਸਾਨੂੰ ਸਰਕਾਰੀ ਰਿਕਾਰਡਾਂ ਦੇ ਨਾਲ ਨਾਲ ਪਰਿਵਾਰਾਂ ਦੀਆਂ ਕਹਾਣੀਆਂ ਵੀ ਲੱਭਣੀਆਂ ਚਾਹੀਦੀਆਂ ਹਨ।",
+      "english": "“Turn to another harbor,” Grandpa says. “This is Hong Kong.”\n\nIts police museum tells us that British authorities recruited Sikh men directly from Punjab from 1862. It also describes Sikh officers wearing turbans as part of their uniform. [1]\n\nThis is a different place and story from Singapore.\n\n“A museum uniform gives us a clue,” Grandpa says. “But it cannot tell us everything about the person who wore it.”\n\nImagine looking at an old coat in a glass case. What questions would you ask? Who wore it? What did they do after work?\n\nWe should keep looking for family stories as well as official records.",
+      "sources": [
+        [
+          "Hong Kong Police Museum — Indian police officer’s winter uniform",
+          "https://www.police.gov.hk/museum/qrpage/en/inner/42/3.html"
+        ]
+      ],
+      "audio": "audio/asia-2-pa-babaji-v1.mp3"
+    },
+    {
+      "id": "asia-3",
+      "title": "A Door Open to Travelers",
+      "text": "ਨਵੇਂ ਆਏ ਲੋਕਾਂ ਨੂੰ ਮਿਲ ਬੈਠਣ ਦੀ ਥਾਂ ਕਿੱਥੇ ਮਿਲ ਸਕਦੀ ਸੀ? ਦਾਦਾ ਜੀ ਪੁੱਛਦੇ ਹਨ।\nਸਿੰਗਾਪੁਰ ਵਿੱਚ ਸਿਲਾਤ ਰੋਡ ਗੁਰਦੁਆਰੇ ਦੀ ਇਮਾਰਤ ਉੱਨੀ ਸੌ ਚੌਵੀ ਵਿੱਚ ਤਿਆਰ ਹੋਈ। ਗੁਰਦੁਆਰਾ ਸਿੱਖਾਂ ਦਾ ਧਾਰਮਿਕ ਅਸਥਾਨ ਹੈ। ਇਸ ਦਾ ਇਤਿਹਾਸ ਦੱਸਦਾ ਹੈ ਕਿ ਨਵੇਂ ਆਉਣ ਵਾਲਿਆਂ ਅਤੇ ਅੱਗੇ ਸਫ਼ਰ ਕਰਨ ਵਾਲਿਆਂ ਦੇ ਰਹਿਣ ਲਈ ਮਦਦ ਕਰਨਾ ਵੀ ਇਸ ਦਾ ਮਕਸਦ ਸੀ।\nਸਿੰਗਾਪੁਰ, ਮਲਾਇਆ ਅਤੇ ਨੇੜਲੇ ਦੇਸ਼ਾਂ ਦੇ ਲੋਕਾਂ ਨੇ ਇਸ ਲਈ ਪੈਸੇ ਦਿੱਤੇ।\nਭੋਜਨ ਤਿਆਰ ਕਰਦੇ, ਫ਼ਰਸ਼ ਸਾਫ਼ ਕਰਦੇ ਅਤੇ ਮਹਿਮਾਨ ਲਈ ਥਾਂ ਬਣਾਉਂਦੇ ਹੱਥਾਂ ਦੀ ਕਲਪਨਾ ਕਰੋ।\nਸਾਡੇ ਦ੍ਰਿਸ਼ ਕਲਪਨਾ ਕੀਤੇ ਹੋਏ ਹਨ, ਪਰ ਸਾਂਝੀ ਥਾਂ ਦੀ ਸੰਭਾਲ ਕਰਨ ਬਾਰੇ ਅਸੀਂ ਇਕੱਠੇ ਸੋਚ ਸਕਦੇ ਹਾਂ।\nਸੁਆਗਤ ਕਰਨ ਲਈ ਮਿਹਨਤ ਲੱਗਦੀ ਹੈ, ਦਾਦਾ ਜੀ ਕਹਿੰਦੇ ਹਨ। ਕਿਹੜੇ ਮਦਦਗਾਰ ਹੱਥਾਂ ਵੱਲ ਧਿਆਨ ਦੇਣਾ ਅਸੀਂ ਭੁੱਲ ਜਾਂਦੇ ਹਾਂ?",
+      "english": "“Where could newcomers find a place to gather?” Grandpa asks.\n\nIn Singapore, the Silat Road gurdwara building was finished in 1924. A gurdwara is a Sikh place of worship. Its history says it was also meant to help house newcomers and people traveling onward. [1]\n\nPeople in Singapore, Malaya and nearby countries helped pay for it. [1]\n\nImagine hands preparing a meal, sweeping a floor and making space for a guest.\n\nOur scenes are imagined, but the work of caring for a shared place is something we can think about together.\n\n“A welcome takes effort,” Grandpa says. “Whose helping hands might we forget to notice?”",
+      "sources": [
+        [
+          "Central Sikh Gurdwara Board — Gurdwara Sahib Silat Road",
+          "https://sikhs.org.sg/about-srst/"
+        ]
+      ],
+      "audio": "audio/asia-3-pa-babaji-v1.mp3"
+    },
+    {
+      "id": "asia-4",
+      "title": "Care in a Time of War",
+      "text": "ਇਸ ਸਫ਼ੇ ਲਈ ਨਰਮ ਆਵਾਜ਼ ਚਾਹੀਦੀ ਹੈ, ਦਾਦਾ ਜੀ ਕਹਿੰਦੇ ਹਨ।\nਸਿੰਗਾਪੁਰ ਅਤੇ ਮਲਾਇਆ ਵਿੱਚ ਜੰਗ ਦੌਰਾਨ ਕੁਝ ਪਰਿਵਾਰਾਂ ਨੇ ਆਪਣੇ ਪਿਆਰੇ ਗੁਆਏ। ਸਿਲਾਤ ਰੋਡ ਗੁਰਦੁਆਰੇ ਦਾ ਇਤਿਹਾਸ ਦੱਸਦਾ ਹੈ ਕਿ ਵਿਧਵਾਵਾਂ ਅਤੇ ਬੱਚਿਆਂ ਨੂੰ ਰਹਿਣ ਦੀ ਥਾਂ ਅਤੇ ਮਦਦ ਮਿਲੀ। ਵਿਧਵਾਵਾਂ ਅਤੇ ਹੋਰ ਆਮ ਸਿੱਖ ਲੋਕਾਂ ਨੇ ਵੀ ਗੁਰਦੁਆਰੇ ਦਾ ਕੰਮ ਚਲਾਉਣ ਵਿੱਚ ਮਦਦ ਕੀਤੀ।\nਉਹ ਸਿਰਫ਼ ਮਦਦ ਲੈਣ ਵਾਲੇ ਨਹੀਂ, ਦੂਜਿਆਂ ਦੀ ਸੰਭਾਲ ਕਰਨ ਵਾਲੇ ਵੀ ਸਨ।\nਸਾਡੀ ਤਸਵੀਰ ਵਿੱਚ ਸ਼ਾਂਤੀ ਨਾਲ ਭੋਜਨ ਕਰਨ ਅਤੇ ਆਰਾਮ ਕਰਨ ਦੀ ਥਾਂ ਕਲਪਨਾ ਕੀਤੀ ਗਈ ਹੈ। ਇਹ ਕਿਸੇ ਲੜਾਈ ਜਾਂ ਨਾਂ ਨਾਲ ਜਾਣੇ ਜਾਂਦੇ ਪਰਿਵਾਰ ਨੂੰ ਨਹੀਂ ਦਿਖਾਉਂਦੀ।\nਜਦੋਂ ਵੀ ਲੋੜ ਹੋਵੇ, ਤੁਸੀਂ ਰੁਕ ਸਕਦੇ ਹੋ, ਦਾਦਾ ਜੀ ਕਹਿੰਦੇ ਹਨ। ਇਤਿਹਾਸ ਵਿੱਚ ਔਖੇ ਦਿਨ ਵੀ ਹਨ। ਇਹ ਸਾਨੂੰ ਉਨ੍ਹਾਂ ਲੋਕਾਂ ਨੂੰ ਵੀ ਯਾਦ ਕਰਨ ਲਈ ਕਹਿੰਦਾ ਹੈ ਜਿਨ੍ਹਾਂ ਨੇ ਦੂਜਿਆਂ ਦਾ ਖ਼ਿਆਲ ਰੱਖਿਆ।",
+      "english": "“This page needs a gentle voice,” Grandpa says.\n\nDuring the war in Singapore and Malaya, some families lost loved ones. The history of Silat Road gurdwara tells of widows and children receiving shelter and help. Widows and other Sikh civilians also helped keep the gurdwara working. [1]\n\nThey were people giving care as well as receiving it.\n\nOur picture imagines a quiet meal and a place to rest. It does not show a battle or a named family.\n\n“You can pause whenever you need,” Grandpa says. “History includes difficult days. It also asks us to notice the people who cared for others.”",
+      "sources": [
+        [
+          "Central Sikh Gurdwara Board — Gurdwara Sahib Silat Road",
+          "https://sikhs.org.sg/about-srst/"
+        ]
+      ],
+      "audio": "audio/asia-4-pa-babaji-v1.mp3"
+    },
+    {
+      "id": "asia-5",
+      "title": "Women Make a Place to Meet",
+      "text": "ਸਾਡਾ ਆਖ਼ਰੀ ਸਫ਼ਾ ਇੱਕ ਹੋਰ ਦਰਵਾਜ਼ਾ ਖੋਲ੍ਹਦਾ ਹੈ, ਦਾਦਾ ਜੀ ਕਹਿੰਦੇ ਹਨ।\nਦੂਜੀ ਸੰਸਾਰ ਜੰਗ ਤੋਂ ਬਾਅਦ, ਸਿੰਗਾਪੁਰ ਦੀਆਂ ਸਿੱਖ ਔਰਤਾਂ ਨੇ ਇਸਤਰੀ ਸਤਿ ਸੰਗ ਨਾਂ ਦਾ ਗਰੁੱਪ ਬਣਾਇਆ। ਉਹ ਮਿਲਣ ਅਤੇ ਧਾਰਮਿਕ, ਸਮਾਜਿਕ ਤੇ ਸੱਭਿਆਚਾਰਕ ਸਰਗਰਮੀਆਂ ਵਿੱਚ ਹਿੱਸਾ ਲੈਣ ਲਈ ਥਾਂ ਚਾਹੁੰਦੀਆਂ ਸਨ। ਇਸ ਗਰੁੱਪ ਦੇ ਇਤਿਹਾਸ ਅਨੁਸਾਰ ਇਸ ਦੀ ਸ਼ੁਰੂਆਤ ਉੱਨੀ ਸੌ ਛਿਆਲੀ ਵਿੱਚ ਹੋਈ।\nਦੋਸਤਾਂ ਦੇ ਇਕੱਠੇ ਬੈਠ ਕੇ ਕਿਸੇ ਸਮਾਗਮ ਦੀ ਯੋਜਨਾ ਬਣਾਉਣ ਦੀ ਕਲਪਨਾ ਕਰੋ। ਹਰ ਕੋਈ ਵੱਖਰਾ ਵਿਚਾਰ ਲਿਆ ਸਕਦਾ ਹੈ।\nਇਹ ਔਰਤਾਂ ਸਾਨੂੰ ਜਹਾਜ਼ਾਂ, ਪੁਲਿਸ ਦੀਆਂ ਨੌਕਰੀਆਂ ਅਤੇ ਇਮਾਰਤਾਂ ਤੋਂ ਵੱਡੀ ਕਹਾਣੀ ਵੇਖਣ ਵਿੱਚ ਮਦਦ ਕਰਦੀਆਂ ਹਨ।\nਆ ਗਏ ਓਏ! ਦਾਦਾ ਜੀ ਮੁਸਕਰਾਉਂਦੇ ਹਨ। ਅਸੀਂ ਉਹ ਲੋਕ ਮਿਲੇ ਹਾਂ ਜਿਨ੍ਹਾਂ ਨੇ ਇੱਕ ਦੂਜੇ ਲਈ ਥਾਂ ਬਣਾਈ।\nਤੁਸੀਂ ਕਿਹੋ ਜਿਹਾ ਇਕੱਠ ਬਣਾਉਣ ਵਿੱਚ ਮਦਦ ਕਰੋਗੇ? ਵਿਚਾਰ ਸਾਂਝਾ ਕਰਨ ਲਈ ਕਿਸ ਨੂੰ ਬੁਲਾਓਗੇ?",
+      "english": "“Our last page opens another door,” Grandpa says.\n\nAfter the Second World War, Sikh women in Singapore formed a group called Istri Sat Sang. They wanted a place to meet and take part in religious, social and cultural activities. The group’s history traces its beginning to 1946. [1]\n\nImagine friends planning a gathering together. Each person can bring a different idea.\n\nThese women help us see a story bigger than ships, police work or buildings.\n\n“Aa gaye oye!” Grandpa smiles. “We have met people who made room for one another.”\n\nWhat kind of gathering would you help create? Who would you invite to share an idea?",
+      "sources": [
+        [
+          "Istri Sat Sang Singapore — Our history",
+          "https://istrisatsang.com/history/"
+        ]
+      ],
+      "audio": "audio/asia-5-pa-babaji-v1.mp3"
+    }
+  ]
+}
