@@ -108,3 +108,4 @@ footer{padding-top:30px;padding-bottom:50px;color:#706777;border-top:1px solid r
 @media(min-width:901px){.site-header{gap:14px}.site-header>.brand-wrap{min-width:0}.site-header>.brand-wrap .brand{max-width:220px}.site-header>.nav{flex-wrap:wrap;justify-content:flex-end}}
 @media(max-width:900px){.site-header .kids-adventure-link{margin-left:auto}.site-header>.nav{margin-left:0}}
 @media(max-width:610px){.site-header{gap:12px}.site-header .kids-adventure-link{padding:8px 12px}.kids-adventure-link strong{font-size:15px}.kids-adventure-link small{font-size:11px}}
+@media(max-width:900px){.site-header{backdrop-filter:none;-webkit-backdrop-filter:none;background:#fff6df}.site-header>.nav{bottom:max(12px,env(safe-area-inset-bottom))}}
