@@ -50,7 +50,27 @@ const oldRender=render;render=function(focus=false){if(stampTimer){clearTimeout(
 };
 $('complete').onclick=()=>{const r=region,c=chapter;completed.add(chapter);persist();render();const notice=document.createElement('div');notice.className='stamp-flash';notice.role='status';notice.textContent=completed.size===5?'Aa gaye oye! Region stamp earned!':'Chapter complete! Your adventure continues.';document.body.append(notice);$('completion-status').textContent='Saved on this device.';stampTimer=setTimeout(()=>{notice.remove();stampTimer=null;if(region===r&&chapter===c&&c<4)go(c+1);},reduced()?300:950);};
 $('art-dialog').addEventListener('click',e=>{if(e.target===$('art-dialog'))$('art-dialog').close()});
-window.addEventListener('hashchange',()=>{if(location.hash==='#journeys')$('journey-picker').open=true;});
+// Hash routes change the story but are not DOM anchors. Move the viewport explicitly.
+function revealAdventureStory(){
+ $('journey-picker').open=false;
+ requestAnimationFrame(()=>{$('title').focus({preventScroll:true});$('reader').scrollIntoView({block:'start',behavior:'auto'});});
+}
+function revealJourneyMap(){
+ $('journey-picker').open=true;
+ requestAnimationFrame(()=>$('journey-picker').scrollIntoView({block:'start',behavior:'auto'}));
+}
+window.addEventListener('hashchange',()=>{
+ if(location.hash==='#journeys')revealJourneyMap();
+ else if(/^#\/(pnw|england|east-africa|asia)(?:\/[1-5])?$/.test(location.hash))revealAdventureStory();
+});
+// A second tap on the current destination does not emit hashchange.
+document.addEventListener('click',e=>{
+ if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
+ const link=e.target.closest('a[href^="#"]');
+ if(!link||link.hash!==location.hash)return;
+ if(link.hash==='#journeys'){e.preventDefault();revealJourneyMap();}
+ else if(/^#\/(pnw|england|east-africa|asia)(?:\/[1-5])?$/.test(link.hash)){e.preventDefault();revealAdventureStory();}
+});
 const last=read('panjabi-kids-last-chapter');if(!location.hash&&/^(pnw|england|east-africa|asia)\/[1-5]$/.test(last||'')){location.hash='/'+last;}render();
 
 // Destination badges use the same device-only progress as the chapter trail.
