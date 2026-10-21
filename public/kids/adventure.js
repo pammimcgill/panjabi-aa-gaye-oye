@@ -57,7 +57,7 @@ function revealAdventureStory(){
 }
 function revealJourneyMap(){
  $('journey-picker').open=true;
- requestAnimationFrame(()=>$('journey-picker').scrollIntoView({block:'start',behavior:'auto'}));
+ requestAnimationFrame(()=>$('journeys').scrollIntoView({block:'start',behavior:'auto'}));
 }
 window.addEventListener('hashchange',()=>{
  if(location.hash==='#journeys')revealJourneyMap();
