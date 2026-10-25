@@ -36,6 +36,10 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - name: Install browser test dependencies
+        run: npm install --no-save --package-lock=false playwright@1.51.1
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
       - name: Check the project before spending on images
         run: npm test
       - name: Create six review pages
