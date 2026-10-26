@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "issueNumber": 24,
+  "articleSlug": "24-bellingham-september-1907-the-expulsion-of-punjabi-millworkers",
+  "articleTitle": "Bellingham, September 1907: the expulsion of Punjabi millworkers",
+  "generatedAt": "2026-10-25T22:47:43.830Z",
+  "storyModel": "claude-sonnet-5",
+  "imageModel": "gpt-image-2.5-sunburst",
+  "subtitle": "How a mob forced Punjabi millworkers out of Bellingham in 1907",
+  "intro": "Come along to Bellingham, Washington, in the summer of 1907, when Punjabi men worked hard in the lumber mills but faced growing anger from some of their neighbors. This is a true and difficult story about what happened to them, and how the city remembers it today.",
+  "pages": [
+    {
+      "title": "Mills, Workers, and Rising Anger",
+      "caption": "By 1907, about 250 Punjabi workers from South Asia had found jobs in Bellingham's lumber and shingle mills. Local newspapers and a group called the Asiatic Exclusion League spread rumors and demanded that no South Asians be employed in the city after Labor Day.",
+      "scene": "A wide view of a riverside lumber mill town in 1907, with smoke rising from mill chimneys and South Asian workers carrying lumber planks on a loading dock, while in the background a group of local men posts a notice or gathers near a street corner, tension visible in their postures; the child narrator stands at a distance, watching quietly.",
+      "number": 1
+    },
+    {
+      "title": "The Mob Gathers",
+      "caption": "On the evening of September 4, 1907, about five hundred white working men gathered in Bellingham with the goal of scaring the South Asian mill workers out of town. The crowd then moved through the streets toward the mills.",
+      "scene": "An imagined illustration of Bellingham at dusk on September 4, 1907: a hostile crowd of white working men in period American work shirts, trousers, suspenders and hats moves toward the lumber mills. The attackers carry lanterns, with no pitchforks or weapons shown. A concerned fictional Punjabi child guide appears in a separate narrator inset, not as a participant or eyewitness. Punjabi millworkers are the people targeted, not members of this crowd.",
+      "number": 2
+    },
+    {
+      "title": "Pulled From Mills and Homes",
+      "caption": "The rioters broke into the mills and pulled South Asian workers away from their jobs. They also entered the bunkhouses where the men lived, destroying and stealing their belongings.",
+      "scene": "Inside a mill, men are being pulled away from machinery by rioters while sawdust and tools scatter on the floor; in a second vignette, a nearby bunkhouse has its door broken open with scattered blankets and belongings strewn outside, no faces shown in close detail, lit by lantern light.",
+      "number": 3
+    },
+    {
+      "title": "A Night in the Basement",
+      "caption": "That night, Punjabi workers were driven to the city limits or taken to the jail in the basement of City Hall. Accounts differ on exact numbers, but well over a hundred men were held there, with police saying it was for their own safety until they agreed to leave town.",
+      "scene": "A dim basement room with stone walls and small barred windows, filled with many seated and standing men wrapped in coats or blankets, exhausted expressions, a single lantern casting long shadows; a police officer stands near the doorway with keys in hand.",
+      "number": 4
+    },
+    {
+      "title": "Scattering South and North",
+      "caption": "Within days, nearly all the South Asian workers had left Bellingham. Some traveled south toward Seattle and other coastal towns, while others walked back across the border into Canada, arriving in Vancouver just before a similar riot broke out there three days later.",
+      "scene": "A split landscape view: on one side, a group of men with bundled belongings walks along a southbound road toward distant city rooftops labeled only by suggestion of Seattle's skyline; on the other side, a similar group walks north along train tracks toward a border marker, with Vancouver's harbor faintly visible beyond.",
+      "number": 5
+    },
+    {
+      "title": "Remembering Bellingham Today",
+      "caption": "In 2018, Bellingham dedicated the Arch of Healing and Reconciliation, a granite monument honoring immigrants, including the Punjabi workers expelled in 1907. The city continues to hold commemorations and share this history with new generations.",
+      "scene": "A modern park scene near a library building featuring a tall granite arch monument with small tiles at its base, visitors of different ages reading an interpretive plaque beside it; the child narrator stands among them, looking up thoughtfully at the arch.",
+      "number": 6
+    }
+  ]
+}
