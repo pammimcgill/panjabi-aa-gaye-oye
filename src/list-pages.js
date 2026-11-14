@@ -27,7 +27,8 @@ const timeAgo = value => {
 
 function replaceContents(html, id, contents) {
   const pattern = new RegExp(`(<[^>]+id=["']${id}["'][^>]*>)[\\s\\S]*?(<\\/[^>]+>)`);
-  return html.replace(pattern, `$1${contents}$2`);
+  // A callback keeps dollar amounts and replacement tokens in content literal.
+  return html.replace(pattern, (_, start, end) => `${start}${contents}${end}`);
 }
 
 function hide(html, id) {
