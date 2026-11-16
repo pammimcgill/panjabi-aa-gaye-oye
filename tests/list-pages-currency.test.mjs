@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { renderHomeHistorySnapshot, renderStorySnapshot, renderEventSnapshot } from '../src/list-pages.js';
 
 const text = "The $200 requirement; $20, $1, $$, $& and $' must stay literal.";
-const escaped = "The $200 requirement; $20, $1, $, const escaped = text.replaceAll("'", '&#39;').replaceAll('$&', '$&amp;');amp; and const escaped = text.replaceAll("'", '&#39;').replaceAll('$&', '$&amp;');#39; must stay literal.";
+const escaped = "The $200 requirement; $20, $1, $$, $&amp; and $&#39; must stay literal.";
 const story = {title: text, dek: text, internal: true, url: '/history/example', source: 'Our history', year: 1908};
 const fixture = id => '<main><div id="' + id + '"></div><aside>After the cards</aside></main>';
 
