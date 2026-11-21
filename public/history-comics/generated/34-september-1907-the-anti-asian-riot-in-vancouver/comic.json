@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "issueNumber": 34,
+  "articleSlug": "34-september-1907-the-anti-asian-riot-in-vancouver",
+  "articleTitle": "September 1907: the anti-Asian riot in Vancouver",
+  "generatedAt": "2026-11-09T02:31:05.010Z",
+  "storyModel": "claude-sonnet-5",
+  "imageModel": "gpt-image-2.5-sunburst",
+  "subtitle": "How anger and fear turned into violence in 1907",
+  "intro": "Come look back at a hard week in 1907, when fear and unfair blame turned into real harm for Asian communities. A curious child guide will help you see what happened, and what the old records still argue about.",
+  "pages": [
+    {
+      "title": "Two Cities, One Storm",
+      "caption": "In the first days of September 1907, anger against Asian immigrants boiled over in two Pacific Northwest cities. Many Punjabi workers, most of them Sikh, had come to Bellingham to work in the lumber mills. The trouble in both cities grew from campaigns that tried to push Asian neighbors out.",
+      "scene": "A wide map-like illustration showing the Pacific coastline with Bellingham and Vancouver marked, small mill buildings and ships, a child character standing at the edge studying the map with a thoughtful expression.",
+      "number": 1
+    },
+    {
+      "title": "A Mob in Bellingham",
+      "caption": "On September 4, white labor activists accused Punjabi workers of taking jobs and pushed mill owners to fire them. That night, a mob broke into the workers' lodging houses, wrecked their belongings, and chased men toward the edge of town or the police station.",
+      "scene": "A nighttime street scene outside wooden lodging houses, broken furniture and scattered belongings visible through open doors, a crowd of angry figures in silhouette pushing toward a group of frightened men, the child narrator watching from a safe distance with a worried face.",
+      "number": 2
+    },
+    {
+      "title": "Jail for Safety, Then Flight",
+      "caption": "Some Punjabi workers spent the night locked in the city jail, which was meant to keep them safe. Within just a few days, almost every South Asian worker had left Bellingham. Old records disagree on exact numbers—one historian counts over 200 workers forced out, while another source says about 500 people joined the mob.",
+      "scene": "A simple jailhouse building at dawn with a few men standing quietly inside barred windows, and in the background a road leading out of town with small figures carrying bundles walking away, the child narrator sitting nearby looking at an open notebook with two different numbers written on it.",
+      "number": 3
+    },
+    {
+      "title": "Rally Turns to Riot",
+      "caption": "Three days later, on September 7, a group called the Asiatic Exclusion League held a rally in Vancouver. Thousands of people marched together, including local leaders. Part of the crowd broke away and attacked Chinatown, smashing windows and damaging shops.",
+      "scene": "A daytime street packed with a large marching crowd carrying no readable signs, banners folding in the wind, a smaller cluster of people breaking off toward storefronts with shattered glass, the child narrator standing at a corner looking troubled.",
+      "number": 4
+    },
+    {
+      "title": "Japantown Stands Together",
+      "caption": "The violence spread into Japantown, where residents organized to defend their neighborhood. The unrest did not stop right away—it continued into the days that followed. Chinese and Japanese residents, not Punjabi workers, were the main targets of the Vancouver attacks.",
+      "scene": "A nighttime neighborhood scene with Japantown shopfronts, groups of residents standing together near doorways and in front of windows in a protective line, lanterns lighting the street, the child narrator peeking around a corner with hands clasped.",
+      "number": 5
+    },
+    {
+      "title": "What the Records Show",
+      "caption": "Historians still disagree about crowd sizes, injuries, and arrests from that week, so this story sticks to what is well documented. Afterward, officials looked into paying back Chinese and Japanese residents for their losses, and new rules in 1908 made it even harder for people to migrate from India to Canada.",
+      "scene": "A quiet study-like illustration with old newspapers and documents spread on a table, a magnifying glass resting on one page, the child narrator sitting at the table turning a page thoughtfully with a small world map in the background showing Canada and India.",
+      "number": 6
+    }
+  ]
+}
