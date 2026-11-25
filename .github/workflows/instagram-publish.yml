@@ -1,0 +1,72 @@
+name: Publish reviewed Instagram carousel
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "public/instagram/**/manifest.json"
+  workflow_dispatch:
+    inputs:
+      comic_slug:
+        description: "Prepared Instagram slug under public/instagram"
+        required: true
+        type: string
+      publish:
+        description: "Actually publish (false = safe dry run)"
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: instagram-publication
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Publish newly approved manifests, or preview on demand
+        env:
+          INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+          INSTAGRAM_API_VERSION: ${{ vars.INSTAGRAM_API_VERSION }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COMIC_SLUG: ${{ inputs.comic_slug }}
+          PUBLISH: ${{ inputs.publish && '1' || '0' }}
+          BEFORE_SHA: ${{ github.event.before }}
+        run: |
+          set -euo pipefail
+          if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]]; then
+            if [[ "$PUBLISH" == "1" ]]; then
+              export DRY_RUN=0
+            else
+              export DRY_RUN=1
+            fi
+            node scripts/instagram_publish.mjs "$COMIC_SLUG"
+          else
+            if [[ -z "$INSTAGRAM_USER_ID" || -z "$INSTAGRAM_ACCESS_TOKEN" ]]; then
+              echo "Instagram credentials are not yet configured. Skipping auto-publish."
+              exit 0
+            fi
+            export DRY_RUN=0
+            mapfile -t manifests < <(git diff --name-only --diff-filter=A "$BEFORE_SHA" "$GITHUB_SHA" -- public/instagram | grep -E '^public/instagram/[^/]+/manifest\.json$' || true)
+            if [[ "${#manifests[@]}" -eq 0 ]]; then
+              echo "No newly approved manifest; no publish."
+              exit 0
+            fi
+            for manifest in "${manifests[@]}"; do
+              slug="${manifest#public/instagram/}"
+              slug="${slug%/manifest.json}"
+              node scripts/instagram_publish.mjs "$slug"
+            done
+          fi
