@@ -87,13 +87,23 @@ if (recent.data?.some((post) => post.caption?.includes(uniqueText))) {
   process.exit(0);
 }
 
-for (const item of manifest.images) {
-  const response = await fetch(item.url, { method: "GET" });
-  if (!response.ok || !response.headers.get("content-type")?.includes("image/jpeg")) {
-    throw new Error("Public slide unavailable or not JPEG: " + item.url);
+// Website deployment runs independently after merge, so wait for the JPEGs.
+let assetsReady = false;
+for (let attempt = 0; attempt < 30; attempt++) {
+  let allReady = true;
+  for (const item of manifest.images) {
+    try {
+      const response = await fetch(item.url, { method: "GET" });
+      const isJpeg = response.ok && response.headers.get("content-type")?.includes("image/jpeg");
+      await response.body?.cancel();
+      if (!isJpeg) { allReady = false; break; }
+    } catch { allReady = false; break; }
   }
-  await response.body?.cancel();
+  if (allReady) { assetsReady = true; break; }
+  console.log("Waiting for the website to deploy Instagram JPEGs, attempt " + (attempt + 1));
+  await new Promise((resolve) => setTimeout(resolve, 10000));
 }
+if (!assetsReady) throw new Error("Website JPEGs not publicly available yet. Nothing published.");
 const children = [];
 for (const image of manifest.images) {
   const child = await meta("/" + userId + "/media", {
