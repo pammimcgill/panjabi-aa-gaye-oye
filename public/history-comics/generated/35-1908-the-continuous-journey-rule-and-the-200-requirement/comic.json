@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "issueNumber": 35,
+  "articleSlug": "35-1908-the-continuous-journey-rule-and-the-200-requirement",
+  "articleTitle": "1908: the continuous-journey rule and the $200 requirement",
+  "generatedAt": "2026-11-09T02:31:23.170Z",
+  "storyModel": "claude-sonnet-5",
+  "imageModel": "gpt-image-2.5-sunburst",
+  "subtitle": "How Canada's 1908 rules made Punjabi family reunion almost impossible",
+  "intro": "Step back to 1908, when new Canadian rules made it nearly impossible for Punjabi families to reunite. Discover how one community faced these barriers and refused to give up.",
+  "pages": [
+    {
+      "title": "Crossing Oceans for Work",
+      "caption": "In the early 1900s, many Punjabi migrants, including many Sikh men, settled in British Columbia. They worked in mills, on farms, and on railways, believing that as British subjects they could travel freely within the empire.",
+      "scene": "Illustrate a busy British Columbia coastline with mill buildings, farmland, and rail tracks. Show a group of Punjabi men in plain work clothing performing labor, with ships docked in the harbor behind them. A child observer stands nearby, looking out at the busy port.",
+      "number": 1
+    },
+    {
+      "title": "A Violent Welcome",
+      "caption": "In September 1907, South Asian mill workers were violently driven out of Bellingham, Washington, and a riot against Asian communities broke out in Vancouver days later. These events were part of a wider climate of exclusion on both sides of the border.",
+      "scene": "Depict a tense street scene near mill buildings with an agitated crowd forcing workers to flee, paired with a second, parallel scene of unrest in a Vancouver street. Include no text or signage. The child narrator watches from a safe distance with a worried expression.",
+      "number": 2
+    },
+    {
+      "title": "The Continuous-Journey Rule",
+      "caption": "In 1908, Canada introduced a rule requiring immigrants to travel non-stop from their home country on a through ticket bought there. Although a steamship company had offered direct routes from India, the government blocked the sale of those tickets, making the journey nearly impossible.",
+      "scene": "Show a dockside ticket booth with a steamship waiting behind it. A family holding tickets is being turned away at a barrier across the gangway. The ship carries subtle markings suggesting a steamship company, with no readable text.",
+      "number": 3
+    },
+    {
+      "title": "The $200 Barrier",
+      "caption": "That same year, Canada raised the amount of money immigrants from India needed to show at landing from $50 to $200. For many laborers this was an enormous sum, making it even harder for people to join family already in Canada.",
+      "scene": "Illustrate a customs officer at a dock counting coins and bills on a table. Beside him, two stacks of coins are shown, one small and one much larger, symbolizing the old and new amounts. A worried immigrant family stands nearby with empty pockets, and the child narrator peeks around a corner.",
+      "number": 4
+    },
+    {
+      "title": "The Komagata Maru",
+      "caption": "These rules were challenged, most famously in 1914 when the ship Komagata Maru arrived in Vancouver carrying 376 passengers, most of whom were refused permission to land. Between 1910 and 1920, only 112 Indian immigrants were allowed into Canada.",
+      "scene": "Depict a large steamship anchored offshore with many passengers visible on its deck. A smaller official boat approaches it from the harbor. Onlookers gather on the shore, including the child narrator watching with a concerned expression.",
+      "number": 5
+    },
+    {
+      "title": "Families Reunited at Last",
+      "caption": "After years of pressure from Sikh communities in British Columbia, a 1919 order finally allowed some wives and children to join family members already living in Canada. Despite the hardships, these communities endured, organized, and kept challenging unfair laws.",
+      "scene": "Illustrate a joyful dockside reunion with families embracing and community members gathered around them in support. A hopeful sunrise glows over the harbor in the background, and the child narrator smiles among the crowd.",
+      "number": 6
+    }
+  ]
+}
