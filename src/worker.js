@@ -1,3 +1,4 @@
+import { instagramStatus } from './instagram.js';
 import { collectAll, collectGroup, collectScheduled } from './collectors.js';
 import { CONFIGURED_SOURCE_KEYS, REFRESH_GROUPS, NEWS_MAX_AGE_DAYS, matchText } from './config.js';
 import { articlePage, notFoundPage, sitemapXml, parseHistoryIssue, isHistoryIssue, articleNumber } from './articles.js';
@@ -294,6 +295,7 @@ export default {
       if(url.pathname==='/api/news')return await contentApi(request,env,'music');
       if(url.pathname==='/api/history')return await contentApi(request,env,'history');
       if(url.pathname==='/api/sources')return statusApi(env);
+      if(url.pathname==='/api/admin/instagram/status')return await instagramStatus(request,env);
       if(url.pathname==='/api/admin/refresh')return refreshApi(request,env,ctx);
       if(url.pathname==='/health')return json({ok:true,service:'panjabi-aa-gaye-oye',version:VERSION});
       if(url.pathname==='/submit-event'){
