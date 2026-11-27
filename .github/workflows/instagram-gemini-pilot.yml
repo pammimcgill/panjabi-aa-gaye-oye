@@ -1,0 +1,29 @@
+name: Instagram Gemini image pilot
+on:
+  push:
+    branches: [feature/instagram-integration]
+    paths: ['.github/workflows/instagram-gemini-pilot.yml']
+permissions:
+  contents: read
+concurrency:
+  group: instagram-gemini-pilot
+  cancel-in-progress: false
+jobs:
+  pilot:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify the key and generate one review image
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: node scripts/instagram-gemini-pilot.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: instagram-gemini-pilot
+          path: instagram-gemini-pilot/
+          if-no-files-found: error
+          retention-days: 14

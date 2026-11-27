@@ -1,3 +1,4 @@
+keep_vars = true
 name = "punjabi-seattle"
 main = "src/worker.js"
 compatibility_date = "2026-08-01"
@@ -28,6 +29,7 @@ migrations_dir = "migrations"
 crons = ["*/20 * * * *"]
 
 [vars]
+INSTAGRAM_ACCOUNT_ID = "17841452446234060"
 SITE_ORIGIN = "https://panjabiaagayeoye.com"
 # Outbound requests allowed per run. The default (36) is safe on the free plan (limit 50).
 # On a paid Workers plan you can raise it, for example FETCH_BUDGET = "120".
